@@ -25,10 +25,12 @@ select all claim files. `--except` accepts one or more claim ids; excluded claim
 remain proposed. `--at` accepts an ISO datetime with timezone and defaults to now
 in UTC. Output is JSON: `{"count": 1, "claim_ids": ["clm-..."]}`. Existing verified
 claims and their reviews are preserved. All evidence on a candidate must have
-state `verified` in the report and mode `exact`; unchecked, warning, error and
-fuzzy candidates are skipped. Manual candidates refuse the operation unless
+state `verified` in the report and mode `exact` by default; unchecked, warning
+and error candidates are skipped. Add `--include-fuzzy` to also accept matched
+`fuzzy` evidence from `pdf_text` sources. Manual candidates refuse the operation unless
 explicitly excluded; this command never provides a human scan attestation.
-Fuzzy PDF claims still need a maintainer's separate review/status decision.
+The flag records the maintainer's explicit choice to promote reviewed fuzzy PDF
+claims; independent review of their interpretation is still required.
 
 The report records SHA256 fingerprints of claim, subject and source metadata.
 Quote, object, evidence or source edits require rebuilding before review; reports
@@ -52,9 +54,10 @@ The additive report fields are:
 - `data_dir`: resolved data root, used by the status command.
 - `review_inputs`: claim ids mapped to fingerprints of the checked inputs.
 
-Digital PDFs use pinned `pypdf==6.19.0`, normalize extracted page text, and allow
-`exact` or `fuzzy` evidence. Fuzzy matching uses case-sensitive SequenceMatcher
-similarity at least 0.90 on contiguous normalized windows whose length is 80–120%
+Digital PDFs use pinned `pypdf==6.19.0` and `fonttools==4.66.1` (embedded CFF
+font encodings), normalize extracted page text, and allow
+`exact` or `fuzzy` evidence. Fuzzy matching uses case-sensitive normalized Levenshtein
+ratio (`1 - distance / max(lengths)`) at least 0.90 on contiguous normalized windows whose length is 80–120%
 of the normalized quote length. Numeric tokens, including years, decimals and
 numbers embedded in caliber designations, must match exactly and in order;
 window boundaries cannot truncate a number. Fuzzy mode is rejected for other

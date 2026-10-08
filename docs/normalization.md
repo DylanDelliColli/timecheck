@@ -27,7 +27,7 @@ Wikipedia quotes are additionally limited to 200 normalized characters.
 | Block boundaries | Newline at start/end of address, article, aside, blockquote, br, dd, div, dl, dt, fieldset, figcaption, figure, footer, form, h1–h6, header, hr, li, main, nav, ol, p, pre, section, table, tbody, td, th, thead, tr, ul |
 | HTML output | Normalize extracted text with norm_version 1 |
 | Text output | Decode bytes as above and normalize |
-| PDF text | pypdf 6.19.0 extracts text per page; join with newline and normalize; unreadable/encrypted/textless PDFs fail |
+| PDF text | pypdf 6.19.0 with fonttools 4.66.1 for embedded CFF encodings extracts text per page; join with newline and normalize; unreadable/encrypted/textless PDFs fail |
 | Image / scan | No OCR; scans require manual evidence |
 
 Snapshots are hashed as raw bytes. Gzip magic causes decompression **after** hash
@@ -39,7 +39,7 @@ matched by the build. Golden tests live in `tests/test_core.py`; gzip verificati
 runs through the real build in `tests/test_integrity.py`.
 
 
-PDF evidence may use `fuzzy`: case-sensitive SequenceMatcher ratio >= 0.90
+PDF evidence may use `fuzzy`: case-sensitive normalized Levenshtein ratio (`1 - distance / max(lengths)`) >= 0.90
 across contiguous normalized windows of quote length ±20% (ceil lower bound,
 floor upper bound). Numeric tokens (`\d+(?:[.,]\d+)*`), including years and
 caliber-number digits, must match exactly and in order. Windows cannot clip a

@@ -9,6 +9,7 @@ from urllib.parse import urlencode, urljoin, urlsplit
 from urllib.request import Request, urlopen
 
 
+RAW_CAPTURE = re.compile(r'^https://web\.archive\.org/web/[0-9]{14}id_/')
 CAPTURE = re.compile(r'^https?://web\.archive\.org/web/(\d{14})(?:[a-z]+_)?/(https?://.+)$')
 
 
@@ -73,7 +74,7 @@ def pin(url):
         raise ValueError('Wayback did not return an available capture for ' + url + '; capture may still be queued, retry later')
     raw, headers, resolved = _request(pinned)
     final = _pinned(resolved, url)
-    if final is None or 'id_/' not in resolved:
+    if final is None or not RAW_CAPTURE.match(resolved):
         raise ValueError('Wayback raw download redirected outside a pinned id_ capture: ' + resolved)
     return {'archive_url': final, 'snapshot_sha256': hashlib.sha256(raw).hexdigest(),
             'content_type': _guess(raw, headers, url),

@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A provenance-first watch and caliber graph"
 requires-python = ">=3.13"
 license = {text = "MIT"}
-dependencies = ["jsonschema==4.23.0", "publicsuffix2==2.20191221", "pypdf==6.19.0"]
+dependencies = ["jsonschema==4.23.0", "publicsuffix2==2.20191221", "pypdf==6.19.0", "fonttools==4.66.1"]
 
 [project.optional-dependencies]
 dev = ["pytest==8.3.4"]

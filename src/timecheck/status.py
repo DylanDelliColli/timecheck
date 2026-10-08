@@ -21,7 +21,7 @@ def review_fingerprint(claim, sources):
     return hashlib.sha256(raw).hexdigest()
 
 
-def verify_status(*, by, at=None, data_dir='data', report='report.json', files=None, exclude=()):
+def verify_status(*, by, at=None, data_dir='data', report='report.json', files=None, exclude=(), include_fuzzy=False):
     if not by.strip():
         raise ValueError('Reviewer --by must not be blank')
     at = at or datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
@@ -58,7 +58,11 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
             raise ValueError('Manual evidence requires human attestation; exclude claim ' + c['id'])
         if fingerprints.get(c['id']) != review_fingerprint(c, sources):
             raise ValueError('Stale or missing report input for ' + c['id'] + '; rebuild first')
-        if not all(e['match_mode'] == 'exact' and states.get(e['id']) == 'verified' for e in c['evidence']):
+        if not all(states.get(e['id']) == 'verified' and
+                   (e['match_mode'] == 'exact' or
+                    (include_fuzzy and e['match_mode'] == 'fuzzy' and
+                     sources[e['source']]['content_type'] == 'pdf_text'))
+                   for e in c['evidence']):
             continue
         if path not in documents:
             originals[path] = path.read_bytes()

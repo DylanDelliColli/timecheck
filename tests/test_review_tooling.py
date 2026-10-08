@@ -195,3 +195,10 @@ def test_claim_object_edit_invalidates_evidence_report(graph, tmp_path):
     result = verify(graph, tmp_path)
     assert result.returncode == 2 and 'Stale' in result.stderr
     assert all(c['status'] == 'proposed' for c in json.loads(path.read_text())['claims'])
+
+
+def test_include_fuzzy_cli_flag_keeps_exact_review_working(graph, tmp_path):
+    build(graph, tmp_path, '--strict')
+    result = verify(graph, tmp_path, '--include-fuzzy')
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout)['count'] == 23

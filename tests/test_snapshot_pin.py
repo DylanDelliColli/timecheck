@@ -128,3 +128,20 @@ def test_nonraw_download_redirect_rejected(monkeypatch, capsys):
 def test_invalid_archive_resolution(candidate):
     from timecheck.snapshot import _pinned
     assert _pinned(candidate, TARGET) is None
+
+
+@pytest.mark.parametrize('resolved', [
+    'https://web.archive.org/web/20261008120000/https://example.org/id_/specification',
+    'http://web.archive.org/web/20261008120000id_/https://example.org/id_/specification',
+])
+def test_target_id_substring_cannot_disguise_replay(monkeypatch, capsys, resolved):
+    from timecheck import snapshot
+    target = 'https://example.org/id_/specification'
+    capture = 'https://web.archive.org/web/20261008120000/' + target
+    def response(request, timeout):
+        if '/save/' in request.full_url:
+            return Response(b'', headers={'Location': capture})
+        return Response(b'<html>Replay toolbar</html>', url=resolved)
+    monkeypatch.setattr(snapshot, 'urlopen', response)
+    assert main(['snapshot', 'pin', target]) == 2
+    assert 'id_ capture' in capsys.readouterr().err
