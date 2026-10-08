@@ -50,12 +50,10 @@ def test_manual_pending_no_snapshot(dataset,tmp_path):
     c['status']='proposed';c.pop('review',None)
     for e in c['evidence']:e['match_mode']='manual'
   change(dataset,file.relative_to(dataset),manual)
- # proposed in_line isn't a verified line, so remove succeeds for this test
- change(dataset,'references/beta.json',lambda d:d.update(claims=[c for c in d['claims'] if c['predicate']!='succeeds']))
  r=cli('build','--data-dir',dataset,'--offline','--strict','--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json');assert r.returncode==0,(r.stdout,r.stderr)
- report=json.loads((tmp_path/'report.json').read_text());assert len(report['pending_manual_attestations'])==22
+ report=json.loads((tmp_path/'report.json').read_text());assert len(report['pending_manual_attestations'])==23
  assert rows(tmp_path,'v_evidence')==[]
- assert len(rows(tmp_path,'v_evidence_all'))==22
+ assert len(rows(tmp_path,'v_evidence_all'))==23
 
 def test_competing_attributes_cross_product(dataset,tmp_path):
  def add(d):
@@ -239,3 +237,26 @@ def test_no_evidence_structural_build_marks_every_item_unchecked(dataset,tmp_pat
  change(dataset,'references/alpha.json',lambda d:d['claims'][1]['object'].update(entity='caliber:missing'))
  r=cli('build','--data-dir',dataset,'--no-evidence','--strict','--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json');assert r.returncode==2
  assert json.loads((tmp_path/'report.json').read_text())['errors_by_class']['unresolved_slug']==1
+
+def test_all_proposed_lineage_builds_without_verified_line_membership(dataset,tmp_path):
+ for file in dataset.glob('*/*.json'):
+  if file.parent.name in ['sources','targets']:continue
+  def propose(d):
+   for c in d['claims']:
+    c['status']='proposed';c.pop('review',None)
+  change(dataset,file.relative_to(dataset),propose)
+ r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0,(r.stdout,r.stderr)
+ assert report['claim_counts']['status']=={'proposed':23}
+ assert report['coverage']['line:example']['covered']==0
+ assert rows(tmp_path,'v_reference_calibers')==[]
+ assert len(rows(tmp_path,'v_reference_calibers_all'))==2
+ lineage=rows(tmp_path,'v_lineage_all')
+ beta=next(r for r in lineage if r['reference_id']=='reference:beta')
+ assert beta['line_id']=='line:example' and beta['succeeds_reference_id']=='reference:alpha'
+ # Both variants retain the rule that diffs need verified succession edges.
+ assert rows(tmp_path,'v_lineage_diff')==[] and rows(tmp_path,'v_lineage_diff_all')==[]
+ change(dataset,'references/alpha.json',lambda d:d['claims'][0]['object'].update(entity='line:different'))
+ line=json.loads((dataset/'lines/example.json').read_text());line.update(id='line:different',claims=[])
+ (dataset/'lines/different.json').write_text(json.dumps(line))
+ r,report=build(dataset,tmp_path,'--strict');assert r.returncode==2
+ assert report['errors_by_class']['succeeds_line']==1

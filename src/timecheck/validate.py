@@ -147,7 +147,7 @@ def load_data(data_dir):
             errors.append(issue('grade_without_base', c['subject']))
     in_lines = defaultdict(set)
     for c in claims:
-        if c['predicate'] == 'in_line' and c['status'] == 'verified':
+        if c['predicate'] == 'in_line':
             in_lines[c['subject']].add(c['object']['entity'])
     edges = defaultdict(set)
     for c in claims:
@@ -155,7 +155,7 @@ def load_data(data_dir):
             continue
         a, b = c['subject'], c['object']['entity']
         if in_lines[a] != in_lines[b] or len(in_lines[a]) != 1:
-            errors.append(issue('succeeds_line', 'Succession must be within one verified line', c['path']))
+            errors.append(issue('succeeds_line', 'Succession must be within one documented line', c['path']))
         edges[a].add(b)
     # Iterative color traversal avoids recursion limits on large contributor datasets.
     colors = {}
