@@ -12,7 +12,8 @@
   fresh-context `claude-sonnet-5-5` adversarial reviews of the design draft (scores
   7, 6, 6, 6 of 10; 68 issues raised, 64 decided here, 4 carried as open concerns).
 - Status: chosen, 2026-10-08; revised 2026-10-08 (required check and `--data-dir` /
-  `--no-evidence`, raised by unit C1). To be revised again after the canary.
+  `--no-evidence`, raised by unit C1; integrity-status rule, raised by C1/C2; status
+  transitions, after the pilot). Canary revision pending the C1/C2 merges.
 
 ## Product fit
 
@@ -122,6 +123,18 @@ files are metadata records, not claims (see below).
 - `evidence[]` has at least one item; `quote` is at least 20 normalized characters;
   `match_mode`: `exact` (html, text), `manual` (image_scan; only a human sets
   `verified`). `fuzzy` is reserved for `pdf_text` and rejected by the v1 validator.
+
+### Status transitions (decision 2026-10-08, after the pilot)
+Authors always write `status: proposed` and never a `review` block. At merge of a data
+PR the chief runs the independent review (an outside model reading the PR's claims
+against their quotes) and the strict live build; every claim the build verified and
+the review did not flag is set to `verified` with `review.by` naming the reviewer run
+and the merger (e.g. `codex:gpt-6.1-sol:pr2 / chief`) and `review.at` the merge time,
+in a chief commit on the PR branch before the merge. Flagged claims stay `proposed`
+and are listed on the unit's bead for repair. `manual` evidence keeps its claims
+`proposed` until the operator attests. After v1, a human maintainer performs the same
+step for outside PRs. The build's `--no-evidence` report lists `proposed` claims per
+file so the step is auditable.
 
 ### Predicates and vocabularies (`schemas/vocabularies.json` is authoritative)
 | Subject | Predicate | Object | Cardinality |
