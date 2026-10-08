@@ -146,6 +146,14 @@ files are metadata records, not claims (see below).
 | caliber | `introduced` | value, unit `year` | single |
 | caliber | `discontinued` | value, unit `year` | single |
 Relations are stored in the canonical direction only; inverses are derived at build.
+Status and integrity (decision 2026-10-08, raised by units C1/C2): integrity checks
+(slug resolution, same-line rule for `succeeds`, acyclicity, cardinality, id
+uniqueness) consider claims of every status, `proposed` included, because authors
+never set `verified` and the structure must validate before review. "Single verified
+predecessor" refers to the status of the `succeeds` claims themselves: two verified
+ones make a branch; `proposed` ones do not count toward it. Status filtering happens
+only in the views (`v_*` exclude `proposed`; `v_*_all` include it) and in `disputed`
+computation, which considers verified claims only.
 A single-valued predicate with two competing verified claims is disputed. Unknown
 `uses_caliber` bounds do not create overlap; such claims are reported as `years_unknown`.
 Further attributes are added by schema change through the chief, with evidence, never
