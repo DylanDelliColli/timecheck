@@ -8,6 +8,8 @@ import sqlite3
 import sys
 from .build import build
 from .ids import new_id
+from .status import verify_status
+from .snapshot import pin
 
 VIEWS = {'v_reference_calibers','v_caliber_family','v_shared_dna','v_lineage','v_lineage_diff','v_evidence'}
 
@@ -63,6 +65,14 @@ def parser():
     snapshot = cmds.add_parser('snapshot').add_subparsers(dest='action', required=True)
     snapshot.add_parser('hash').add_argument('file')
     snapshot.add_parser('pin').add_argument('url')
+    status = cmds.add_parser('status').add_subparsers(dest='action', required=True)
+    verify = status.add_parser('verify')
+    verify.add_argument('--by', required=True)
+    verify.add_argument('--at')
+    verify.add_argument('--data-dir', default='data')
+    verify.add_argument('--report', default='report.json')
+    verify.add_argument('--files', nargs='+')
+    verify.add_argument('--except', dest='exclude', nargs='+', default=[])
     return root
 
 
@@ -81,11 +91,14 @@ def main(argv=None):
         if args.command == 'id':
             print(new_id(args.kind))
             return 0
+        if args.command == 'status':
+            print(json.dumps(verify_status(**{k: v for k, v in vars(args).items() if k not in {'command', 'action'}})))
+            return 0
         if args.action == 'hash':
             print(hashlib.sha256(Path(args.file).read_bytes()).hexdigest())
             return 0
-        print('snapshot pin requires network capture tooling; implemented in release unit E1.', file=sys.stderr)
-        return 2
+        print(json.dumps(pin(args.url)))
+        return 0
     except (ValueError, OSError, sqlite3.Error) as exc:
         print(str(exc), file=sys.stderr)
         return 2

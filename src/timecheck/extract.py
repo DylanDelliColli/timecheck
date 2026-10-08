@@ -1,9 +1,11 @@
-"""Version 1 stdlib extractor. No PDF, OCR or fuzzy matching."""
+"""Versioned HTML, plain text and digital PDF extraction. No OCR."""
 from html.parser import HTMLParser
+from io import BytesIO
+from pypdf import PdfReader
 import re
 from .normalize import normalize
 
-EXTRACTOR_VERSION = 1
+EXTRACTOR_VERSION = 2
 BLOCKS = set('address article aside blockquote br dd div dl dt fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr li main nav ol p pre section table tbody td th thead tr ul'.split())
 DROP = {'script', 'style', 'noscript', 'template'}
 
@@ -33,6 +35,17 @@ class TextParser(HTMLParser):
 
 
 def extract(raw: bytes, content_type: str, charset: str | None = None) -> str:
+    if content_type == 'pdf_text':
+        try:
+            reader = PdfReader(BytesIO(raw), strict=True)
+            if reader.is_encrypted:
+                raise ValueError('encrypted PDF')
+            text = '\n'.join(page.extract_text() or '' for page in reader.pages)
+            if not normalize(text):
+                raise ValueError('PDF has no text layer; scans require manual evidence')
+            return normalize(text)
+        except Exception as exc:
+            raise ValueError('Unsupported PDF text extraction: ' + str(exc)) from exc
     if content_type not in {'html', 'text'}:
         raise ValueError('unsupported_content_type')
     if not charset:

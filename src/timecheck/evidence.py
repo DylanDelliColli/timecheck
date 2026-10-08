@@ -1,4 +1,7 @@
 """Verify pinned raw archive bytes before extracting their text."""
+from difflib import SequenceMatcher
+import math
+import re
 import gzip
 import hashlib
 from pathlib import Path
@@ -8,6 +11,39 @@ from urllib.request import Request, urlopen
 from .extract import extract
 from .normalize import normalize
 from .validate import issue
+
+
+NUMBER = re.compile(r'\d+(?:[.,]\d+)*')
+
+
+def fuzzy_match(quote, content):
+    """PDF-only 0.90 similarity over every contiguous ±20% quote window.
+
+    Both inputs have already been normalized. Numeric tokens must match in
+    order and in full, including digits embedded in caliber names. Window
+    boundaries cannot hide a changed digit by clipping a larger number.
+    """
+    size = len(quote)
+    if not size:
+        return False
+    numbers = NUMBER.findall(quote)
+    spans = [(m.start(), m.end()) for m in NUMBER.finditer(content)]
+    numeric_interior = {i for start, end in spans for i in range(start + 1, end)}
+    minimum, maximum = math.ceil(size * .8), math.floor(size * 1.2)
+    matcher = SequenceMatcher(None, '', quote, autojunk=False)
+    for start in range(len(content) - minimum + 1):
+        if start in numeric_interior:
+            continue
+        for end in range(start + minimum, min(len(content), start + maximum) + 1):
+            if end in numeric_interior:
+                continue
+            window = content[start:end]
+            if NUMBER.findall(window) != numbers:
+                continue
+            matcher.set_seq1(window)
+            if matcher.real_quick_ratio() >= .90 and matcher.quick_ratio() >= .90 and matcher.ratio() >= .90:
+                return True
+    return False
 
 
 def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
@@ -82,7 +118,7 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                 kind, message = failure
             elif len(normalize(e['quote'])) < 20:
                 kind, message = 'quote_too_short', 'Quote needs 20 normalized characters'
-            elif normalize(e['quote']) not in content:
+            elif not (fuzzy_match(normalize(e['quote']), content) if e['match_mode'] == 'fuzzy' else normalize(e['quote']) in content):
                 kind, message = 'quote_not_found', 'Normalized quote absent from pinned snapshot'
             else:
                 continue

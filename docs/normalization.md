@@ -1,7 +1,8 @@
 # Normalization and extraction
 
-`norm_version: 1` applies identically to quotes and extracted snapshots. Matching
-is a case-sensitive substring comparison after normalization.
+`norm_version: 1` applies identically to quotes and extracted snapshots. Exact matching
+is a case-sensitive substring comparison after normalization. PDF-only fuzzy
+matching is described below.
 
 | Order | Operation |
 |---|---|
@@ -18,7 +19,7 @@ its neighboring letters. Operation order matters: `a` + space + soft hyphen +
 space + `b` becomes `a  b` (two spaces after the soft hyphen is stripped). A quote needs at least 20 characters after these operations.
 Wikipedia quotes are additionally limited to 200 normalized characters.
 
-| Extractor version 1 | Operation |
+| Extractor version 2 | Operation |
 |---|---|
 | Byte decoding | Archived response charset header, else HTML `<meta charset>` (including charset in content attribute), else UTF-8 with replacement |
 | HTML | stdlib `html.parser`, entity decoding enabled |
@@ -26,7 +27,8 @@ Wikipedia quotes are additionally limited to 200 normalized characters.
 | Block boundaries | Newline at start/end of address, article, aside, blockquote, br, dd, div, dl, dt, fieldset, figcaption, figure, footer, form, h1–h6, header, hr, li, main, nav, ol, p, pre, section, table, tbody, td, th, thead, tr, ul |
 | HTML output | Normalize extracted text with norm_version 1 |
 | Text output | Decode bytes as above and normalize |
-| PDF / image | No automated extraction; scans require manual evidence |
+| PDF text | pypdf 6.19.0 extracts text per page; join with newline and normalize; unreadable/encrypted/textless PDFs fail |
+| Image / scan | No OCR; scans require manual evidence |
 
 Snapshots are hashed as raw bytes. Gzip magic causes decompression **after** hash
 verification and **before** decoding; local `.bin` fixtures use the same rule.
@@ -35,3 +37,12 @@ no response header, so use their meta charset or UTF-8. The fetched archive cach
 preserves a response charset in an optional `<sha256>.charset` sidecar. Manual evidence is not
 matched by the build. Golden tests live in `tests/test_core.py`; gzip verification
 runs through the real build in `tests/test_integrity.py`.
+
+
+PDF evidence may use `fuzzy`: case-sensitive SequenceMatcher ratio >= 0.90
+across contiguous normalized windows of quote length ±20% (ceil lower bound,
+floor upper bound). Numeric tokens (`\d+(?:[.,]\d+)*`), including years and
+caliber-number digits, must match exactly and in order. Windows cannot clip a
+numeric token to hide a differing digit. HTML/text retain exact matching only.
+Synthetic PDF extraction and matching golden tests are generated in
+`tests/test_pdf_evidence.py`; no real source PDF bytes are committed.
