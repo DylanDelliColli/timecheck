@@ -93,7 +93,7 @@ files are metadata records, not claims (see below).
 ```
 - `trust_tier`: `primary` | `secondary`. `reuse_class`: `open` | `cite_only`.
   `content_type`: `html` | `text` (v1); `pdf_text` and `image_scan` are accepted by the
-  schema but `pdf_text` matching is not implemented in v1 (see Decomposition) and
+  schema but `pdf_text` matching was activated by unit E1 on 2026-10-08 after unit S4 recorded that the Sellita and ETA technical sheets are digital PDFs (`pypdf` pinned, `extractor_version` 2) and
   `image_scan` always requires `match_mode: manual`.
 - `archive_url` must be a Wayback URL in the `id_` raw-bytes form; `snapshot_sha256`
   is the SHA-256 of the bytes that URL returns. A JS-rendered, redirecting or
@@ -122,7 +122,7 @@ files are metadata records, not claims (see below).
   states the absence explicitly; otherwise the attribute is unknown (no claim).
 - `evidence[]` has at least one item; `quote` is at least 20 normalized characters;
   `match_mode`: `exact` (html, text), `manual` (image_scan; only a human sets
-  `verified`). `fuzzy` is reserved for `pdf_text` and rejected by the v1 validator.
+  `verified`). `fuzzy` is allowed only for `pdf_text` sources (activated by E1, 2026-10-08; validation rejects it elsewhere).
 
 ### Status transitions (decision 2026-10-08, after the pilot)
 Authors always write `status: proposed` and never a `review` block. At merge of a data
@@ -348,7 +348,7 @@ Units (one to three beads each; a unit ships as one PR into `release/v1`):
 - **Wave** (≤3 concurrent): **S1** Submariner to the floor; **S2** Seiko Presage +
   4R/6R/6L lines; **S3** Omega Seamaster 1960s–70s; **S4** ETA/Sellita cross-brand
   hosts; **S5** A-11 trio; **E1** evidence tooling: `snapshot pin`, scheduled full
-  verification, and `pdf_text`/`fuzzy` only if the pilot found PDF sources necessary;
+  verification, and `pdf_text`/`fuzzy` (activated: S4 recorded the PDF need on 2026-10-08);
   **D1** `docs/querying.md` for agents with worked examples and the CLI polish needed
   by the walkthrough.
 - Dependencies (`br dep add`): every wave unit depends on C1; S1–S5 and D1 depend on
