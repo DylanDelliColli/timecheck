@@ -32,7 +32,9 @@ explicitly excluded; this command never provides a human scan attestation.
 The flag records the maintainer's explicit choice to promote reviewed fuzzy PDF
 claims; independent review of their interpretation is still required.
 
-The report records SHA256 fingerprints of claim, subject and source metadata.
+The report records SHA256 fingerprints of claim, subject, source metadata and
+verification algorithm versions. Reports from earlier extraction/matching code
+require rebuilding before promotion.
 Quote, object, evidence or source edits require rebuilding before review; reports
 from another data directory are refused. Status and review changes do not
 invalidate the fingerprint, allowing repeat application. Candidates are validated

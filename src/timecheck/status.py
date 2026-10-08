@@ -7,6 +7,8 @@ from pathlib import Path
 import tempfile
 
 from .validate import load_data
+from .extract import EXTRACTOR_VERSION
+from .normalize import NORM_VERSION
 
 
 def review_fingerprint(claim, sources):
@@ -16,6 +18,9 @@ def review_fingerprint(claim, sources):
     checked separately, allowing relative/absolute spellings of the same root.
     """
     payload = {k: v for k, v in claim.items() if k not in {'path', 'status', 'review'}}
+    payload['verification_contract'] = {'norm_version': NORM_VERSION,
+                                        'extractor_version': EXTRACTOR_VERSION,
+                                        'fuzzy_metric': 'levenshtein-unit-cost-v1'}
     payload['sources'] = {e['source']: sources.get(e['source']) for e in claim['evidence']}
     raw = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()
     return hashlib.sha256(raw).hexdigest()

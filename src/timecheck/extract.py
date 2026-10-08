@@ -5,7 +5,7 @@ from pypdf import PdfReader
 import re
 from .normalize import normalize
 
-EXTRACTOR_VERSION = 2
+EXTRACTOR_VERSION = 3
 BLOCKS = set('address article aside blockquote br dd div dl dt fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr li main nav ol p pre section table tbody td th thead tr ul'.split())
 DROP = {'script', 'style', 'noscript', 'template'}
 

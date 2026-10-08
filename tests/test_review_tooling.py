@@ -202,3 +202,24 @@ def test_include_fuzzy_cli_flag_keeps_exact_review_working(graph, tmp_path):
     result = verify(graph, tmp_path, '--include-fuzzy')
     assert result.returncode == 0, result.stderr
     assert json.loads(result.stdout)['count'] == 23
+
+
+def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path):
+    """The first E1 report fingerprint did not bind verification algorithms."""
+    import hashlib
+    from timecheck.validate import load_data
+    build(graph, tmp_path, '--strict')
+    _, sources, claims, _, _, _ = load_data(graph)
+    path = tmp_path / 'report.json'
+    report = json.loads(path.read_text())
+    # Reproduce the actual fingerprint payload written by reviewed head 6f2a2b4.
+    for claim in claims:
+        payload = {k: v for k, v in claim.items() if k not in {'path', 'status', 'review'}}
+        payload['sources'] = {e['source']: sources.get(e['source']) for e in claim['evidence']}
+        raw = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()
+        report['review_inputs'][claim['id']] = hashlib.sha256(raw).hexdigest()
+    path.write_text(json.dumps(report))
+    before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
+    result = verify(graph, tmp_path, '--include-fuzzy')
+    assert result.returncode == 2 and 'Stale' in result.stderr
+    assert all(p.read_bytes() == raw for p, raw in before.items())

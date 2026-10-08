@@ -19,7 +19,7 @@ its neighboring letters. Operation order matters: `a` + space + soft hyphen +
 space + `b` becomes `a  b` (two spaces after the soft hyphen is stripped). A quote needs at least 20 characters after these operations.
 Wikipedia quotes are additionally limited to 200 normalized characters.
 
-| Extractor version 2 | Operation |
+| Extractor version 3 | Operation |
 |---|---|
 | Byte decoding | Archived response charset header, else HTML `<meta charset>` (including charset in content attribute), else UTF-8 with replacement |
 | HTML | stdlib `html.parser`, entity decoding enabled |
