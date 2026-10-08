@@ -63,9 +63,12 @@ go in `jot memory` / `jot remember`; no Markdown memory files. Workers write wit
 - SQLite via the standard library; no ORM; schemas are JSON Schema files under
   `schemas/`.
 - Required check, run from the worktree root before every PR and by CI:
-  `scripts/check.sh` = `.venv/bin/python -m pytest -q` followed by
-  `.venv/bin/timecheck build --strict --snapshot-dir tests/snapshots`.
-  Both must pass with no network. Report unexpected failures or warnings on your
+  `scripts/check.sh` = `.venv/bin/python -m pytest -q`, then
+  `.venv/bin/timecheck build --strict --data-dir tests/fixtures/data --snapshot-dir tests/snapshots`
+  (synthetic fixtures, evidence verified), then
+  `.venv/bin/timecheck build --strict --no-evidence --data-dir data`
+  (real seed, schema and integrity only). All three must pass with no network; real
+  snapshot bytes are never committed. Report unexpected failures or warnings on your
   bead; do not dismiss them as pre-existing.
 
 ## Engineering

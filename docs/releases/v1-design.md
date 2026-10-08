@@ -11,7 +11,8 @@
   opinions obtained: a Codex (gpt-6.1-sol, high) cold read of the plan and four
   fresh-context `claude-sonnet-5-5` adversarial reviews of the design draft (scores
   7, 6, 6, 6 of 10; 68 issues raised, 64 decided here, 4 carried as open concerns).
-- Status: chosen, 2026-10-08. To be revised after the canary (see Decomposition).
+- Status: chosen, 2026-10-08; revised 2026-10-08 (required check and `--data-dir` /
+  `--no-evidence`, raised by unit C1). To be revised again after the canary.
 
 ## Product fit
 
@@ -56,7 +57,7 @@ docs/normalization.md     normalization and extractor tables (golden-tested)
 docs/querying.md          views, columns, CLI, worked examples (written for agents)
 tests/                    pytest; tests/fixtures/data/ (synthetic entities),
                           tests/snapshots/<sha256>.bin (synthetic, project-authored)
-scripts/check.sh          required check
+scripts/check.sh          required check (fixture strict build + real-data structural build)
 .github/workflows/check.yml   PR and push: scripts/check.sh plus live verification of
                           changed claims; schedule: full live verification on release/v1
 ```
@@ -166,7 +167,11 @@ Normalization: NFKC; collapse runs of whitespace to one space; strip soft hyphen
 normalize. `text` sources: decode as above and normalize. Both tables live in
 `docs/normalization.md` with golden tests under `tests/`.
 
-### Build: `timecheck build [--strict] [--offline] [--snapshot-dir DIR] [--out timecheck.sqlite] [--report report.json]`
+### Build: `timecheck build [--strict] [--offline] [--no-evidence] [--data-dir DIR] [--snapshot-dir DIR] [--only-changed PATHS] [--out timecheck.sqlite] [--report report.json]`
+`--data-dir` defaults to `data/`. `--no-evidence` runs steps 1, 2 and 4 only (schema,
+integrity, compile, report) and marks every evidence item `unchecked` in the report;
+it exists so the required check can validate the real `data/` structurally without
+network and without any real snapshot bytes in the repository.
 1. Schema validation of every file in `data/`.
 2. Integrity: slugs resolve; vocabularies; canonical relation direction; `succeeds`
    acyclic within a line and single verified predecessor; id uniqueness; evidence ids
@@ -233,10 +238,21 @@ SQL error). `timecheck id new {claim|evidence}` prints one id. `timecheck snapsh
 URL` requests a Wayback capture, prints the pinned `id_` URL and the sha256 (network;
 not used by tests). `timecheck snapshot hash FILE` prints the sha256.
 
+### Required check (`scripts/check.sh`, no network)
+1. `.venv/bin/python -m pytest -q`
+2. `.venv/bin/timecheck build --strict --data-dir tests/fixtures/data --snapshot-dir tests/snapshots --out /tmp/timecheck-fixtures.sqlite`
+   (the synthetic fixtures with their synthetic snapshots: evidence fully verified).
+3. `.venv/bin/timecheck build --strict --no-evidence --data-dir data --out /tmp/timecheck-data.sqlite`
+   (the real seed: schema and integrity, no evidence fetch; real snapshot bytes are
+   never committed). Evidence for real claims is verified live only in the PR job
+   (`--only-changed`) and the scheduled job on `release/v1`.
+Decision 2026-10-08 (raised by unit C1): the earlier form, a strict build of root
+`data/` against fixture snapshots, could pass only while `data/` was empty.
+
 ### Tests (`pytest`, no network)
 Unit: normalization and extractor golden tests; id minting; cardinality and disputed
 computation; year parsing. Integration (real composition): run `build --strict
---snapshot-dir tests/snapshots` on `tests/fixtures/data/` (a synthetic brand, line,
+--data-dir tests/fixtures/data --snapshot-dir tests/snapshots` (a synthetic brand, line,
 three references with a succession, two calibers with a grade entity, sources with
 synthetic snapshot bytes), open the produced SQLite and assert every view's rows; run
 the CLI as a subprocess. Negative fixtures, one each: no evidence, quote absent, hash
