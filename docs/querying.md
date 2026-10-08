@@ -14,6 +14,10 @@ to choose another data tree, `--out` / `--report` for isolated outputs, or
 `--cache-dir` for a persistent hash-verified archive byte cache. `--only-changed`
 restricts evidence checks to claims in those files; schemas and integrity always
 check the whole graph. Supplying zero changed paths skips all evidence checks.
+`--no-evidence` validates schemas and integrity, compiles SQLite and writes a report
+with every evidence item marked `unchecked`; it never fetches or verifies quotes.
+This mode supports the offline structural check of real seed files. Use live strict
+builds to verify their evidence.
 
 | View | Question |
 |---|---|

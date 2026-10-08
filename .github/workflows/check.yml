@@ -22,7 +22,9 @@ jobs:
         if: always()
         with:
           name: offline-report
-          path: report.json
+          path: |
+            report.json
+            build/check-fixtures-report.json
   changed-evidence:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

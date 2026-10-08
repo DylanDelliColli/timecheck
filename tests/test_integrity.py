@@ -225,3 +225,17 @@ def test_competing_grade_offer_booleans_visible(dataset,tmp_path):
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
  alpha=[r for r in rows(tmp_path,'v_reference_calibers') if r['reference_id']=='reference:alpha'];assert {r['grade'] for r in alpha}=={'none','unknown'}
  assert all(r['disputed']==1 for r in alpha)
+
+def test_no_evidence_structural_build_marks_every_item_unchecked(dataset,tmp_path):
+ # A wrong quote cannot pass strict evidence checking but structural checking is
+ # explicit and must record that the bytes/quote were not verified.
+ change(dataset,'references/alpha.json',lambda d:d['claims'][1]['evidence'][0].update(quote='This synthetic quote is absent from the pinned archive.'))
+ r=cli('build','--data-dir',dataset,'--no-evidence','--strict','--offline','--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json')
+ assert r.returncode==0,(r.stdout,r.stderr)
+ report=json.loads((tmp_path/'report.json').read_text())
+ assert len(report['evidence_verification'])==23
+ assert set(report['evidence_verification'].values())=={'unchecked'}
+ assert len(rows(tmp_path,'v_reference_calibers'))==2
+ change(dataset,'references/alpha.json',lambda d:d['claims'][1]['object'].update(entity='caliber:missing'))
+ r=cli('build','--data-dir',dataset,'--no-evidence','--strict','--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json');assert r.returncode==2
+ assert json.loads((tmp_path/'report.json').read_text())['errors_by_class']['unresolved_slug']==1

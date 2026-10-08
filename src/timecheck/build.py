@@ -120,14 +120,29 @@ def _truncations(claims):
 
 
 def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snapshot_dir=None,
-          strict=False, offline=False, only_changed=None, cache_dir=None):
+          strict=False, offline=False, only_changed=None, cache_dir=None, no_evidence=False):
     entities, sources, claims, errors, warnings, shares = load_data(data_dir)
-    if not errors:
+    integrity_ok = not errors
+    if integrity_ok and not no_evidence:
         ev_errors, ev_warnings = verify_evidence(claims, sources, snapshot_dir=snapshot_dir,
                                                 offline=offline, strict=strict,
                                                 only_changed=only_changed, cache_dir=cache_dir)
         errors.extend(ev_errors)
         warnings.extend(ev_warnings)
+    selected = None if only_changed is None else {Path(p).resolve() for p in only_changed}
+    evidence_verification = {}
+    for c in claims:
+        for e in c['evidence']:
+            state = 'unchecked'
+            if integrity_ok and not no_evidence and (selected is None or Path(c['path']).resolve() in selected):
+                state = 'manual' if e['match_mode'] == 'manual' else 'verified'
+            evidence_verification[e['id']] = state
+    for problem in errors:
+        if not no_evidence and problem.get('evidence_id') in evidence_verification:
+            evidence_verification[problem['evidence_id']] = 'error'
+    for problem in warnings:
+        if not no_evidence and problem.get('evidence_id') in evidence_verification:
+            evidence_verification[problem['evidence_id']] = 'warning'
     disputed = compute_disputed(claims)
     branches = defaultdict(set)
     for c in claims:
@@ -141,6 +156,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
                          'has_primary': dict(Counter('primary' if any(sources.get(e['source'], {}).get('trust_tier') == 'primary' for e in c['evidence']) else 'secondary_only' for c in claims)),
                          'predicate': dict(Counter(c['predicate'] for c in claims))},
         'evidence_count': sum(len(c['evidence']) for c in claims),
+        'evidence_verification': evidence_verification,
         'disputed': len(disputed), 'disputed_claims': sorted(disputed),
         'contested': sum(c['contested'] for c in claims), 'branches': branches,
         'years_unknown': sorted(c['id'] for c in claims if c['predicate'] == 'uses_caliber' and (c['valid_years']['from'] is None or c['valid_years']['to'] is None)),

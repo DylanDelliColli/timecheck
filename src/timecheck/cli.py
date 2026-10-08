@@ -44,7 +44,7 @@ def parser():
     b = cmds.add_parser('build')
     for name, default in [('data-dir','data'),('out','timecheck.sqlite'),('report','report.json'),('snapshot-dir',None),('cache-dir',None)]:
         b.add_argument('--' + name, default=default)
-    for flag in ('strict','offline'):
+    for flag in ('strict','offline','no-evidence'):
         b.add_argument('--' + flag, action='store_true')
     b.add_argument('--only-changed', nargs='*', default=None)
     q = cmds.add_parser('query')
