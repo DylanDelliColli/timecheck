@@ -119,7 +119,7 @@ def test_grade_conflict_visible(dataset,tmp_path):
  # The same quote documents a competing grade name as a synthetic variant.
  p=dataset/'calibers/two-top.json';d=json.loads(p.read_text());c=clone(d['claims'][1]);c['object']['value']='Other';d['claims'].append(c);p.write_text(json.dumps(d))
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
- beta=[r for r in rows(tmp_path,'v_reference_calibers') if r['reference_id']=='reference:beta'];assert {r['grade'] for r in beta}=={'Top','Other'}
+ beta=[r for r in rows(tmp_path,'v_reference_calibers') if r['reference_id']=='reference:beta'];assert len(beta)==1 and beta[0]['grade']=='unknown'
  assert all(r['disputed']==1 for r in beta)
 
 def test_unknown_upper_bound_stays_unknown(dataset,tmp_path):
@@ -221,7 +221,7 @@ def test_competing_grade_offer_booleans_visible(dataset,tmp_path):
   c=clone(d['claims'][1]);c['object']['value']=True;d['claims'].append(c)
  change(dataset,'calibers/one.json',add)
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
- alpha=[r for r in rows(tmp_path,'v_reference_calibers') if r['reference_id']=='reference:alpha'];assert {r['grade'] for r in alpha}=={'none','unknown'}
+ alpha=[r for r in rows(tmp_path,'v_reference_calibers') if r['reference_id']=='reference:alpha'];assert len(alpha)==1 and alpha[0]['grade']=='none'
  assert all(r['disputed']==1 for r in alpha)
 
 def test_no_evidence_structural_build_marks_every_item_unchecked(dataset,tmp_path):
@@ -409,16 +409,29 @@ def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path
      for e in copied['evidence']:e['source']='source:secondary'
      d['claims'].append(copied)
   change(dataset,file.relative_to(dataset),duplicate)
+ for file in dataset.glob('calibers/*.json'):
+  def duplicate_metadata(d):
+   for c in list(d['claims']):
+    if c['predicate'] in ['offers_grades','grade_name','grade_of']:
+     copied=clone(c)
+     for e in copied['evidence']:e['source']='source:secondary'
+     d['claims'].append(copied)
+  change(dataset,file.relative_to(dataset),duplicate_metadata)
  result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
  assert report['disputed']==0
  import sqlite3
  condition="AND status='verified'" if view=='v_lineage' else ''
  with sqlite3.connect(tmp_path/'graph.sqlite') as db:
   uses=db.execute(f"SELECT COUNT(*) FROM claim WHERE predicate='uses_caliber' {condition}").fetchone()[0]
-  missing=db.execute(f"SELECT COUNT(*) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
- lineage=rows(tmp_path,view);assert len(lineage)==uses+missing==3
+  missing=db.execute(f"SELECT COALESCE(SUM(MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=r.id AND predicate='produced' {condition}))),0) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
+ lineage=rows(tmp_path,view);assert len(lineage)==uses+missing==4
  assert len({r['claim_id'] for r in lineage if r['caliber_id'] is not None})==uses
- assert all(r['has_primary']==1 for r in lineage)
+ assert all(r['has_primary']==1 for r in lineage if r['caliber_id'] is not None)
+ suffix='_all' if view.endswith('_all') else ''
+ calibers=rows(tmp_path,'v_reference_calibers'+suffix)
+ assert len(calibers)==uses and all(r['has_primary']==1 for r in calibers)
+ dna=rows(tmp_path,'v_shared_dna'+suffix)
+ assert len(dna)==2 and all(r['has_primary']==1 for r in dna)
  diff=rows(tmp_path,'v_lineage_diff'+('_all' if view.endswith('_all') else ''))
  keys=[tuple(r[k] for k in ('reference_id','predecessor_id','attribute','before_value','after_value')) for r in diff]
  assert len(diff)==len(set(keys))==12
@@ -458,3 +471,38 @@ def test_negation_in_separate_clause_does_not_block_absence(dataset,tmp_path,quo
   c=next(c for c in d['claims'] if c['predicate']=='hacking');c['evidence'][0]['quote']=quote
  change(dataset,'calibers/one.json',replace)
  result,report=build(dataset,tmp_path,'--strict','--no-evidence');assert result.returncode==0,(result.stdout,result.stderr)
+
+
+@pytest.mark.parametrize('view',['v_lineage_diff','v_lineage_diff_all'])
+@pytest.mark.parametrize('kind',['attribute','uses_caliber'])
+def test_identical_claims_yield_distinct_diff_values_and_representative_evidence(dataset,tmp_path,view,kind):
+ import sqlite3
+ file='calibers/one.json' if kind=='attribute' else 'references/alpha.json'
+ predicate='jewels' if kind=='attribute' else 'uses_caliber'
+ def add(d):
+  c=clone(next(c for c in d['claims'] if c['predicate']==predicate))
+  c['id']='clm-2222222222';c['evidence'][0]['id']='ev-zzzzzzzzzz'
+  if kind=='uses_caliber':c['valid_years'].update(from_evidence='ev-zzzzzzzzzz',to_evidence='ev-zzzzzzzzzz')
+  d['claims'].append(c)
+ change(dataset,file,add)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
+ assert report['disputed']==0
+ diff=rows(tmp_path,view)
+ keys=[tuple(r[k] for k in ('line_id','reference_id','predecessor_id','attribute','before_value','after_value')) for r in diff]
+ assert len(keys)==len(set(keys))==12
+ chosen=[r for r in diff if r['attribute'] in (['jewels'] if kind=='attribute' else ['caliber','years'])]
+ assert all(r['before_evidence_id']=='ev-zzzzzzzzzz' and r['before_status']=='verified' for r in chosen)
+ if kind=='uses_caliber':
+  lineage=rows(tmp_path,'v_lineage'+('_all' if view.endswith('_all') else ''))
+  assert len([r for r in lineage if r['reference_id']=='reference:alpha'])==2
+ # Evidence points at the minimum claim id, not the minimum evidence id across facts.
+ with sqlite3.connect(tmp_path/'graph.sqlite') as db:
+  assert db.execute('SELECT MIN(id) FROM claim WHERE subject_id=? AND predicate=?',('caliber:one' if kind=='attribute' else 'reference:alpha',predicate)).fetchone()[0]=='clm-2222222222'
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_duplicate_produced_claims_each_retain_fallback_row(dataset,tmp_path,view):
+ change(dataset,'references/gamma.json',lambda d:d['claims'].append(clone(next(c for c in d['claims'] if c['predicate']=='produced'))))
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
+ gamma=[r for r in rows(tmp_path,view) if r['reference_id']=='reference:gamma']
+ assert len(gamma)==2 and len({r['claim_id'] for r in gamma})==2
+ assert all(r['year_from']==1998 and r['disputed']==0 for r in gamma)

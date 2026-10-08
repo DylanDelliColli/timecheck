@@ -4,19 +4,32 @@ CREATE VIEW selected_claim AS SELECT c.*, o.entity_id, o.value, o.unit,
  FROM claim c JOIN claim_object o ON o.claim_id=c.id
  LEFT JOIN claim_years y ON y.claim_id=c.id WHERE c.status = 'verified';
 
+CREATE VIEW grade_facts AS
+ SELECT subject_id,predicate,entity_id,value,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,
+ CASE WHEN MAX(status='verified') THEN MAX(CASE WHEN status='verified' THEN has_primary END)
+ ELSE MAX(has_primary) END AS has_primary
+ FROM selected_claim WHERE predicate IN ('grade_of','grade_name','offers_grades')
+ GROUP BY subject_id,predicate,entity_id,value;
+
+CREATE VIEW grade_metadata AS
+ SELECT subject_id,MAX(predicate='grade_of') AS is_grade,
+ CASE WHEN COUNT(DISTINCT CASE WHEN predicate='grade_name' THEN value END)=1
+ THEN MAX(CASE WHEN predicate='grade_name' THEN value END) ELSE 'unknown' END AS grade_name,
+ MAX(predicate='offers_grades' AND status='verified' AND value='false') AS has_no_grades,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MIN(has_primary) AS has_primary
+ FROM grade_facts GROUP BY subject_id;
+
 CREATE VIEW v_reference_calibers AS
- SELECT DISTINCT u.subject_id AS reference_id,u.entity_id AS caliber_id,
- CASE WHEN EXISTS(SELECT 1 FROM selected_claim g WHERE g.subject_id=u.entity_id AND g.predicate='grade_of')
- THEN COALESCE(n.value,'unknown')
- WHEN og.value='false' AND og.status='verified'
- THEN 'none' ELSE 'unknown' END AS grade,
+ SELECT u.subject_id AS reference_id,u.entity_id AS caliber_id,
+ CASE WHEN gm.is_grade=1 THEN gm.grade_name
+ WHEN gm.has_no_grades=1 THEN 'none' ELSE 'unknown' END AS grade,
  u.year_from,u.year_to,u.year_to_kind,u.year_from_sort,u.id AS claim_id,u.status,
- MAX(u.disputed,COALESCE(n.disputed,0),COALESCE(g.disputed,0),COALESCE(og.disputed,0)) AS disputed,
- MAX(u.contested,COALESCE(n.contested,0),COALESCE(g.contested,0),COALESCE(og.contested,0)) AS contested,
- MIN(u.has_primary,COALESCE(n.has_primary,1),COALESCE(g.has_primary,1),COALESCE(og.has_primary,1)) AS has_primary
- FROM selected_claim u LEFT JOIN selected_claim g ON g.subject_id=u.entity_id AND g.predicate='grade_of'
- LEFT JOIN selected_claim n ON n.subject_id=u.entity_id AND n.predicate='grade_name' AND g.id IS NOT NULL
- LEFT JOIN selected_claim og ON og.subject_id=u.entity_id AND og.predicate='offers_grades' AND g.id IS NULL
+ MAX(u.disputed,COALESCE(gm.disputed,0)) AS disputed,
+ MAX(u.contested,COALESCE(gm.contested,0)) AS contested,
+ MIN(u.has_primary,COALESCE(gm.has_primary,1)) AS has_primary
+ FROM selected_claim u LEFT JOIN grade_metadata gm ON gm.subject_id=u.entity_id
  WHERE u.predicate='uses_caliber';
 
 CREATE VIEW family_paths AS
@@ -54,14 +67,6 @@ CREATE VIEW membership AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim WHERE predicate='in_line' GROUP BY subject_id;
 
-CREATE VIEW production AS
- SELECT subject_id,year_from,year_to,year_to_kind,year_from_sort,
- COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
- CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
- MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
- FROM selected_claim WHERE predicate='produced'
- GROUP BY subject_id,year_from,year_to,year_to_kind,year_from_sort;
-
 CREATE VIEW v_lineage AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -92,7 +97,7 @@ CREATE VIEW v_lineage AS
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN membership l ON l.subject_id=r.id
  LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
- LEFT JOIN production p ON p.subject_id=r.id AND u.claim_id IS NULL
+ LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff AS
@@ -106,7 +111,7 @@ CREATE VIEW v_lineage_diff AS
  OR NOT EXISTS(SELECT 1 FROM v_reference_calibers u WHERE u.reference_id=e.predecessor_id)
  OR EXISTS(SELECT 1 FROM v_reference_calibers u WHERE u.reference_id IN(e.reference_id,e.predecessor_id) AND (u.year_from IS NULL OR u.year_to_kind='unknown'))),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
- b.claim_id AS before_claim,a.claim_id AS after_claim,b.status AS bstatus,a.status AS astatus,
+ b.claim_id AS before_claim,a.claim_id AS after_claim,
  CAST(b.year_from AS TEXT) || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
  CAST(a.year_from AS TEXT) || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
  FROM edges e JOIN v_reference_calibers b ON b.reference_id=e.predecessor_id
@@ -117,15 +122,20 @@ CREATE VIEW v_lineage_diff AS
  compared AS (SELECT p.line_id,p.reference_id,p.predecessor_id,t.attribute,
  CASE t.attribute WHEN 'caliber' THEN p.before_caliber WHEN 'years' THEN p.byears ELSE b.value END AS before_value,
  CASE t.attribute WHEN 'caliber' THEN p.after_caliber WHEN 'years' THEN p.ayears ELSE a.value END AS after_value,
- CASE WHEN t.attribute IN('caliber','years') THEN p.bstatus ELSE b.status END AS before_status,
- CASE WHEN t.attribute IN('caliber','years') THEN p.astatus ELSE a.status END AS after_status,
- (SELECT MIN(id) FROM evidence WHERE claim_id=CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END) AS before_evidence_id,
- (SELECT MIN(id) FROM evidence WHERE claim_id=CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END) AS after_evidence_id
+ CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END AS before_claim_id,
+ CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END AS after_claim_id
  FROM pairs p CROSS JOIN attrs t LEFT JOIN selected_claim b ON b.subject_id=p.before_caliber AND b.predicate=t.attribute
  LEFT JOIN selected_claim a ON a.subject_id=p.after_caliber AND a.predicate=t.attribute)
+, representatives AS (
+ SELECT line_id,reference_id,predecessor_id,attribute,before_value,after_value,
+ MIN(before_claim_id) AS before_claim_id,MIN(after_claim_id) AS after_claim_id
+ FROM compared GROUP BY line_id,reference_id,predecessor_id,attribute,before_value,after_value)
  SELECT line_id,reference_id,predecessor_id,attribute,before_value,after_value,
  CASE WHEN before_value IS NULL OR after_value IS NULL THEN NULL ELSE before_value<>after_value END AS changed,
- before_status,after_status,before_evidence_id,after_evidence_id FROM compared
+ (SELECT status FROM claim WHERE id=before_claim_id) AS before_status,
+ (SELECT status FROM claim WHERE id=after_claim_id) AS after_status,
+ (SELECT MIN(id) FROM evidence WHERE claim_id=before_claim_id) AS before_evidence_id,
+ (SELECT MIN(id) FROM evidence WHERE claim_id=after_claim_id) AS after_evidence_id FROM representatives
  UNION ALL SELECT u.line_id,u.reference_id,u.predecessor_id,t.attribute,NULL,NULL,NULL,NULL,NULL,NULL,NULL FROM unknown_edges u CROSS JOIN attrs t;
 
 CREATE VIEW v_evidence AS SELECT c.id AS claim_id,e.id AS evidence_id,s.id AS source_id,s.trust_tier AS tier,e.match_mode,e.quote,e.locator,s.archive_url,s.retrieved_at
@@ -137,19 +147,32 @@ CREATE VIEW selected_claim_all AS SELECT c.*, o.entity_id, o.value, o.unit,
  FROM claim c JOIN claim_object o ON o.claim_id=c.id
  LEFT JOIN claim_years y ON y.claim_id=c.id ;
 
+CREATE VIEW grade_facts_all AS
+ SELECT subject_id,predicate,entity_id,value,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,
+ CASE WHEN MAX(status='verified') THEN MAX(CASE WHEN status='verified' THEN has_primary END)
+ ELSE MAX(has_primary) END AS has_primary
+ FROM selected_claim_all WHERE predicate IN ('grade_of','grade_name','offers_grades')
+ GROUP BY subject_id,predicate,entity_id,value;
+
+CREATE VIEW grade_metadata_all AS
+ SELECT subject_id,MAX(predicate='grade_of') AS is_grade,
+ CASE WHEN COUNT(DISTINCT CASE WHEN predicate='grade_name' THEN value END)=1
+ THEN MAX(CASE WHEN predicate='grade_name' THEN value END) ELSE 'unknown' END AS grade_name,
+ MAX(predicate='offers_grades' AND status='verified' AND value='false') AS has_no_grades,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MIN(has_primary) AS has_primary
+ FROM grade_facts_all GROUP BY subject_id;
+
 CREATE VIEW v_reference_calibers_all AS
- SELECT DISTINCT u.subject_id AS reference_id,u.entity_id AS caliber_id,
- CASE WHEN EXISTS(SELECT 1 FROM selected_claim_all g WHERE g.subject_id=u.entity_id AND g.predicate='grade_of')
- THEN COALESCE(n.value,'unknown')
- WHEN og.value='false' AND og.status='verified'
- THEN 'none' ELSE 'unknown' END AS grade,
+ SELECT u.subject_id AS reference_id,u.entity_id AS caliber_id,
+ CASE WHEN gm.is_grade=1 THEN gm.grade_name
+ WHEN gm.has_no_grades=1 THEN 'none' ELSE 'unknown' END AS grade,
  u.year_from,u.year_to,u.year_to_kind,u.year_from_sort,u.id AS claim_id,u.status,
- MAX(u.disputed,COALESCE(n.disputed,0),COALESCE(g.disputed,0),COALESCE(og.disputed,0)) AS disputed,
- MAX(u.contested,COALESCE(n.contested,0),COALESCE(g.contested,0),COALESCE(og.contested,0)) AS contested,
- MIN(u.has_primary,COALESCE(n.has_primary,1),COALESCE(g.has_primary,1),COALESCE(og.has_primary,1)) AS has_primary
- FROM selected_claim_all u LEFT JOIN selected_claim_all g ON g.subject_id=u.entity_id AND g.predicate='grade_of'
- LEFT JOIN selected_claim_all n ON n.subject_id=u.entity_id AND n.predicate='grade_name' AND g.id IS NOT NULL
- LEFT JOIN selected_claim_all og ON og.subject_id=u.entity_id AND og.predicate='offers_grades' AND g.id IS NULL
+ MAX(u.disputed,COALESCE(gm.disputed,0)) AS disputed,
+ MAX(u.contested,COALESCE(gm.contested,0)) AS contested,
+ MIN(u.has_primary,COALESCE(gm.has_primary,1)) AS has_primary
+ FROM selected_claim_all u LEFT JOIN grade_metadata_all gm ON gm.subject_id=u.entity_id
  WHERE u.predicate='uses_caliber';
 
 CREATE VIEW family_paths_all AS
@@ -187,14 +210,6 @@ CREATE VIEW membership_all AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim_all WHERE predicate='in_line' GROUP BY subject_id;
 
-CREATE VIEW production_all AS
- SELECT subject_id,year_from,year_to,year_to_kind,year_from_sort,
- COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
- CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
- MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
- FROM selected_claim_all WHERE predicate='produced'
- GROUP BY subject_id,year_from,year_to,year_to_kind,year_from_sort;
-
 CREATE VIEW v_lineage_all AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -225,7 +240,7 @@ CREATE VIEW v_lineage_all AS
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN membership_all l ON l.subject_id=r.id
  LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
- LEFT JOIN production_all p ON p.subject_id=r.id AND u.claim_id IS NULL
+ LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff_all AS
@@ -239,7 +254,7 @@ CREATE VIEW v_lineage_diff_all AS
  OR NOT EXISTS(SELECT 1 FROM v_reference_calibers_all u WHERE u.reference_id=e.predecessor_id)
  OR EXISTS(SELECT 1 FROM v_reference_calibers_all u WHERE u.reference_id IN(e.reference_id,e.predecessor_id) AND (u.year_from IS NULL OR u.year_to_kind='unknown'))),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
- b.claim_id AS before_claim,a.claim_id AS after_claim,b.status AS bstatus,a.status AS astatus,
+ b.claim_id AS before_claim,a.claim_id AS after_claim,
  CAST(b.year_from AS TEXT) || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
  CAST(a.year_from AS TEXT) || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
  FROM edges e JOIN v_reference_calibers_all b ON b.reference_id=e.predecessor_id
@@ -250,15 +265,20 @@ CREATE VIEW v_lineage_diff_all AS
  compared AS (SELECT p.line_id,p.reference_id,p.predecessor_id,t.attribute,
  CASE t.attribute WHEN 'caliber' THEN p.before_caliber WHEN 'years' THEN p.byears ELSE b.value END AS before_value,
  CASE t.attribute WHEN 'caliber' THEN p.after_caliber WHEN 'years' THEN p.ayears ELSE a.value END AS after_value,
- CASE WHEN t.attribute IN('caliber','years') THEN p.bstatus ELSE b.status END AS before_status,
- CASE WHEN t.attribute IN('caliber','years') THEN p.astatus ELSE a.status END AS after_status,
- (SELECT MIN(id) FROM evidence WHERE claim_id=CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END) AS before_evidence_id,
- (SELECT MIN(id) FROM evidence WHERE claim_id=CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END) AS after_evidence_id
+ CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END AS before_claim_id,
+ CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END AS after_claim_id
  FROM pairs p CROSS JOIN attrs t LEFT JOIN selected_claim_all b ON b.subject_id=p.before_caliber AND b.predicate=t.attribute
  LEFT JOIN selected_claim_all a ON a.subject_id=p.after_caliber AND a.predicate=t.attribute)
+, representatives AS (
+ SELECT line_id,reference_id,predecessor_id,attribute,before_value,after_value,
+ MIN(before_claim_id) AS before_claim_id,MIN(after_claim_id) AS after_claim_id
+ FROM compared GROUP BY line_id,reference_id,predecessor_id,attribute,before_value,after_value)
  SELECT line_id,reference_id,predecessor_id,attribute,before_value,after_value,
  CASE WHEN before_value IS NULL OR after_value IS NULL THEN NULL ELSE before_value<>after_value END AS changed,
- before_status,after_status,before_evidence_id,after_evidence_id FROM compared
+ (SELECT status FROM claim WHERE id=before_claim_id) AS before_status,
+ (SELECT status FROM claim WHERE id=after_claim_id) AS after_status,
+ (SELECT MIN(id) FROM evidence WHERE claim_id=before_claim_id) AS before_evidence_id,
+ (SELECT MIN(id) FROM evidence WHERE claim_id=after_claim_id) AS after_evidence_id FROM representatives
  UNION ALL SELECT u.line_id,u.reference_id,u.predecessor_id,t.attribute,NULL,NULL,NULL,NULL,NULL,NULL,NULL FROM unknown_edges u CROSS JOIN attrs t;
 
 CREATE VIEW v_evidence_all AS SELECT c.id AS claim_id,e.id AS evidence_id,s.id AS source_id,s.trust_tier AS tier,e.match_mode,e.quote,e.locator,s.archive_url,s.retrieved_at
