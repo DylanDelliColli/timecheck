@@ -1,6 +1,6 @@
 # Working on timecheck
 
-timecheck is a fresh project built by an [Alleyoop](https://github.com/DylanDelliColli/alleyoop)
+timecheck is built by an [Alleyoop](https://github.com/DylanDelliColli/alleyoop)
 chief team: one long-lived chief that plans, dispatches and merges, and fresh
 workers that each deliver one unit. The operator owns product direction, the PRD,
 the release brief, taste and any authority the brief does not grant. The chief
@@ -10,19 +10,28 @@ talks to the operator directly.
 
 - PRD: `docs/PRD.md`
 - Current release brief: `docs/releases/v1.md`
+- Design record for v1: `docs/releases/v1-design.md` (interfaces every unit codes
+  against; a change to one goes through the chief)
 - Release bead: `timecheck-wfn`
 
-At setup (2026-10-08) both documents were placeholders and the operator had given
-no product direction yet. Nothing in them is a product commitment until the
-operator approves it and the approval is recorded on the release bead.
+Both product documents were approved on 2026-10-08 (release bead, comments 4 and 5).
+A changed hash needs its operator-approved change established, not assumed.
+
+## What v1 is
+
+An openly licensed, provenance-first graph of wristwatch references and calibers,
+delivered as data files in git compiled into SQLite with canonical views and a CLI.
+There is no frontend in v1. Every relationship is a claim with evidence (pinned
+archived snapshot, hash, exact quote). **No agent writes a catalogue fact from
+memory; a claim you cannot cite is not entered.** Licence: `data/` under ODbL 1.0 +
+DbCL, code under MIT, DCO sign-off on every commit (`git commit -s`).
 
 ## Tracker and memory
 
 This project uses **br** (Beads Rust) with the `timecheck` prefix: a SQLite + JSONL
 store in `.beads/`, shared by every worktree of this repository. Never run `bd`
-against it. Run `br prime` to get started. Use `br update`, never `br edit`
-(it opens an editor). `--notes` replaces the field; append with
-`br comments add ID --file PATH`.
+against it. Use `br update`, never `br edit` (it opens an editor). `--notes` replaces
+the field; append with `br comments add ID --file PATH`.
 
 Capture incidental discoveries with `jot` (path, symptom, repro). Durable lessons
 go in `jot memory` / `jot remember`; no Markdown memory files. Workers write with
@@ -30,26 +39,44 @@ go in `jot memory` / `jot remember`; no Markdown memory files. Workers write wit
 
 ## Branches, worktrees and merging
 
-- `main` is the base branch. It stays frozen during a release except through the
-  brief's interrupt policy. Merging into `main` and deploying belong to the
-  operator unless the brief grants otherwise.
-- The chief cuts `release/<name>` from `main` once the brief is approved and
-  records the base commit on the release bead.
+- `main` is the base branch. It is frozen during the release except through the
+  brief's interrupt policy. Merging into `main` belongs to the operator.
+- Release branch: `release/v1`, cut from `main` at `a0953309e527ebac912b0f2e36336f0672320280`.
+- Remote: `origin` = `git@github.com:DylanDelliColli/timecheck.git` (private).
 - Worker worktrees are siblings of this checkout:
-  `/home/ddc/dev-env/timecheck-wk-<bead>`, on a branch of the same name cut
-  from the release branch. Whoever creates a worktree removes it after checking
-  for live processes and uncommitted or evidentiary content.
-- Only the chief merges into the release branch. There is no Git remote yet;
-  integration is by local merge until the operator establishes one.
+  `/home/ddc/dev-env/timecheck-wk-<bead>`, on a branch of the same name cut from
+  `release/v1`. Whoever creates a worktree removes it after checking for live
+  processes and uncommitted or evidentiary content.
+- Workers push their branch and open a pull request into `release/v1`
+  (`gh pr create --base release/v1`), with the unit's beads and the check output in
+  the description. Workers never merge. Only the chief merges into `release/v1`, on
+  the exact head whose checks passed, after an independent review.
+
+## Stack and required checks
+
+- Python 3.13 (`python3` on PATH). Each worktree has its own virtual environment:
+  `python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'` (dependencies are
+  pinned in `pyproject.toml`; add a dependency only with a pinned version and a
+  reason on your bead).
+- Package `timecheck` (src layout) with the console script `timecheck`
+  (`build`, `query`, `id`, `snapshot` subcommands as the design record defines).
+- SQLite via the standard library; no ORM; schemas are JSON Schema files under
+  `schemas/`.
+- Required check, run from the worktree root before every PR and by CI:
+  `scripts/check.sh` = `.venv/bin/python -m pytest -q` followed by
+  `.venv/bin/timecheck build --strict --snapshot-dir tests/snapshots`.
+  Both must pass with no network. Report unexpected failures or warnings on your
+  bead; do not dismiss them as pre-existing.
 
 ## Engineering
 
 - Write the failing behavioral test first, then the implementation. Integration
-  tests exercise real composition, not mocks.
-- The stack and the required check command are not chosen yet. The chief records
-  them here once the design record settles them, so every worker runs the same
-  checks.
-- Run potentially long commands in the background and own their results.
+  tests run the real build on fixture data and query the real SQLite file; no mocks
+  of the build, the matcher or the database.
+- Evidence verification against live archives needs the network; tests use
+  `tests/snapshots/<sha256>.bin` fixtures through `--snapshot-dir`.
+- Run potentially long commands in the background and own their results. The host
+  is shared: one build or test run at a time per worker.
 
 ## Non-interactive shell commands
 
@@ -58,8 +85,6 @@ Commands such as `cp`, `mv` and `rm` may be aliased to interactive mode. Use
 `-o BatchMode=yes` for ssh/scp, and `HOMEBREW_NO_AUTO_UPDATE=1` for brew.
 `br init` must never overwrite a populated store.
 
-
-<!-- br-agent-instructions-v1 -->
 
 ---
 
@@ -123,5 +148,3 @@ git push                # Push to remote
 - Create new issues with `br create` when you discover tasks
 - Use descriptive titles and set appropriate priority/type
 - Always sync before ending session
-
-<!-- end-br-agent-instructions -->
