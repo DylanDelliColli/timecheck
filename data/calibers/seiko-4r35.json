@@ -11,7 +11,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Specifications; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-4jzd7h2dxw",
@@ -30,7 +34,7 @@
         "value": 41,
         "unit": "hour"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -40,7 +44,11 @@
           "locator": "Specifications; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-4fbepylcgd",
@@ -49,7 +57,7 @@
         "value": 23,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -59,7 +67,11 @@
           "locator": "Specifications; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-6kpdl6bogt",
@@ -67,7 +79,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -77,7 +89,11 @@
           "locator": "Specifications; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-amcmvzdd4y",
@@ -85,7 +101,7 @@
       "object": {
         "value": "date"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -95,7 +111,11 @@
           "locator": "Specifications; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     }
   ]
 }

@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:omega-seamaster"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "vintage model heading",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-gi5xon4oe5",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:omega-562"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -45,6 +49,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
       }
     },
     {
@@ -53,7 +61,7 @@
       "object": {
         "entity": "caliber:omega-565"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -69,6 +77,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
       }
     }
   ]

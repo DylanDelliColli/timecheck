@@ -13,7 +13,7 @@
       "object": {
         "entity": "caliber:eta-2824-2"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -23,7 +23,11 @@
           "locator": "Movement panel; alternative calibers and grade",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-7bocc3ct3z",
@@ -31,7 +35,7 @@
       "object": {
         "value": "élaboré"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -41,7 +45,11 @@
           "locator": "Movement panel; alternative calibers and grade",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     }
   ]
 }

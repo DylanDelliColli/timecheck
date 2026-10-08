@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:rolex-submariner"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "article title",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-5ifemeqfw3",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:rolex-3130"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -45,6 +49,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
       }
     },
     {
@@ -53,7 +61,7 @@
       "object": {
         "entity": "reference:rolex-14060"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -63,7 +71,11 @@
           "locator": "What’s the Difference Between a Rolex Submariner 14060 and 14060M?",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-k6pmuqpp5o",
@@ -76,7 +88,7 @@
           "to_evidence": "ev-ft4waj2k3i"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -86,7 +98,11 @@
           "locator": "specification table; 14060M right column",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     },
     {
       "id": "clm-n5xu4hmzu6",
@@ -99,7 +115,7 @@
           "to_evidence": "ev-gnpjpy5o5b"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -109,7 +125,11 @@
           "locator": "Discontinued models reference table; 14060M row",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
     }
   ]
 }
