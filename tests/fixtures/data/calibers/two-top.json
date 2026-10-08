@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "id": "caliber:two-top",
+  "kind": "caliber",
+  "display_name": "Two Top",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaci",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:two"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaci",
+          "source": "source:example",
+          "quote": "Top is a grade of caliber Two and its documented grade name is Top.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaacm",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Top"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaacm",
+          "source": "source:example",
+          "quote": "Top is a grade of caliber Two and its documented grade name is Top.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaacq",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaacq",
+          "source": "source:example",
+          "quote": "Caliber Two Top has automatic winding",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaacu",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaacu",
+          "source": "source:example",
+          "quote": "Caliber Two Top has automatic winding, 25 jewels and 50 hours of power reserve.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaacy",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 50,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaacy",
+          "source": "source:example",
+          "quote": "Caliber Two Top has automatic winding, 25 jewels and 50 hours of power reserve.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaac4",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaac4",
+          "source": "source:example",
+          "quote": "caliber Two Top has hacking.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

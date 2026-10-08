@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": "brand:example",
+  "kind": "brand",
+  "display_name": "Example Brand",
+  "aliases": [],
+  "claims": []
+}

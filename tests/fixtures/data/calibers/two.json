@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:two",
+  "kind": "caliber",
+  "display_name": "Two",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaca",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaca",
+          "source": "source:example",
+          "quote": "Caliber Two is made by Example Brand",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaace",
+      "predicate": "derived_from",
+      "object": {
+        "entity": "caliber:one"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaace",
+          "source": "source:example",
+          "quote": "Caliber Two is made by Example Brand and is derived from caliber One.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

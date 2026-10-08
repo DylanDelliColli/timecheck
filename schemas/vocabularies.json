@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "predicates": {
+    "owned_by": {
+      "subject": "line",
+      "object": "entity",
+      "terms": [
+        "brand",
+        "authority"
+      ],
+      "cardinality": "single"
+    },
+    "in_line": {
+      "subject": "reference",
+      "object": "entity",
+      "terms": [
+        "line"
+      ],
+      "cardinality": "single"
+    },
+    "uses_caliber": {
+      "subject": "reference",
+      "object": "entity",
+      "terms": [
+        "caliber"
+      ],
+      "cardinality": "overlap"
+    },
+    "produced": {
+      "subject": "reference",
+      "object": "years",
+      "terms": null,
+      "cardinality": "single"
+    },
+    "succeeds": {
+      "subject": "reference",
+      "object": "entity",
+      "terms": [
+        "reference"
+      ],
+      "cardinality": "single"
+    },
+    "made_by": {
+      "subject": "caliber",
+      "object": "entity",
+      "terms": [
+        "brand",
+        "maker"
+      ],
+      "cardinality": "single"
+    },
+    "offers_grades": {
+      "subject": "caliber",
+      "object": "boolean",
+      "terms": null,
+      "cardinality": "single"
+    },
+    "grade_name": {
+      "subject": "caliber",
+      "object": "string",
+      "terms": null,
+      "cardinality": "single"
+    },
+    "derived_from": {
+      "subject": "caliber",
+      "object": "entity",
+      "terms": [
+        "caliber"
+      ],
+      "cardinality": "single"
+    },
+    "clone_of": {
+      "subject": "caliber",
+      "object": "entity",
+      "terms": [
+        "caliber"
+      ],
+      "cardinality": "single"
+    },
+    "grade_of": {
+      "subject": "caliber",
+      "object": "entity",
+      "terms": [
+        "caliber"
+      ],
+      "cardinality": "single"
+    },
+    "winding": {
+      "subject": "caliber",
+      "object": "enum",
+      "terms": [
+        "manual",
+        "automatic"
+      ],
+      "cardinality": "single"
+    },
+    "beat_rate": {
+      "subject": "caliber",
+      "object": "number",
+      "terms": "vph",
+      "cardinality": "single"
+    },
+    "jewels": {
+      "subject": "caliber",
+      "object": "integer",
+      "terms": "count",
+      "cardinality": "single"
+    },
+    "power_reserve": {
+      "subject": "caliber",
+      "object": "number",
+      "terms": "hour",
+      "cardinality": "single"
+    },
+    "hacking": {
+      "subject": "caliber",
+      "object": "boolean",
+      "terms": null,
+      "cardinality": "single"
+    },
+    "date_mechanism": {
+      "subject": "caliber",
+      "object": "enum",
+      "terms": [
+        "none",
+        "date",
+        "day_date",
+        "other"
+      ],
+      "cardinality": "single"
+    },
+    "introduced": {
+      "subject": "caliber",
+      "object": "integer",
+      "terms": "year",
+      "cardinality": "single"
+    },
+    "discontinued": {
+      "subject": "caliber",
+      "object": "integer",
+      "terms": "year",
+      "cardinality": "single"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+name: timecheck checks
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'
+      - run: scripts/check.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-report
+          path: report.json
+  changed-evidence:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'
+      - uses: actions/cache@v4
+        with:
+          path: .cache/snapshots
+          key: archive-sha256-${{ hashFiles('data/**/*.json') }}
+          restore-keys: archive-sha256-
+      - name: Verify changed claims and claims using changed sources
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          git diff --name-only --diff-filter=AMR "$BASE_SHA" "$HEAD_SHA" -- data/ > .cache-changed-data
+          .venv/bin/python - <<'PY'
+          import json
+          from pathlib import Path
+          changed = set(Path('.cache-changed-data').read_text().splitlines())
+          source_ids = {json.loads(Path(p).read_text())['id'] for p in changed if p.startswith('data/sources/') and p.endswith('.json')}
+          for folder in ('brands', 'lines', 'references', 'calibers'):
+              for p in Path('data', folder).glob('*.json'):
+                  doc = json.loads(p.read_text())
+                  if any(e['source'] in source_ids for c in doc.get('claims', []) for e in c['evidence']):
+                      changed.add(str(p))
+          Path('.cache-changed-data').write_text('\n'.join(sorted(changed)))
+          PY
+          mapfile -t changed < .cache-changed-data
+          .venv/bin/timecheck build --strict --cache-dir .cache/snapshots --only-changed "${changed[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: changed-evidence-report
+          path: report.json
+  scheduled-evidence:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/v1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python3 -m venv .venv && .venv/bin/pip install -e '.[dev]'
+      - name: Full live archive verification
+        run: .venv/bin/timecheck build --strict
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-report
+          path: report.json

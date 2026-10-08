@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+    },
+    "kind": {
+      "enum": [
+        "brand",
+        "maker",
+        "authority",
+        "line",
+        "reference",
+        "caliber"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "claim.schema.json"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "kind",
+    "display_name",
+    "claims"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://timecheck.example/schemas/v1/entity.schema.json"
+}

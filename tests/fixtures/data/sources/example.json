@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:example",
+  "kind": "source",
+  "url": "https://example.org/specification",
+  "publisher": "Synthetic author",
+  "trust_tier": "primary",
+  "reuse_class": "open",
+  "licence": "CC0-1.0",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20261008120000id_/https://example.org/specification",
+  "snapshot_sha256": "30e621ec87ca0504ae0344c7cc3331d8b58e74814a42e2929f8ff7582a47e3ed",
+  "retrieved_at": "2026-10-08",
+  "notes": "Synthetic project-authored fixture"
+}

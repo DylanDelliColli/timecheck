@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "timecheck"
+version = "0.1.0"
+description = "A provenance-first watch and caliber graph"
+requires-python = ">=3.13"
+license = {text = "MIT"}
+dependencies = ["jsonschema==4.23.0", "publicsuffix2==2.20191221"]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.4"]
+
+[project.scripts]
+timecheck = "timecheck.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+timecheck = ["sql/*.sql", "schemas/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
