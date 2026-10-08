@@ -327,3 +327,72 @@ def test_explicit_absence_supported_forms(dataset,tmp_path,predicate,phrase):
  change(dataset,'calibers/one.json',replace)
  result,report=build(dataset,tmp_path,'--strict','--no-evidence')
  assert result.returncode==0,(result.stdout,result.stderr,report['errors'])
+
+@pytest.mark.parametrize('view',VIEWS)
+@pytest.mark.parametrize('include_proposed',[False,True])
+def test_primary_only_all_views_drop_secondary_support(dataset,tmp_path,view,include_proposed):
+ change(dataset,'sources/example.json',lambda d:d.update(trust_tier='secondary'))
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0
+ assert rows(tmp_path,view)
+ flags=['--include-proposed'] if include_proposed else []
+ result=cli('query',view,'--primary-only','--db',tmp_path/'graph.sqlite','--json',*flags)
+ assert result.returncode==0,result.stderr
+ assert json.loads(result.stdout)==[]
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_primary_only_lineage_omits_secondary_only_reference(dataset,tmp_path,view):
+ secondary=json.loads((dataset/'sources/example.json').read_text());secondary.update(id='source:secondary',trust_tier='secondary')
+ (dataset/'sources/secondary.json').write_text(json.dumps(secondary))
+ def secondary_claims(d):
+  for c in d['claims']:
+   for e in c['evidence']:e['source']='source:secondary'
+ change(dataset,'references/gamma.json',secondary_claims)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0
+ assert any(r['reference_id']=='reference:gamma' for r in rows(tmp_path,view))
+ result=cli('query',view,'--primary-only','--db',tmp_path/'graph.sqlite','--json');assert result.returncode==0,result.stderr
+ filtered=json.loads(result.stdout)
+ assert {r['reference_id'] for r in filtered}=={'reference:alpha','reference:beta'}
+ assert all(r['has_primary']==1 for r in filtered)
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_branch_keeps_one_lineage_row_per_caliber_claim(dataset,tmp_path,view):
+ def branch(d):
+  c=clone(d['claims'][2]);c['object']['entity']='reference:gamma';d['claims'].append(c)
+ change(dataset,'references/beta.json',branch)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0
+ assert report['branches']=={'reference:beta':['reference:alpha','reference:gamma']}
+ beta=[r for r in rows(tmp_path,view) if r['reference_id']=='reference:beta']
+ assert len(beta)==1
+ assert beta[0]['succeeds_reference_id'] is None and beta[0]['disputed']==1
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_single_verified_predecessor_wins_over_proposed_alternative(dataset,tmp_path,view):
+ def alternative(d):
+  c=clone(d['claims'][2]);c.update(status='proposed',object={'entity':'reference:gamma'});c.pop('review',None);d['claims'].append(c)
+ change(dataset,'references/beta.json',alternative)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0
+ beta=[r for r in rows(tmp_path,view) if r['reference_id']=='reference:beta']
+ assert len(beta)==1 and beta[0]['succeeds_reference_id']=='reference:alpha'
+ assert report['branches']=={}
+
+def test_lineage_diff_all_accepts_proposed_membership_and_verified_succession(dataset,tmp_path):
+ for file in dataset.glob('references/*.json'):
+  def propose_membership(d):
+   for c in d['claims']:
+    if c['predicate']=='in_line':c['status']='proposed';c.pop('review',None)
+  change(dataset,file.relative_to(dataset),propose_membership)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0
+ assert rows(tmp_path,'v_lineage_diff')==[]
+ diff=rows(tmp_path,'v_lineage_diff_all');assert len(diff)==12
+ jewels=next(r for r in diff if r['attribute']=='jewels')
+ assert (jewels['before_value'],jewels['after_value'],jewels['changed'])==('21','25',1)
+ assert jewels['before_status']==jewels['after_status']=='verified'
+
+def test_double_negative_is_not_hacking_absence(dataset,tmp_path):
+ def replace(d):
+  c=next(c for c in d['claims'] if c['predicate']=='hacking')
+  c['evidence'][0]['quote']='The caliber does not lack hacking functionality.'
+ change(dataset,'calibers/one.json',replace)
+ result,report=build(dataset,tmp_path,'--strict','--no-evidence')
+ assert result.returncode==2,(result.stdout,result.stderr)
+ assert report['errors_by_class']=={'explicit_absence_required':1}

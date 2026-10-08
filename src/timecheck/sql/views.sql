@@ -48,6 +48,21 @@ CREATE VIEW v_shared_dna AS
  JOIN v_reference_calibers v ON v.caliber_id=f.b WHERE u.reference_id<>v.reference_id;
 
 CREATE VIEW v_lineage AS
+ WITH verified_predecessors AS (
+ SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
+ FROM claim c JOIN claim_object o ON o.claim_id=c.id
+ WHERE c.predicate='succeeds' AND c.status='verified' GROUP BY c.subject_id
+ ), succession AS (
+ SELECT s.subject_id,
+ CASE WHEN COALESCE(v.predecessor_count,0)>1 THEN NULL
+ WHEN COUNT(DISTINCT CASE WHEN s.status='verified' THEN s.entity_id END)=1
+ THEN MAX(CASE WHEN s.status='verified' THEN s.entity_id END)
+ WHEN COALESCE(v.predecessor_count,0)=0 AND COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.entity_id)
+ ELSE NULL END AS entity_id,
+ MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,MIN(s.has_primary) AS has_primary
+ FROM selected_claim s LEFT JOIN verified_predecessors v ON v.subject_id=s.subject_id
+ WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
+ )
  SELECT l.entity_id AS line_id,r.id AS reference_id,
  COALESCE(u.year_from,p.year_from) AS year_from,COALESCE(u.year_to,p.year_to) AS year_to,
  CASE WHEN u.claim_id IS NOT NULL THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
@@ -60,12 +75,12 @@ CREATE VIEW v_lineage AS
  FROM reference r LEFT JOIN selected_claim l ON l.subject_id=r.id AND l.predicate='in_line'
  LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
  LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
- LEFT JOIN selected_claim s ON s.subject_id=r.id AND s.predicate='succeeds';
+ LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff AS
  WITH attrs(attribute) AS (VALUES ('caliber'),('offers_grades'),('grade_name'),('winding'),('beat_rate'),('jewels'),('power_reserve'),('hacking'),('date_mechanism'),('introduced'),('discontinued'),('years')),
  edges AS (SELECT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
- FROM selected_claim s JOIN selected_claim l ON l.subject_id=s.subject_id AND l.predicate='in_line' AND l.status='verified'
+ FROM selected_claim s JOIN selected_claim l ON l.subject_id=s.subject_id AND l.predicate='in_line'
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  unknown_edges AS (SELECT e.* FROM edges e WHERE
@@ -148,6 +163,21 @@ CREATE VIEW v_shared_dna_all AS
  JOIN v_reference_calibers_all v ON v.caliber_id=f.b WHERE u.reference_id<>v.reference_id;
 
 CREATE VIEW v_lineage_all AS
+ WITH verified_predecessors AS (
+ SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
+ FROM claim c JOIN claim_object o ON o.claim_id=c.id
+ WHERE c.predicate='succeeds' AND c.status='verified' GROUP BY c.subject_id
+ ), succession AS (
+ SELECT s.subject_id,
+ CASE WHEN COALESCE(v.predecessor_count,0)>1 THEN NULL
+ WHEN COUNT(DISTINCT CASE WHEN s.status='verified' THEN s.entity_id END)=1
+ THEN MAX(CASE WHEN s.status='verified' THEN s.entity_id END)
+ WHEN COALESCE(v.predecessor_count,0)=0 AND COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.entity_id)
+ ELSE NULL END AS entity_id,
+ MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,MIN(s.has_primary) AS has_primary
+ FROM selected_claim_all s LEFT JOIN verified_predecessors v ON v.subject_id=s.subject_id
+ WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
+ )
  SELECT l.entity_id AS line_id,r.id AS reference_id,
  COALESCE(u.year_from,p.year_from) AS year_from,COALESCE(u.year_to,p.year_to) AS year_to,
  CASE WHEN u.claim_id IS NOT NULL THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
@@ -160,12 +190,12 @@ CREATE VIEW v_lineage_all AS
  FROM reference r LEFT JOIN selected_claim_all l ON l.subject_id=r.id AND l.predicate='in_line'
  LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
  LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
- LEFT JOIN selected_claim_all s ON s.subject_id=r.id AND s.predicate='succeeds';
+ LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff_all AS
  WITH attrs(attribute) AS (VALUES ('caliber'),('offers_grades'),('grade_name'),('winding'),('beat_rate'),('jewels'),('power_reserve'),('hacking'),('date_mechanism'),('introduced'),('discontinued'),('years')),
  edges AS (SELECT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
- FROM selected_claim_all s JOIN selected_claim_all l ON l.subject_id=s.subject_id AND l.predicate='in_line' AND l.status='verified'
+ FROM selected_claim_all s JOIN selected_claim_all l ON l.subject_id=s.subject_id AND l.predicate='in_line'
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  unknown_edges AS (SELECT e.* FROM edges e WHERE

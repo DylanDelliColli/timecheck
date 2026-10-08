@@ -30,8 +30,12 @@ def query(args):
         filters = []
         if args.where:
             filters.append('(' + args.where + ')')
-        if args.primary_only and view in {'v_evidence','v_evidence_all'}:
-            filters.append("tier='primary'")
+        if args.primary_only:
+            columns = {row[1] for row in db.execute(f'PRAGMA table_info({view})')}
+            if 'has_primary' in columns:
+                filters.append('has_primary=1')
+            if 'tier' in columns:
+                filters.append("tier='primary'")
         sql = f'SELECT * FROM {view}' + (' WHERE ' + ' AND '.join(filters) if filters else '')
         rows = [dict(row) for row in db.execute(sql)]
     print(json.dumps(rows, ensure_ascii=False))
