@@ -239,16 +239,24 @@ Common columns: `status` (`verified`|`proposed`), `disputed` (0/1), `contested` 
   caliber or in its family; `relation_path` empty for the same caliber.
 - `v_lineage`(line_id, reference_id, year_from, year_to, year_to_kind,
   year_from_sort, caliber_id, grade, succeeds_reference_id, claim_id, status,
-  disputed, contested, has_primary): one row per `uses_caliber` claim; a reference
-  without one gets a single row with null caliber and years from `produced`, or nulls
-  and `year_from_sort` 9999.
+  disputed, contested, has_primary): one row per selected `uses_caliber` claim; a
+  reference without one gets one fallback row per selected `produced` claim (competing
+  intervals therefore appear as separate rows, flagged disputed), or a single row with
+  null years and `year_from_sort` 9999 when it has neither. Duplicate identical claims
+  (same object or value, different ids, e.g. the same fact backed by two sources) are
+  legitimate data and yield one row per claim; consumers wanting distinct facts use
+  DISTINCT on the value columns. Metadata joins (membership, grade, succession,
+  `offers_grades`) are aggregated per subject and never multiply rows (decision
+  2026-10-08, after review rounds 3 and 4 of unit C1).
 - `v_lineage_diff`(line_id, reference_id, predecessor_id, attribute, before_value,
   after_value, changed, before_status, after_status, before_evidence_id,
   after_evidence_id): along verified `succeeds` edges only; `attribute` is `caliber`,
   each v1 caliber attribute, and `years` (`"from-to"` strings); predecessor side =
   its latest caliber by `year_from`, successor side = its earliest; unknown year on
-  either side → one row per attribute with `changed = NULL`; competing values produce
-  the cross product of rows.
+  either side → one row per attribute with `changed = NULL`; competing values produce the cross product of rows, and rows are DISTINCT over
+  (line_id, reference_id, predecessor_id, attribute, before_value, after_value):
+  duplicate identical claims never repeat a diff row (evidence ids then cite one
+  representative claim each).
 - `v_evidence`(claim_id, evidence_id, source_id, tier, match_mode, quote, locator,
   archive_url, retrieved_at).
 
