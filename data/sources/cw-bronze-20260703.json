@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:cw-bronze-20260703",
+  "kind": "source",
+  "url": "https://www.christopherward.com/int/C60-Pro-300-Bronze/C60-44ADC31B0KK0-VT1.html",
+  "publisher": "Christopher Ward",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260703230143id_/https://www.christopherward.com/int/C60-Pro-300-Bronze/C60-44ADC31B0KK0-VT1.html",
+  "snapshot_sha256": "267fa9bffa72f5ce37c14257e1fa69571dcffa736281ca8fd2c022ef1f5c2b95",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

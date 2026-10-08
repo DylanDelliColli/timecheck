@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:cw-c60-44adc31b0kk0-vt1",
+  "kind": "reference",
+  "display_name": "Christopher Ward C60 Pro 300 Bronze C60-44ADC31B0KK0-VT1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-hbkj4krycv",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:christopher-ward-c60"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2jpy62e4v3",
+          "source": "source:cw-bronze-20260703",
+          "quote": "C60 Pro 300 Bronze | Christopher Ward",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-du64hhkve2",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200-1-chronometer"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-acig7f35op",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Movement Sellita SW200-1 COSC Power Reserve minimum 38 hours / typical 41 hours No of Jewels 26",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta2824-history-20260418",
+  "kind": "source",
+  "url": "https://monochrome-watches.com/the-history-of-the-eta-2824-the-mundane-calibre-that-shaped-the-industry/",
+  "publisher": "Monochrome Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260418224050id_/https://monochrome-watches.com/the-history-of-the-eta-2824-the-mundane-calibre-that-shaped-the-industry/",
+  "snapshot_sha256": "6c6afb8b4f0fdb5262821a7007d4ff6dcb4f7a1fd449f1977bebfb5228269154",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

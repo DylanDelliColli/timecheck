@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:muhle29er-20260421",
+  "kind": "source",
+  "url": "https://www.muehle-glashuette.de/en/watch/29er-leather-strap/",
+  "publisher": "Mühle-Glashütte",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260421132643id_/https://www.muehle-glashuette.de/en/watch/29er-leather-strap/",
+  "snapshot_sha256": "7c2dcd6b2141bf6e542ee9bd62d303faf1fafd5e8abac0d447036892fe32ae1a",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

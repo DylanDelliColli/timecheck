@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:zodiac-sea-dragon",
+  "kind": "line",
+  "display_name": "Zodiac Sea Dragon",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-vw6nt6didt",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:zodiac"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-x6vazkvblk",
+          "source": "source:zodiac-chrono-20241013",
+          "quote": "The Zodiac Sea Dragon Chronograph is sporty, with a bit of that vintage racing chrono flair.",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

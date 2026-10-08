@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sellita-deployant-20260617",
+  "kind": "source",
+  "url": "https://deployant.com/six-best-watches-with-movements-derived-from-the-sellita-ebauches/",
+  "publisher": "Deployant",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260617162241id_/https://deployant.com/six-best-watches-with-movements-derived-from-the-sellita-ebauches/",
+  "snapshot_sha256": "0b140cad9de3750bed52b25d5189aa853bc8befd036cfc03c71c9d3362697268",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

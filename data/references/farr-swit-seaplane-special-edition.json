@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:farr-swit-seaplane-special-edition",
+  "kind": "reference",
+  "display_name": "Farr + Swit Seaplane Special Edition",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-kdvnoqq2dl",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:farr-swit-seaplane"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vewmb2p6bq",
+          "source": "source:farr-seaplane-20260803",
+          "quote": "Farr + Swit's Seaplane Automatic brings you a wearable work of art",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-fu46a5u6rm",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3c4tgp3uss",
+          "source": "source:farr-seaplane-20260803",
+          "quote": "The Day Trip and Midnight Landing are powered by the Swiss SW 200-1. The Special Edition uses the iconic ETA 2824-2.",
+          "locator": "Movement panel; variants distinguished explicitly",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

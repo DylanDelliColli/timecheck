@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "caliber:eta-2892-a2",
+  "kind": "caliber",
+  "display_name": "ETA 2892-A2",
+  "aliases": [
+    "caliber:eta-2892a2"
+  ],
+  "claims": [
+    {
+      "id": "clm-dye2ixj2ri",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:eta"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mp6sz6wzgk",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "The ETA 2892-A2[7] is a newer design dating to the 1970s and fitted with top quality components.",
+          "locator": "ETA2892-A2 opening sentence",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-h33rf54f6u",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6krihwvqm3",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "An automatic winding, 21-jewel movement, the 2892 is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA 2892-A2 section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ofi6idljjy",
+      "predicate": "jewels",
+      "object": {
+        "value": 21,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yxwcmuhg2w",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "An automatic winding, 21-jewel movement, the 2892 is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA 2892-A2 section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-2wn55u6g5t",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jw2q5xtlgg",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "An automatic winding, 21-jewel movement, the 2892 is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA 2892-A2 grade paragraph",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ey6vcxtxf5",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:eta"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hadzq63vx5",
+          "source": "source:eta2892-pdf-20250729",
+          "quote": "TECHNICAL COMMUNICATION ETA SA Manufacture Horlogère Suisse SC Marketing & Communication",
+          "locator": "PDF page1: ETA2892A2 cover specifications",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-vscfwcdkkq",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-d4raukvjpt",
+          "source": "source:eta2892-pdf-20250729",
+          "quote": "Fréquence Frequenz Frequency 28'800 A/h",
+          "locator": "PDF page1: ETA2892A2 cover specifications",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-7pu5kufujy",
+      "predicate": "jewels",
+      "object": {
+        "value": 21,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-knmjhzsx5e",
+          "source": "source:eta2892-pdf-20250729",
+          "quote": "Nombre de rubis Anzahl Rubine Number of jewels 21",
+          "locator": "PDF page1: ETA2892A2 cover specifications",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-z2vfsukiyi",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 42,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-wtiaqmtwtf",
+          "source": "source:eta2892-pdf-20250729",
+          "quote": "Réserve de marche Gangreserve Running time 42 h",
+          "locator": "PDF page1: ETA2892A2 cover specifications",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

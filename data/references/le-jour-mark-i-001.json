@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:le-jour-mark-i-001",
+  "kind": "reference",
+  "display_name": "Le Jour Mark I 001 Chronograph",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-j636vlt7tq",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:le-jour-mark-i"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-22wql5eb2x",
+          "source": "source:lejour-mark1-20250823",
+          "quote": "Le Jour Mark I 001 Chronograph Review Case Stainless steel; bead-blasted Movement Valjoux 7750",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-xtcad7clq4",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:eta-7750"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pcf6omvzax",
+          "source": "source:lejour-mark1-20250823",
+          "quote": "Le Jour Mark I 001 Chronograph Review Case Stainless steel; bead-blasted Movement Valjoux 7750",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

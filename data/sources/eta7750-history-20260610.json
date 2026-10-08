@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta7750-history-20260610",
+  "kind": "source",
+  "url": "https://monochrome-watches.com/valjoux-7750-chronograph-history-50-years-technical-explanation-evolution-clones-in-depth-review/",
+  "publisher": "Monochrome Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260610132817id_/https://monochrome-watches.com/valjoux-7750-chronograph-history-50-years-technical-explanation-evolution-clones-in-depth-review/",
+  "snapshot_sha256": "65a6f0a7a766dd085c05c929dce8ce6dd0b2748c9b03cfbba65863bde34929ee",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

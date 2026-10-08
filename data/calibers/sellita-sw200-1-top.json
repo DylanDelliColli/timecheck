@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1-top",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1 top",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-qiw5cflr7z",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gnun4qppjf",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
+          "locator": "PDF page 4: Escapement execution table; canonical grade term",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-j6iapce6pk",
+      "predicate": "grade_name",
+      "object": {
+        "value": "top"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-p5vp5pbskk",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
+          "locator": "PDF page 4: Escapement execution table; canonical grade term",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

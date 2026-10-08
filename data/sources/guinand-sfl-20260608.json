@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:guinand-sfl-20260608",
+  "kind": "source",
+  "url": "https://www.guinand-uhren.de/sfl-en.html",
+  "publisher": "Guinand",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260608045632id_/https://www.guinand-uhren.de/sfl-en.html",
+  "snapshot_sha256": "aae005fbb739cc901f148b6f3030b568402b493f0a9eb72c4d2d088362eafe69",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

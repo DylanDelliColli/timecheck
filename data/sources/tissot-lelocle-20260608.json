@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:tissot-lelocle-20260608",
+  "kind": "source",
+  "url": "https://watchesyoucanafford.com/tissot-le-locle-review/",
+  "publisher": "Watches You Can Afford; Cameron Martel",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260608232249id_/https://watchesyoucanafford.com/tissot-le-locle-review/",
+  "snapshot_sha256": "72f224bcfe1072157321fd00662d5378e9c24340c98287780a37e211bbcdcf1c",
+  "retrieved_at": "2026-10-08",
+  "notes": "Review explicitly covers old ETA model, not newer Powermatic80. Likely Elabore is an author conjecture and is not promoted to a grade claim. No numeric reference supplied; model-level historical identity only."
+}

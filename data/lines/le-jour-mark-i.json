@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:le-jour-mark-i",
+  "kind": "line",
+  "display_name": "Le Jour Mark I",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-l53mx7soq3",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:le-jour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gogodbmto2",
+          "source": "source:lejour-mark1-20250823",
+          "quote": "Le Jour Mark I 001 Chronograph Review Case Stainless steel; bead-blasted Movement Valjoux 7750",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

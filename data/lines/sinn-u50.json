@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:sinn-u50",
+  "kind": "line",
+  "display_name": "Sinn U50",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ptozevffew",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:sinn"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6k25myittb",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Sinn Spezialuhren | U50 | purchase online",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

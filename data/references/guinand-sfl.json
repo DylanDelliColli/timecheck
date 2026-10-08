@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:guinand-sfl",
+  "kind": "reference",
+  "display_name": "Guinand SFL",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-4tfgfalogl",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:guinand-sfl"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pairjzd74q",
+          "source": "source:guinand-sfl-20260608",
+          "quote": "SFL - Guinand Pilot Watches Frankfurt am Main, Deutschland",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-khavikykxl",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw500"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-k6qz7jjmnn",
+          "source": "source:guinand-sfl-20260608",
+          "quote": "Technical details Movement Calibre SW500 Self-winding mechanical movement Chronograph function integrated into the movement",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

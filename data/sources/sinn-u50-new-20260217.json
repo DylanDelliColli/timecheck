@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sinn-u50-new-20260217",
+  "kind": "source",
+  "url": "https://www.sinn.de/en/watches/u50.html",
+  "publisher": "Sinn Spezialuhren",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260217160051id_/https://www.sinn.de/en/watches/u50.html",
+  "snapshot_sha256": "ec3aeaf571a30b956faa8f29cdca590fc01718a97ef9b9fae58ee86b91ebbc98",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sinn556a-20251210",
+  "kind": "source",
+  "url": "https://www.sinn.de/en/watches/556-a.html",
+  "publisher": "Sinn Spezialuhren",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20251210170023id_/https://www.sinn.de/en/watches/556-a.html",
+  "snapshot_sha256": "f479593e1670d2c9ab315c6a555c1370da203912618183bb695d76dec75c33af",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

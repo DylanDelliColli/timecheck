@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:cw-c60-41c3h31t0kk0-b0",
+  "kind": "reference",
+  "display_name": "Christopher Ward C60 Trident Lumière C60-41C3H31T0KK0-B0",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ika24vnim3",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:christopher-ward-c60"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6ntqg6z6ed",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "C60 Trident Lumière | Christopher Ward",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-h5pq4hvjcs",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw300-1-chronometer"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-h33n4xfka5",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:tissot-le-locle-eta",
+  "kind": "reference",
+  "display_name": "Tissot Le Locle Automatic (ETA review model)",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-s5w2dfhmht",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:tissot-le-locle"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mgvkoztd6c",
+          "source": "source:tissot-lelocle-20260608",
+          "quote": "Tissot Le Locle Review By Cameron Martel",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-722ih4wxy3",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gbht7q3qa6",
+          "source": "source:tissot-lelocle-20260608",
+          "quote": "with an ETA 2824-2 movement and date functionality, coupled with Tissot's quality and workmanship, you are getting a fine piece of kit in the Le Locle.",
+          "locator": "Review Summary; review explicitly of old model",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

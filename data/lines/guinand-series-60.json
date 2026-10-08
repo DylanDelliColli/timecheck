@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:guinand-series-60",
+  "kind": "line",
+  "display_name": "Guinand Series 60",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-fyv3qnovd4",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:guinand"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2do73ykr7h",
+          "source": "source:guinand60-20260421",
+          "quote": "The dial of the most 60.50 models has a galvanically finished black surface",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw300-1",
+  "kind": "caliber",
+  "display_name": "Sellita SW300-1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-xhowhgpumi",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-573k43gem2",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "SELLITA WATCH Co S.A., Crêt-du-Locle 11, CH-2301 La Chaux-de-Fonds, Suisse",
+          "locator": "PDF page1: maker header and caliber",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-w5skw4i4fv",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ngjzv2lf57",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "Round calibre, mechanical lever movement, self-winding movement",
+          "locator": "PDF page3: Shape and type",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-cpygdwjdog",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-d4stdsxddl",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 25",
+          "locator": "PDF page3: Frequency",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ab7qfhzjkn",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6itha7bcnw",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 25",
+          "locator": "PDF page3: Jewels",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-wycfgpjl24",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5hszunjs6l",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "Date window with quick setting.",
+          "locator": "PDF page3: Functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-p2jdvtcfej",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xlu4rhfrqq",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "Stop-seconde Sekundenstopp Stop-second Avec Mit With",
+          "locator": "PDF page3: Stop-second",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-tdbpqk5gu6",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6q3eivcdn7",
+          "source": "source:sellita-sw300-pdf-20260904",
+          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
+          "locator": "PDF page4: Escapement execution table",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-yc6cj246a4",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-2892-a2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-piyfwhpbup",
+          "source": "source:sw300-forum-20241206",
+          "quote": "The Swiss Sellita Calibre SW300-1 is, as far as I understand, an excellent clone of the 2892-A2.",
+          "locator": "Tomek opening service-walkthrough post; explicit tentative clone statement",
+          "match_mode": "exact"
+        },
+        {
+          "id": "ev-l6r6eshmob",
+          "source": "source:sw300-corner-old-20231209",
+          "quote": "The Sellita caliber SW300-1 is a slim automatic watch movement, Swiss made with 25 jewels. This caliber is the main competitor and clone of the ETA caliber 2892-A2.",
+          "locator": "Opening SW300-1 description; direct explicit clone identification corroborates tentative forum source",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

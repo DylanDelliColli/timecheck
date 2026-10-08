@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:farr-swit-seaplane",
+  "kind": "line",
+  "display_name": "Farr + Swit Seaplane",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-wthk6rxjks",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:farr-swit"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lue3jyptxc",
+          "source": "source:farr-seaplane-20260803",
+          "quote": "Farr + Swit's Seaplane Automatic brings you a wearable work of art",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

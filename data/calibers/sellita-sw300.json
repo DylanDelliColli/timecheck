@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw300",
+  "kind": "caliber",
+  "display_name": "Sellita SW300",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-vfivw2ydst",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-phhrt67t5k",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement; generic SW300 designation, not silently SW300-1",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-he34b6cqss",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-sz24mgch3h",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement; generic SW300 designation, not silently SW300-1",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-5umks5ler3",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6q4xv5rhf4",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement; generic SW300 designation, not silently SW300-1",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-euva6j3q5j",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dbu3iqm44g",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement; generic SW300 designation, not silently SW300-1",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ty7vco7soa",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-2892-a2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-nx34ih2vma",
+          "source": "source:sellita-deployant-20260617",
+          "quote": "From the SW 300 being seen as essentially a clone of the ETA 2892-A2 to the SW 500 series being parallel to the ETA 7750, acceptance is high.",
+          "locator": "Opening discussion of Sellita equivalents; generic SW300 designation preserved",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

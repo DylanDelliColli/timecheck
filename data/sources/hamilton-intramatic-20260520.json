@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:hamilton-intramatic-20260520",
+  "kind": "source",
+  "url": "https://www.fratellowatches.com/hamilton-intra-matic-smoked-dial-watches/",
+  "publisher": "Fratello Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260520200741id_/https://www.fratellowatches.com/hamilton-intra-matic-smoked-dial-watches/",
+  "snapshot_sha256": "0500a6af9709dfd67f9ae7ce230027af88bc7404b362b5620dda6300db4d8569",
+  "retrieved_at": "2026-10-08",
+  "notes": "Fratello explicitly identifies both reviewed references as ETA2892-A2 and says US manufacturer specifications identify A2. It also reports H38455781 steel caseback engraving2892-2 and questions the missing A. Stored published identification remains proposed; marking/identity ambiguity is not resolved. Individual reviewed watches, no catalogue extraction."
+}

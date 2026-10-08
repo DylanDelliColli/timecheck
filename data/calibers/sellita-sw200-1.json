@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6qjaepaxpg",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zr5aemepl5",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Movement Sellita SW200-1 COSC Power Reserve minimum 38 hours / typical 41 hours No of Jewels 26",
+          "locator": "Technical specifications; supplier name",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-f7mcymxmha",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5qme7da5cn",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Power is provided by an ultra-accurate chronometer version of Sellita's SW200 automatic movement",
+          "locator": "Description; chronometer version, specs resolve suffix SW200-1",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-2ca4ykwgkr",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-abqkssqwlo",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "SELLITA WATCH Co S.A., Crêt-du-Locle 11, CH-2301 La Chaux-de-Fonds, Suisse",
+          "locator": "PDF page 1: maker and caliber header",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-j4zusrmmqe",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-khofi3b7sg",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Round caliber, mechanical lever movement, self-winding movement",
+          "locator": "PDF page 3: Shape and type",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-m2qiyuj3bn",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-disj4lzf4d",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 26",
+          "locator": "PDF page 3: Frequency",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-s2lvkzbxju",
+      "predicate": "jewels",
+      "object": {
+        "value": 26,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ua2me275xj",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 26",
+          "locator": "PDF page 3: Jewels",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-yv7bcfnmtv",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-annzaxyae6",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Date display in window with quick corrector",
+          "locator": "PDF page 3: Functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-j2vsbc5zin",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-upvtodk7fh",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Stop-seconde Sekundenstopp Stop-second Avec Mit With",
+          "locator": "PDF page 3: Stop-second",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-o6pyblk5dd",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-w7dwlfka4q",
+          "source": "source:sellita-sw200-pdf-20251006",
+          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
+          "locator": "PDF page 4: Escapement execution table",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-jign3auqfg",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6tcco4krox",
+          "source": "source:eta2824-history-20260418",
+          "quote": "Production of a Sellita SW200-1, the most distributed \"clone\" or \"alternative\" to the ETA 2824-2",
+          "locator": "The Clone Wars section; manufacturing image caption explicitly identifies both versions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-4uj5amv4tj",
+      "predicate": "derived_from",
+      "object": {
+        "entity": "caliber:sellita-sw200"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bw2bwfmi7o",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "The SW200-1 is an update to the original caliber SW200.",
+          "locator": "Opening SW200-1 prose; update version identity",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

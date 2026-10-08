@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:cw-lumiere-black-20260309",
+  "kind": "source",
+  "url": "https://www.christopherward.com/int/titanium-watches/c60-trident-lumi%C3%A8re/C60-41C3H31T0KK0-B0.html",
+  "publisher": "Christopher Ward",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260309222554id_/https://www.christopherward.com/int/titanium-watches/C60-Trident-Lumi%C3%A8re/C60-41C3H31T0KK0-B0.html",
+  "snapshot_sha256": "68713cd3dc2258b25ddf1548b0a197544187e303d54104eed6c1e10a654d4591",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

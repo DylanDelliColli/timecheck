@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:muhle-29er",
+  "kind": "line",
+  "display_name": "Mühle-Glashütte 29er",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ymio56lraa",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:muhle-glashutte"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ifgygsofml",
+          "source": "source:muhle29er-20260421",
+          "quote": "Watches > 29er > 29er 29er has been added to cart.",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw300-elabore",
+  "kind": "caliber",
+  "display_name": "Sellita SW300 élaboré",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-qlxofi6kd6",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw300"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-c6nbdqxo4e",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-prlo4e6ztu",
+      "predicate": "grade_name",
+      "object": {
+        "value": "élaboré"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-z3mmzt5dxs",
+          "source": "source:steinhart-titanium-20260921",
+          "quote": "Movement SW300 Elaboré premium Swiss made automatic 25 jewels second stop",
+          "locator": "Technical Details Movement; canonical Elaboré spelling",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

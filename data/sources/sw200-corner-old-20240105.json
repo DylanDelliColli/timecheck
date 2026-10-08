@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sw200-corner-old-20240105",
+  "kind": "source",
+  "url": "https://calibercorner.com/sellita-caliber-sw200-1/",
+  "publisher": "Caliber Corner",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20240105040942id_/https://calibercorner.com/sellita-caliber-sw200-1/",
+  "snapshot_sha256": "ff237f228b2b9314ef7beaace1bcbfd4f48fd026ef82af92338deb7b8452cb7f",
+  "retrieved_at": "2026-10-08",
+  "notes": "One individual SW200-1 update relation, not catalogue extraction. Archived 2024 page does not control current specifications; maker technical sheets supply those."
+}

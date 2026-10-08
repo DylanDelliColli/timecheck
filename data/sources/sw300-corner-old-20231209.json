@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sw300-corner-old-20231209",
+  "kind": "source",
+  "url": "https://calibercorner.com/sellita-caliber-sw300-1/",
+  "publisher": "Caliber Corner",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20231209210114id_/https://calibercorner.com/sellita-caliber-sw300-1/",
+  "snapshot_sha256": "95e1d8a296543c119983645cb8851de32c92ca4b8caabccb23501189b6fccdac",
+  "retrieved_at": "2026-10-08",
+  "notes": "One individual clone relation cited from archived2023 page; no bulk catalogue extraction. Maker technical sheet supplies current digital specifications separately."
+}

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw500",
+  "kind": "caliber",
+  "display_name": "Sellita SW500",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-pep74kdjjg",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-y3gv2t3ab7",
+          "source": "source:eta7750-history-20260610",
+          "quote": "In response to the reduced deliveries of the ETA Valjoux 7750, Sellita developed its alternative, the SW500, a so-called clone movement, which has been in production since 2009.",
+          "locator": "The copycats section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-7bd7mmgwhu",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-7750"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-il733cwuze",
+          "source": "source:eta7750-history-20260610",
+          "quote": "In response to the reduced deliveries of the ETA Valjoux 7750, Sellita developed its alternative, the SW500, a so-called clone movement, which has been in production since 2009.",
+          "locator": "The copycats section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-5r3gnq6lnl",
+      "predicate": "introduced",
+      "object": {
+        "value": 2009,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6cbc37vsrf",
+          "source": "source:eta7750-history-20260610",
+          "quote": "In response to the reduced deliveries of the ETA Valjoux 7750, Sellita developed its alternative, the SW500, a so-called clone movement, which has been in production since 2009.",
+          "locator": "The copycats section; in production since 2009",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-o7ocg6bdsu",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ctvj23ygol",
+          "source": "source:guinand60-20260421",
+          "quote": "Calibre SW500 Self-winding mechanical movement",
+          "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-q2uukwq57x",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-a4dtlrwcl3",
+          "source": "source:guinand60-20260421",
+          "quote": "Chronograph function integrated into the movement 25 jewels 28.800 vibrations per hour; 4 Hz.",
+          "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-lanr2uyuoe",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bb6wunhvk3",
+          "source": "source:guinand60-20260421",
+          "quote": "25 jewels 28.800 vibrations per hour; 4 Hz.",
+          "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-bslc4ddfog",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xrpdww4dpc",
+          "source": "source:guinand60-20260421",
+          "quote": "Stone lever escapement Stop-second Glucydur Balance Wheel",
+          "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-bicnewwr6i",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "day_date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mw5io7fdu7",
+          "source": "source:guinand60-20260421",
+          "quote": "Date display Day of the week display",
+          "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

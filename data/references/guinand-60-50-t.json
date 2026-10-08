@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:guinand-60-50-t",
+  "kind": "reference",
+  "display_name": "Guinand 60.50-T",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-iinj5vtgb7",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:guinand-series-60"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yxfd3etc3y",
+          "source": "source:guinand60-20260421",
+          "quote": "Model 60.50-T: The dial of the model 60.50-T is, as usual with instrument watches and also necessary, matte black.",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-i4scvuxd53",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw500"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-huq4otqvv5",
+          "source": "source:guinand60-20260421",
+          "quote": "Technical details Movement Calibre SW500 Self-winding mechanical movement Chronograph function integrated into the movement",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}
