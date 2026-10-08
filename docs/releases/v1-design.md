@@ -130,7 +130,10 @@ PR the chief runs the independent review (an outside model reading the PR's clai
 against their quotes) and the strict live build; every claim the build verified and
 the review did not flag is set to `verified` with `review.by` naming the reviewer run
 and the merger (e.g. `codex:gpt-6.1-sol:pr2 / chief`) and `review.at` the merge time,
-in a chief commit on the PR branch before the merge. Flagged claims stay `proposed`
+in a chief commit on the PR branch before the merge (`timecheck status verify`: by
+default only claims whose evidence matched `exact`; `--include-fuzzy` also promotes
+`pdf_text` claims matched `fuzzy`, since digits and years are exact there; decision
+2026-10-08). Flagged claims stay `proposed`
 and are listed on the unit's bead for repair. `manual` evidence keeps its claims
 `proposed` until the operator attests. After v1, a human maintainer performs the same
 step for outside PRs. The build's `--no-evidence` report lists `proposed` claims per
