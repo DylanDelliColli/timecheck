@@ -54,9 +54,9 @@ CREATE VIEW v_lineage AS
  CASE WHEN u.claim_id IS NOT NULL THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
  u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,p.id,l.id) AS claim_id,
  COALESCE(u.status,p.status,l.status,'verified') AS status,
- MAX(COALESCE(u.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
- MAX(COALESCE(u.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
- MIN(COALESCE(u.has_primary,p.has_primary,l.has_primary,0),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
+ MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
+ MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
+ MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN selected_claim l ON l.subject_id=r.id AND l.predicate='in_line'
  LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
  LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
@@ -154,9 +154,9 @@ CREATE VIEW v_lineage_all AS
  CASE WHEN u.claim_id IS NOT NULL THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
  u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,p.id,l.id) AS claim_id,
  COALESCE(u.status,p.status,l.status,'verified') AS status,
- MAX(COALESCE(u.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
- MAX(COALESCE(u.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
- MIN(COALESCE(u.has_primary,p.has_primary,l.has_primary,0),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
+ MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
+ MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
+ MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN selected_claim_all l ON l.subject_id=r.id AND l.predicate='in_line'
  LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
  LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL

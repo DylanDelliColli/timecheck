@@ -260,3 +260,70 @@ def test_all_proposed_lineage_builds_without_verified_line_membership(dataset,tm
  (dataset/'lines/different.json').write_text(json.dumps(line))
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==2
  assert report['errors_by_class']['succeeds_line']==1
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_produced_fallback_retains_conflict_review_and_source_flags(dataset,tmp_path,view):
+ # Append a second synthetic statement so both competing year claims have a real
+ # matching quote, and give that statement secondary evidence.
+ raw=next(SNAPSHOTS.iterdir()).read_bytes()+b'<p>Gamma was produced from 1997 to 1999.</p>'
+ sha=hashlib.sha256(raw).hexdigest();snapshots=tmp_path/'snapshots';snapshots.mkdir();(snapshots/(sha+'.bin')).write_bytes(raw)
+ change(dataset,'sources/example.json',lambda d:d.update(snapshot_sha256=sha))
+ secondary=json.loads((dataset/'sources/example.json').read_text());secondary.update(id='source:secondary',trust_tier='secondary')
+ (dataset/'sources/secondary.json').write_text(json.dumps(secondary))
+ def conflict(d):
+  c=clone(d['claims'][1]);c['object']['years']['from']=1997;c['contested']=True
+  c['evidence'][0].update(source='source:secondary',quote='Gamma was produced from 1997 to 1999.');d['claims'].append(c)
+ change(dataset,'references/gamma.json',conflict)
+ result=cli('build','--data-dir',dataset,'--snapshot-dir',snapshots,'--strict','--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json');assert result.returncode==0,(result.stdout,result.stderr)
+ report=json.loads((tmp_path/'report.json').read_text());assert report['disputed']==2
+ gamma=[r for r in rows(tmp_path,view) if r['reference_id']=='reference:gamma']
+ assert len(gamma)==2
+ assert all(r['disputed']==1 for r in gamma)
+ assert {(r['year_from'],r['contested'],r['has_primary']) for r in gamma}=={(1998,0,1),(1997,1,0)}
+
+@pytest.mark.parametrize('predicate,quote',[
+ ('hacking','This caliber has no hacking problems and the hacking function works correctly.'),
+ ('offers_grades','There are no grade differences in dimensions; all three grades use the same casing.')])
+def test_absence_negation_of_another_concept_rejected(dataset,tmp_path,predicate,quote):
+ def replace(d):
+  c=next(c for c in d['claims'] if c['predicate']==predicate)
+  c['evidence'][0]['quote']=quote
+ change(dataset,'calibers/one.json',replace)
+ # Structural mode isolates the absence validator while exercising the real CLI.
+ result,report=build(dataset,tmp_path,'--strict','--no-evidence')
+ assert result.returncode==2,(result.stdout,result.stderr)
+ assert report['errors_by_class']=={'explicit_absence_required':1}
+
+@pytest.mark.parametrize('strict,code',[(True,2),(False,1)])
+@pytest.mark.parametrize('raw',[
+ b'\x1f\x8b\x08\x00'+b'\x00'*6+b'\xff'*16,
+ b'\x1f\x8b\x07\x00'+b'\x00'*6+b'\x00'*16,
+ b'\x1f\x8b\x08\x00'])
+def test_corrupt_gzip_reports_decode_failure_without_traceback(dataset,tmp_path,strict,code,raw):
+ sha=hashlib.sha256(raw).hexdigest();snapshots=tmp_path/'snapshots';snapshots.mkdir();(snapshots/(sha+'.bin')).write_bytes(raw)
+ change(dataset,'sources/example.json',lambda d:d.update(snapshot_sha256=sha))
+ flags=['--strict'] if strict else []
+ result=cli('build','--data-dir',dataset,'--snapshot-dir',snapshots,'--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json',*flags)
+ assert result.returncode==code,(result.stdout,result.stderr)
+ assert 'Traceback' not in result.stderr
+ report=json.loads((tmp_path/'report.json').read_text())
+ problems=report['errors'] if strict else report['warnings']
+ assert len(problems)==23 and {p['class'] for p in problems}=={'snapshot_unavailable'}
+ assert all('decode' in p['message'].lower() for p in problems)
+
+@pytest.mark.parametrize('predicate,phrase',[
+ ('hacking','has no hacking.'),('hacking','is without any hacking;'),
+ ('hacking','is non-hacking.'),('hacking','does not have hacking.'),
+ ('hacking','does not hack.'),('hacking','Hacking is not available.'),
+ ('hacking','Hacking absent.'),('hacking','Hacking unavailable.'),
+ ('offers_grades','offers no grades.'),('offers_grades','does not offer any grades.'),
+ ('offers_grades','Grades are not offered.'),('offers_grades','Grades unavailable.'),
+ ('offers_grades','has a single grade.'),('offers_grades','has one grade only.'),
+ ('offers_grades','There are no grades offered.')])
+def test_explicit_absence_supported_forms(dataset,tmp_path,predicate,phrase):
+ def replace(d):
+  c=next(c for c in d['claims'] if c['predicate']==predicate)
+  c['evidence'][0]['quote']='Synthetic documentation: '+phrase
+ change(dataset,'calibers/one.json',replace)
+ result,report=build(dataset,tmp_path,'--strict','--no-evidence')
+ assert result.returncode==0,(result.stdout,result.stderr,report['errors'])

@@ -3,6 +3,7 @@ import gzip
 import hashlib
 from pathlib import Path
 import time
+import zlib
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 from .extract import extract
@@ -69,8 +70,8 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                             content = extract(decoded, source['content_type'], charset)
                         except ValueError as exc:
                             failure = ('unsupported_content_type', str(exc))
-                        except (OSError, EOFError) as exc:
-                            failure = ('unsupported_content_type', f'Invalid compressed snapshot: {exc}')
+                        except (OSError, EOFError, zlib.error) as exc:
+                            failure = ('snapshot_unavailable', f'Snapshot gzip decode failed: {exc}')
                 cache[key] = (failure, content if not failure else None)
             failure, content = cache[key]
             if failure:

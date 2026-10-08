@@ -33,6 +33,24 @@ def validators():
             for name, s in zip(('entity', 'claim', 'source'), schemas)}
 
 
+def _states_absence(quote, predicate):
+    """Require a negated attribute, not a compound such as 'hacking problems'."""
+    noun = 'hack(?:ing)?' if predicate == 'hacking' else 'grades?'
+    article = r'(?:(?:a|an|the|any)\s+)?'
+    clause_end = r'(?=\s*(?:[,.;:!?)]|\b(?:and|but|or)\b|$))'
+    patterns = [
+        rf"\b(?:no|without|not)\s+{article}{noun}\b{clause_end}",
+        rf"\bnon[- ]{noun}\b{clause_end}",
+        # Have/offer/support are explicit absence verbs, not arbitrary modifiers.
+        rf"\b(?:does not|do not|doesn't|don't)(?:\s+(?:have|offer|support))?\s+{article}{noun}\b{clause_end}",
+        rf"\b{noun}\s+(?:(?:is|are)\s+)?(?:not\s+(?:available|offered|supported)|absent|unavailable)\b{clause_end}",
+    ]
+    if predicate == 'offers_grades':
+        patterns.append(rf"\b(?:single grade|one grade only|no grades offered)\b{clause_end}")
+    text = normalize(quote).lower()
+    return any(re.search(pattern, text) for pattern in patterns)
+
+
 def load_data(data_dir):
     entities, sources, claims, errors, warnings = {}, {}, [], [], []
     seen = set()
@@ -119,11 +137,7 @@ def load_data(data_dir):
                 if (val is None and eid is not None) or (val is not None and eid not in evidence_ids):
                     errors.append(issue('year_evidence', f'Invalid {bound} evidence id', c['path'], claim_id=c['id']))
         if c['predicate'] in {'hacking', 'offers_grades'} and c['object']['value'] is False:
-            # The predicate must be explicitly negated in the same clause.
-            quotes = ' '.join(normalize(e['quote']).lower() for e in c['evidence'])
-            noun = 'hack(?:ing)?' if c['predicate'] == 'hacking' else 'grades?'
-            absence = rf'(?:\bno\s+(?:\w+\s+){{0,2}}{noun}\b|\b(?:does not|do not|doesn\'t|without|non)[ -]+(?:\w+\s+){{0,3}}{noun}\b|\b{noun}\s+(?:is |are )?(?:not (?:available|offered|supported)|absent|unavailable)\b)'
-            if not re.search(absence, quotes):
+            if not any(_states_absence(e['quote'], c['predicate']) for e in c['evidence']):
                 errors.append(issue('explicit_absence_required', c['predicate'], c['path'], claim_id=c['id']))
         for e in c['evidence']:
             source = sources.get(e['source'])
