@@ -54,6 +54,29 @@
         "by": "codex:gpt-6.1-sol:pr2 / chief",
         "at": "2026-10-08T23:16:50Z"
       }
+    },
+    {
+      "id": "clm-zr4tfvdonr",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1953,
+          "to": 1953,
+          "from_evidence": "ev-vmtalqejdz",
+          "to_evidence": "ev-vmtalqejdz"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vmtalqejdz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6204 1953 6205 1953-1957 6536",
+          "locator": "Discontinued models table; 6204 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

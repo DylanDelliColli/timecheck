@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:hodinkee-submariner-reference-points-20191122",
+  "kind": "source",
+  "url": "https://www.hodinkee.com/articles/rolex-submariner-reference-points",
+  "archive_url": "https://web.archive.org/web/20191122015526id_/https://www.hodinkee.com/articles/rolex-submariner-reference-points",
+  "snapshot_sha256": "9f687e0c07d45a580eae678dd5c1616eb62a18026cd052eba9fb1f58acfa6194",
+  "publisher": "Hodinkee",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Limited individual citations for 6200 and the shared 5508/5510 caliber; not a catalogue import. Older capture avoids unsupported zstd encoding in 2026 replay."
+}

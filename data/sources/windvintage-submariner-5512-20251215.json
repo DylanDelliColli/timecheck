@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:windvintage-submariner-5512-20251215",
+  "kind": "source",
+  "url": "https://www.windvintage.com/blog/collectors-guide-rolex-submariner-reference-5512",
+  "archive_url": "https://web.archive.org/web/20251215203745id_/https://www.windvintage.com/blog/collectors-guide-rolex-submariner-reference-5512",
+  "snapshot_sha256": "cd84bdf48f56a5de7fb2e1a6a361bc1d6ccbb130a5cc51dfa92172bf0160c55f",
+  "publisher": "Wind Vintage",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual 5512 reference history; approximate circa caliber bounds remain unknown rather than false precision."
+}

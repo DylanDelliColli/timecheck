@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:phillips-comex-5514-20251219",
+  "kind": "source",
+  "url": "https://www.phillips.com/detail/rolex/NY080120/124",
+  "archive_url": "https://web.archive.org/web/20251219055125id_/https://www.phillips.com/detail/rolex/NY080120/124",
+  "snapshot_sha256": "9a51e5aa6fabe6b1b67d2867496eee78af9da01867b5d9e08ce3a39f24618cce",
+  "publisher": "Phillips",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Single 5514 COMEX auction specimen; production and movement usage years unknown."
+}

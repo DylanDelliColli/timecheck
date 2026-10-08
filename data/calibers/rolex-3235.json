@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-3235",
+  "kind": "caliber",
+  "display_name": "Rolex 3235",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-2lpnt2wdru",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-cd55vpgqbi",
+          "source": "source:rolex-submariner-126610ln-20260713",
+          "quote": "Calibre 3235, Manufacture Rolex",
+          "locator": "Technical details; Calibre",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-cn5k2qoovk",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-fauxxzqnjm",
+          "source": "source:rolex-submariner-126610ln-20260713",
+          "quote": "Bidirectional self-winding via Perpetual rotor",
+          "locator": "Technical details; Winding",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ns34fsffuj",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 70,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-22pi32gsms",
+          "source": "source:rolex-submariner-126610ln-20260713",
+          "quote": "Power reserve Approximately 70 hours",
+          "locator": "Technical details; Power reserve",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-odyzemcfsb",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-r3oceleuya",
+          "source": "source:rolex-submariner-126610ln-20260713",
+          "quote": "Stop-seconds for precise time setting",
+          "locator": "Technical details; Functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-lqzcta7atg",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-arepzb2vzi",
+          "source": "source:rolex-submariner-126610ln-20260713",
+          "quote": "Instantaneous date with rapid setting",
+          "locator": "Technical details; Functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-czfuhe34mo",
+      "predicate": "introduced",
+      "object": {
+        "value": 2015,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qig3yquyq3",
+          "source": "source:revolution-submariner-2020-20251217",
+          "quote": "Oyster Perpetual Calibre 3235 was first introduced with the 2015 DateJust Pearl Master 39",
+          "locator": "Oyster Perpetual Calibres 3230 & 3235; caption",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

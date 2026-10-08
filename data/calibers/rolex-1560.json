@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-1560",
+  "kind": "caliber",
+  "display_name": "Rolex 1560",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-uckydsoqw7",
+      "predicate": "introduced",
+      "object": {
+        "value": 1959,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bl2sv4svh3",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "First phased into select references in 1959, the caliber 1560 was a 2.5 Hz (18,000 vph), 26-jewel movement",
+          "locator": "Reference 5512 (Pointed Crown Guards)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-qqhwbia3cs",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 18000,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vekx2uxqhu",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "First phased into select references in 1959, the caliber 1560 was a 2.5 Hz (18,000 vph), 26-jewel movement",
+          "locator": "Reference 5512 (Pointed Crown Guards)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-bsqlv6fjnm",
+      "predicate": "jewels",
+      "object": {
+        "value": 26,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hqjxx5l52c",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "First phased into select references in 1959, the caliber 1560 was a 2.5 Hz (18,000 vph), 26-jewel movement",
+          "locator": "Reference 5512 (Pointed Crown Guards)",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

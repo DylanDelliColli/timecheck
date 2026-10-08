@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-5514",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 5514",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-yrvxyra4ay",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3eynauxvaf",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5514 1972-1978 5517 1972-1978 1680",
+          "locator": "Discontinued models table; 5514 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-tzneabgstz",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1972,
+          "to": 1978,
+          "from_evidence": "ev-i2by72gq66",
+          "to_evidence": "ev-i2by72gq66"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-i2by72gq66",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5514 1972-1978 5517 1972-1978 1680",
+          "locator": "Discontinued models table; 5514 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ic6vibj4gg",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-5513"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-k6tyosknaz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "In 1974, the first double-signed dials featuring the Comex logo were introduced followed by changing the reference number to 5514",
+          "locator": "COMEX; follows special version of Submariner 5513",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-hgsa2kykvu",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1520"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lbztl7busr",
+          "source": "source:phillips-comex-5514-20251219",
+          "quote": "Reference No 5514, case interior stamped 5513 Case No 5'230'275, Comex issue number 761 Model Name Submariner Material Stainless steel Calibre Automatic, cal. 1520, 26 jewels",
+          "locator": "Lot 124; Reference No and Calibre fields",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-1570",
+  "kind": "caliber",
+  "display_name": "Rolex 1570",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-rhsbhita6f",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 19800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ggizillilp",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "Based on the same architecture as the 1560, this movement upped the frequency to 2.75 Hz (19,800 vph)",
+          "locator": "Reference 5512 (Neat Font); preceding sentence names caliber 1570",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

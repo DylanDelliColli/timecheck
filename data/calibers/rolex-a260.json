@@ -4,5 +4,43 @@
   "kind": "caliber",
   "display_name": "A260 (Rolex designation)",
   "aliases": [],
-  "claims": []
+  "claims": [
+    {
+      "id": "clm-74vbobu5wx",
+      "predicate": "introduced",
+      "object": {
+        "value": 1950,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qjhn6n4yj4",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "Interestingly, the caliber 1030 that powers the 6536/1 dates back to 1950, the very same year as the A260 and A296",
+          "locator": "Reference 6536/1 (Earliest Version)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-x63i7nj2xo",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xhtbm57qvz",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "It was the most robust automatic movement Rolex had at the time, with built in shock protection",
+          "locator": "Reference 6204; sentence following Rolex caliber A260",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
 }

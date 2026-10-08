@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-126619lb-20211130",
+  "kind": "source",
+  "url": "https://www.rolex.com/watches/submariner/m126619lb-0003.html",
+  "archive_url": "https://web.archive.org/web/20211130235353id_/https://www.rolex.com/watches/submariner/m126619lb-0003.html",
+  "snapshot_sha256": "3e75653cf93a21b8a18e7d456339b7f816bb201a583897e73d69a4fcfbc57ef3",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual current-generation manufacturer model specification from legacy .html URL. Current /en-us candidates had no usable capture. Historical production/usage bounds cite the separate Wikipedia row."
+}

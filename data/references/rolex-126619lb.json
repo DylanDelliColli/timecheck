@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-126619lb",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 126619LB",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ncm5nmjmtf",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-47q6n2hqe5",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126619LB Submariner Date 41 mm White Gold Blue 3235 COSC 2020-2026",
+          "locator": "Current models table; 126619LB row",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-tyuorbvn2i",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3235"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gleqn53wim",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126619LB Submariner Date 41 mm White Gold Blue 3235 COSC 2020-2026",
+          "locator": "Current models table; 126619LB row, movement and production columns",
+          "match_mode": "exact"
+        },
+        {
+          "id": "ev-hmalltngmx",
+          "source": "source:rolex-submariner-126619lb-20211130",
+          "quote": "Calibre 3235, Manufacture Rolex",
+          "locator": "Technical details; Calibre; page Reference 126619LB (production bounds cite Wikipedia row)",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": 2020,
+        "to": 2026,
+        "from_evidence": "ev-gleqn53wim",
+        "to_evidence": "ev-gleqn53wim"
+      }
+    },
+    {
+      "id": "clm-w6iemx7ph4",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2020,
+          "to": 2026,
+          "from_evidence": "ev-7hj7pd7dnu",
+          "to_evidence": "ev-7hj7pd7dnu"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-7hj7pd7dnu",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126619LB Submariner Date 41 mm White Gold Blue 3235 COSC 2020-2026",
+          "locator": "Current models table; 126619LB row, production column",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-4rj4q7s55z",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-116619lb"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-drzh4sis2i",
+          "source": "source:hodinkee-submariner-126619lb-20201213",
+          "quote": "the previous iteration of this watch, the ref. 116619 \"Smurf,\" which the watch you see above replaces.",
+          "locator": "Hands-On: The Rolex Submariner Date Reference 126619LB; Things To Know; Smurf designation identifies 116619LB",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

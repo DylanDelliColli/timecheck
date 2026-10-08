@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-116619lb",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 116619LB",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-vakq75nytg",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-smyrmvf5kk",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "116619LB 2008 - 2020 Lunette Bleu",
+          "locator": "Discontinued models table; 116619LB row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-iqxjhmv6or",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2008,
+          "to": 2020,
+          "from_evidence": "ev-37l3u666o4",
+          "to_evidence": "ev-37l3u666o4"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-37l3u666o4",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "116619LB 2008 - 2020 Lunette Bleu",
+          "locator": "Discontinued models table; 116619LB row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-vehas6rddg",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3135"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5nbep6osqx",
+          "source": "source:rolex-submariner-116619lb-20180722",
+          "quote": "This model is equipped with calibre 3135, a self-winding mechanical movement entirely developed and manufactured by Rolex.",
+          "locator": "Model features; 3135 Movement; Specifications Reference 116619LB",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

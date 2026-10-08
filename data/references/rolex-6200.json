@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-6200",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 6200",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-unghk6kq2z",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-e6vyk2moyu",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6200 1955 6204 1953 6205 1953-1957",
+          "locator": "Discontinued models table; 6200 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-n6wthkomrn",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1955,
+          "to": 1955,
+          "from_evidence": "ev-3krylkryyz",
+          "to_evidence": "ev-3krylkryyz"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3krylkryyz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6200 1955 6204 1953 6205 1953-1957",
+          "locator": "Discontinued models table; 6200 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-fmp56hhupd",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-a296"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lns3rdyg57",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "While it's certainly not the most important thing about the ref. 6200, it's worth noting that it got a new caliber as well, the A296.",
+          "locator": "Reference 6200",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-p7hni2jcam",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1954,
+          "to": 1954,
+          "from_evidence": "ev-t5clbymyqv",
+          "to_evidence": "ev-t5clbymyqv"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-t5clbymyqv",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "In 1954, Rolex also produced a small number of ref. 6200 Submariners.",
+          "locator": "Early models; documented 1954 production occurrence; table lists 1955 separately",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

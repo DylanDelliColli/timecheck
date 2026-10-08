@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-5513-17",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 5513/17",
+  "aliases": [
+    "reference:rolex-5513-5517"
+  ],
+  "claims": [
+    {
+      "id": "clm-ofeluzsuns",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pqu5m7q6fl",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5513/17 1972-1978 5514 1972-1978",
+          "locator": "Discontinued models table; 5513/17 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-wm3y4u26es",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1972,
+          "to": 1978,
+          "from_evidence": "ev-wdcqg3ea4o",
+          "to_evidence": "ev-wdcqg3ea4o"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-wdcqg3ea4o",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5513/17 1972-1978 5514 1972-1978",
+          "locator": "Discontinued models table; 5513/17 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-xq2rjnz7pd",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1520"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rnae24tsbr",
+          "source": "source:antiquorum-milsub-353-77-20260120",
+          "quote": "Reference 5513 / 5517 under the lug Year circa 1975 Case No. 3 926 842 Material stainless steel Bracelet Nato-type strap Buckle stainless steel buckle Diameter 40 mm Caliber 1520",
+          "locator": "Lot 77; Reference and Caliber fields",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

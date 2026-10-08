@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-1530",
+  "kind": "caliber",
+  "display_name": "Rolex 1530",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-7ztcwcbeml",
+      "predicate": "introduced",
+      "object": {
+        "value": 1957,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ugeo4lgqin",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "This was a movement first introduced in 1957 and slowly implemented throughout the Rolex line-up.",
+          "locator": "Reference 5510; sentence following caliber 1530 identification",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-v7zf53bbew",
+      "predicate": "jewels",
+      "object": {
+        "value": 17,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-kogkc6dqh5",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "When first implemented it was a 17-jewel movement, though eventually 24 and 25 jewel versions were made too.",
+          "locator": "Reference 5510; caliber 1530 variants, dates unknown",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-e4xwa3stp3",
+      "predicate": "jewels",
+      "object": {
+        "value": 24,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xwtroy654c",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "When first implemented it was a 17-jewel movement, though eventually 24 and 25 jewel versions were made too.",
+          "locator": "Reference 5510; caliber 1530 variants, dates unknown",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-wcnayet3w3",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zgwpswpwyi",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "When first implemented it was a 17-jewel movement, though eventually 24 and 25 jewel versions were made too.",
+          "locator": "Reference 5510; caliber 1530 variants, dates unknown",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

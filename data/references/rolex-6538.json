@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-6538",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 6538",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-acofjxt6if",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-emxbs2ow3t",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6538 1958-1961 5508 1958-1965 5510",
+          "locator": "Discontinued models table; 6538 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-tywhhifspc",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1958,
+          "to": 1961,
+          "from_evidence": "ev-oylv6vytoz",
+          "to_evidence": "ev-oylv6vytoz"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-oylv6vytoz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6538 1958-1961 5508 1958-1965 5510",
+          "locator": "Discontinued models table; 6538 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-weelkvh2xc",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1030"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-oteppctp75",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "These watches had \"improved\" movements (the cal. 1030), including a chronometer version in some 6536 models (designated 6536/1)",
+          "locator": "Early models; paragraph naming 6536 and 6538, following sentence",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

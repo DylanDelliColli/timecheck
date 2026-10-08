@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-116610ln-20181113",
+  "kind": "source",
+  "url": "https://www.rolex.com/watches/submariner/m116610ln-0001.html",
+  "archive_url": "https://web.archive.org/web/20181113005147id_/https://www.rolex.com/watches/submariner/m116610ln-0001.html",
+  "snapshot_sha256": "8115319fe6e3949fa28e6d04b97c3619a826ab3b6564c3df2c6d18aac3f26650",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": ""
+}

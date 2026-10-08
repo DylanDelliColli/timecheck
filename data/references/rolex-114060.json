@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-114060",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 114060",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-36l2alf7m7",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-isext37drd",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "114060 2012-2020 No date 116610LN",
+          "locator": "Discontinued models table; 114060 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-abtdfhy7mm",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2012,
+          "to": 2020,
+          "from_evidence": "ev-6i7nsnjfpv",
+          "to_evidence": "ev-6i7nsnjfpv"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6i7nsnjfpv",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "114060 2012-2020 No date 116610LN",
+          "locator": "Discontinued models table; 114060 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-amdsgwpfav",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-14060m"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ij3rzdfnlw",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "At the 2012 BaselWorld watch show, an updated steel Submariner No-Date ref 114060 was introduced. It replaced the 14060M",
+          "locator": "Later models; 2012 paragraph",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ei2ci6kr3o",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3130"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-npjnh4usb7",
+          "source": "source:rolex-submariner-114060-20190303",
+          "quote": "This model is equipped with calibre 3130, a self-winding mechanical movement entirely developed and manufactured by Rolex.",
+          "locator": "Model features; 3130 Movement; Specifications Reference 114060",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

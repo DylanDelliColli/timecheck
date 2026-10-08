@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:craftandtailored-submariner-14060-20251008",
+  "kind": "source",
+  "url": "https://www.craftandtailored.com/products/ghost-1995-rolex-submariner-ref-14060-frozen-dial",
+  "archive_url": "https://web.archive.org/web/20251008202544id_/https://www.craftandtailored.com/products/ghost-1995-rolex-submariner-ref-14060-frozen-dial",
+  "snapshot_sha256": "928cf40ee9577c75d8a52f982606ec288d9382a1c0af3a784c3f602ca75c3b62",
+  "publisher": "Craft + Tailored",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Single 1995 reference 14060 specimen description, cited only for explicit predecessor; specimen year not a usage bound."
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-1030",
+  "kind": "caliber",
+  "display_name": "Rolex 1030",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-bvhayln5xp",
+      "predicate": "introduced",
+      "object": {
+        "value": 1950,
+        "unit": "year"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ruk5afxxwl",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "Interestingly, the caliber 1030 that powers the 6536/1 dates back to 1950, the very same year as the A260 and A296",
+          "locator": "Reference 6536/1 (Earliest Version)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-i54loaoxvs",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 18000,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-53n42bvaxt",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "It's a 2.5 Hz (18,000 vph) movement that measures just 5.85mm thick",
+          "locator": "Reference 6536/1; sentence after caliber 1030 identification",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-lofzi6affi",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-7bpv2ci2et",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "allowing for a caseback that sat closer to the case profile without giving up the automatic winding rotor.",
+          "locator": "Reference 6536/1; same caliber 1030 paragraph",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-w7fi2nqaza",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xg6rz4ztlu",
+          "source": "source:rolexpassionreport-a6538-20260410",
+          "quote": "The 1030 caliber, best working under any condition and most accurate movement Rolex has made...",
+          "locator": "A/6538 movement photograph caption",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

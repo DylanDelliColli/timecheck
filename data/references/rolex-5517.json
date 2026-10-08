@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-5517",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 5517",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ghf2slhldi",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-kripvwrtwr",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5517 1972-1978 1680 1966-1981",
+          "locator": "Discontinued models table; 5517 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ywvzv7u3mu",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1972,
+          "to": 1978,
+          "from_evidence": "ev-rzk7qaxc2b",
+          "to_evidence": "ev-rzk7qaxc2b"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rzk7qaxc2b",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "5517 1972-1978 1680 1966-1981",
+          "locator": "Discontinued models table; 5517 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-yohgopcfm7",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1520"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-tketi3wd5v",
+          "source": "source:bobswatches-milsub-5517-20260119",
+          "quote": "Movement: Rolex Caliber 1520",
+          "locator": "Rolex MilSub 5517 Key Features; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

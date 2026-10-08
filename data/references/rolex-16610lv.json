@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-16610lv",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 16610LV",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-afmcwpyezu",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-shzagbqjdw",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16610LV 2003-2010 50th anniversary",
+          "locator": "Discontinued models table; 16610LV row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-n2sud6fjxo",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2003,
+          "to": 2010,
+          "from_evidence": "ev-wvemxzjc5x",
+          "to_evidence": "ev-wvemxzjc5x"
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-wvemxzjc5x",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16610LV 2003-2010 50th anniversary",
+          "locator": "Discontinued models table; 16610LV row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-v4xm2hm2rf",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3135"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-cazmpy4whw",
+          "source": "source:greyandpatina-submariner-16610lv-20260616",
+          "quote": "Movement: Caliber 3135, automatic, with Rolex's Parachrom hairspring",
+          "locator": "Key Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

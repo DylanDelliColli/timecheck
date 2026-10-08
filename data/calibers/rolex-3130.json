@@ -26,6 +26,116 @@
         "by": "codex:gpt-6.1-sol:pr2 / chief",
         "at": "2026-10-08T23:16:50Z"
       }
+    },
+    {
+      "id": "clm-n3xsehfeyg",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6ulfviugic",
+          "source": "source:rolex-submariner-114060-20190303",
+          "quote": "Calibre 3130, Manufacture Rolex",
+          "locator": "Technical details; Calibre",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-vlpuawcgz4",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ocszgmfndi",
+          "source": "source:rolex-submariner-114060-20190303",
+          "quote": "Bidirectional self-winding via Perpetual rotor",
+          "locator": "Technical details; Winding",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-at2qy7ukt7",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-65rumvsdkt",
+          "source": "source:rolex-submariner-114060-20190303",
+          "quote": "Stop-seconds for precise time setting",
+          "locator": "Technical details; Functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-kgiquwv4lo",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 48,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gkczdfi46u",
+          "source": "source:rolex-submariner-114060-20190303",
+          "quote": "Power reserve Approximately 48 hours",
+          "locator": "Technical details; Power reserve",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-st25hxgjpi",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ukq43cm7pw",
+          "source": "source:revolution-submariner-2020-20251217",
+          "quote": "the 3135 and 3130 calibres, featuring the Parachrom hairspring. Like all 31-series movements, they beat at 4Hz, or 28,800vph",
+          "locator": "Oyster Perpetual Calibres 3230 & 3235; first paragraph",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-z6k36c5h6y",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "none"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5s7xoa4h7x",
+          "source": "source:revolution-submariner-2020-20251217",
+          "quote": "The movements that have powered the Submariner including the 1575, 3035, 3135, with Date, and the 3000, 3130, without Date",
+          "locator": "Oyster Perpetual Calibres 3230 & 3235; explicit without Date statement",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }
