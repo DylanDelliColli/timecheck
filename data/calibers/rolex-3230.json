@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-3230",
+  "kind": "caliber",
+  "display_name": "Rolex 3230",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-dlyfaniazj",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zfdyoluud3",
+          "source": "source:rolex-submariner-124060-20260516",
+          "quote": "Calibre 3230, Manufacture Rolex",
+          "locator": "technical details; Calibre",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-zpep6dxrfj",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pyp765g234",
+          "source": "source:rolex-submariner-124060-20260516",
+          "quote": "Bidirectional self-winding via Perpetual rotor",
+          "locator": "technical details; Winding",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-3k7afrjtm2",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 70,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-wivys5f4uc",
+          "source": "source:rolex-submariner-124060-20260516",
+          "quote": "Power reserve Approximately 70 hours",
+          "locator": "technical details; Power reserve",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-zf4swz6khr",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gkrw3qwkk5",
+          "source": "source:rolex-submariner-124060-20260516",
+          "quote": "Stop-seconds for precise time setting",
+          "locator": "technical details; Functions",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

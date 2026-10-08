@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-srpb41j1",
+  "kind": "reference",
+  "display_name": "Seiko Presage SRPB41J1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-7c5gfcb52b",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-presage"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4u2hut2cxy",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Presage SRPB41J1 Men's",
+          "locator": "product heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-6gnbc5jd5g",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-4r35"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-roiik57744",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Caliber Number 4R35 Movement Type Automatic with manual winding",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:eta-2824-2-standard",
+  "kind": "caliber",
+  "display_name": "ETA 2824-2 Standard",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ywnmj242od",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-547pgqjyc5",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "The 2824 is an automatic winding, twenty-five jewel movement, available in four executions or grades: Standard, Elaborated (improved), Top and Chronometer.",
+          "locator": "ETA 2824-2 section; grades paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-xzj2f4upr2",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Standard"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-m5m3wso2no",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "The 2824 is an automatic winding, twenty-five jewel movement, available in four executions or grades: Standard, Elaborated (improved), Top and Chronometer.",
+          "locator": "ETA 2824-2 section; grades paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

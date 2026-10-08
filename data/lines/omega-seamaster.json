@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:omega-seamaster",
+  "kind": "line",
+  "display_name": "OMEGA Seamaster",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-xvbxhsnmxj",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:omega"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lrdxnh3tpq",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Seamaster Omega 1962 ST 166.0002",
+          "locator": "vintage model heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

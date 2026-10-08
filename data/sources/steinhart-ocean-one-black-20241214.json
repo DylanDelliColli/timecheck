@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:steinhart-ocean-one-black-20241214",
+  "kind": "source",
+  "url": "https://www.steinhartwatches.de/en/ocean-one-black.html",
+  "publisher": "Steinhart Watches",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241214001257id_/https://www.steinhartwatches.de/en/ocean-one-black.html",
+  "snapshot_sha256": "622f3c22c5ad38a60d2d8269bd8e48a0d05514f0dfde40d7d31db39d8104c33d",
+  "retrieved_at": "2026-10-08",
+  "notes": "The manufacturer lists ETA 2824-2/SW 200, élaboré alternatives. Both uses_caliber claims preserve that uncertainty with unknown year bounds; neither asserts that every specimen uses that movement."
+}

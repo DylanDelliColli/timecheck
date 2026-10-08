@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-6204",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 6204",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ggmxarxzqw",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jlrwd53co4",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "Rolex Submariner ref. 6204 from 1953",
+          "locator": "Early models; image caption",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-aafbnvwojo",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-a260"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-y6mj3oe35i",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "Both the 6204 and 6205 were fitted with the A260 movement",
+          "locator": "Early models; second paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

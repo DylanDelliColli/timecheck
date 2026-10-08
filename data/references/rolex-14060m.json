@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-14060m",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 14060M",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-xhcoj26r6g",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-a2eil4pdq7",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "Guide to the Rolex Submariner 14060 and 14060M",
+          "locator": "article title",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-5ifemeqfw3",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3130"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-cgucbbarvz",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "The 14060M (caliber 3130) replaced the 14060 (caliber 3000) in 1999.",
+          "locator": "What’s the Difference Between a Rolex Submariner 14060 and 14060M?",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-3yra2uf56x",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-14060"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hhjenaypha",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "The 14060M (caliber 3130) replaced the 14060 (caliber 3000) in 1999.",
+          "locator": "What’s the Difference Between a Rolex Submariner 14060 and 14060M?",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-k6pmuqpp5o",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1999,
+          "to": 2012,
+          "from_evidence": "ev-ft4waj2k3i",
+          "to_evidence": "ev-ft4waj2k3i"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ft4waj2k3i",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "Years Produced 1990–1999 1999–2012 Movement Caliber Rolex Caliber 3000 Rolex Caliber 3130",
+          "locator": "specification table; 14060M right column",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-n5xu4hmzu6",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2002,
+          "to": 2012,
+          "from_evidence": "ev-gnpjpy5o5b",
+          "to_evidence": "ev-gnpjpy5o5b"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gnpjpy5o5b",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "14060M 2002–2012 Certified chronometer 2007–2012",
+          "locator": "Discontinued models reference table; 14060M row",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

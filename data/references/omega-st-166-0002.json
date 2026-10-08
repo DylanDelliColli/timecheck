@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0002",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster ST 166.0002",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-kix72uoreo",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-77mc2dk5yj",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Seamaster Omega 1962 ST 166.0002",
+          "locator": "vintage model heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-gi5xon4oe5",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-562"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vhxgggl2g4",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Caliber number 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-bwrqjhmp6j",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-565"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-o4v7mxjm6o",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Caliber number 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

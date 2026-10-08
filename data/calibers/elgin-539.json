@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "caliber:elgin-539",
+  "kind": "caliber",
+  "display_name": "Elgin 539",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ha7amhj52a",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:elgin"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mffvthkvmk",
+          "source": "source:war-department-tm9-1575-1945",
+          "quote": "The Elgin wrist watch, model 1783, grade 539, is equipped with a waterproof case with a screw-type back and a sweep second hand. The movement is 16-jewel.",
+          "locator": "printed page 153 (PDF page 158), paragraph 60a",
+          "match_mode": "manual"
+        }
+      ]
+    },
+    {
+      "id": "clm-mauktwes2k",
+      "predicate": "jewels",
+      "object": {
+        "value": 16,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-uqtc7sub7z",
+          "source": "source:war-department-tm9-1575-1945",
+          "quote": "The Elgin wrist watch, model 1783, grade 539, is equipped with a waterproof case with a screw-type back and a sweep second hand. The movement is 16-jewel.",
+          "locator": "printed page 153 (PDF page 158), paragraph 60a",
+          "match_mode": "manual"
+        }
+      ]
+    }
+  ]
+}

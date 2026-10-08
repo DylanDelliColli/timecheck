@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-565",
+  "kind": "caliber",
+  "display_name": "OMEGA 565",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-zm2mzplgjs",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-if3ixhi6zx",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Movement type Automatic (mechanical) Caliber number 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

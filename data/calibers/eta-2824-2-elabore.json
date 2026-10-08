@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "caliber:eta-2824-2-elabore",
+  "kind": "caliber",
+  "display_name": "ETA 2824-2 élaboré",
+  "aliases": [
+    "caliber:eta-2824-2-elaborated"
+  ],
+  "claims": [
+    {
+      "id": "clm-pce2esmtlc",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-nlmeuwo7aj",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; alternative calibers and grade",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    },
+    {
+      "id": "clm-7bocc3ct3z",
+      "predicate": "grade_name",
+      "object": {
+        "value": "élaboré"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bhvazgtmfs",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; alternative calibers and grade",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}

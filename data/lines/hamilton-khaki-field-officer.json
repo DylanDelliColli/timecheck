@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:hamilton-khaki-field-officer",
+  "kind": "line",
+  "display_name": "Hamilton Khaki Field Officer",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-wzl4sa26tn",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:hamilton"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zttak4k6qw",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "Hamilton Khaki Field Officer H70615133 with Swiss ETA 2824-2 movement",
+          "locator": "ETA 2824-2 section; image caption",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr2 / chief",
+        "at": "2026-10-08T23:16:50Z"
+      }
+    }
+  ]
+}
