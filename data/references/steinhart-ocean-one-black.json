@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "reference:steinhart-ocean-one-black",
+  "kind": "reference",
+  "display_name": "Steinhart Ocean One BLACK",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-t4d6ctjrgj",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:steinhart-ocean-one"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4f3up7ey2w",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "STEINHART Ocean One BLACK | Diver Watch",
+          "locator": "page title",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-f772crqeci",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:eta-2824-2-elabore"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hpyoktv6ef",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; ETA/SW200 alternatives, not specimen-specific",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-waevyp6igk",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200-elabore"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zgrpu52k4f",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; ETA/SW200 alternatives, not specimen-specific",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:steinhart-ocean-one",
+  "kind": "line",
+  "display_name": "Steinhart Ocean One",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-yjlltnox7w",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:steinhart"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-fbe3olfzb5",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "STEINHART Ocean One BLACK | Diver Watch",
+          "locator": "page title",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

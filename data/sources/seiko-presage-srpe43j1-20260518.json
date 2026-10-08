@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-srpe43j1-20260518",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/us-en/products/presage/srpe43j1",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260518210812id_/https://www.seikowatches.com/us-en/products/presage/srpe43j1",
+  "snapshot_sha256": "c350a4e2686aafc628ac8bc638ca1e66dee6d8ab0238564f5eefb834d3d043cb",
+  "retrieved_at": "2026-10-08",
+  "notes": ""
+}

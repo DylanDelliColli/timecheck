@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-3130",
+  "kind": "caliber",
+  "display_name": "Rolex 3130",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-oaoz3x6stl",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-brhsdfmcyc",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "Movement Caliber Rolex Caliber 3000 Rolex Caliber 3130",
+          "locator": "specification table; Movement Caliber row",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

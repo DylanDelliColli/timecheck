@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:elgin-a-11",
+  "kind": "reference",
+  "display_name": "Elgin A-11",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-bpgsi66cc5",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:usaaf-a-11"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-woyocnn46i",
+          "source": "source:war-department-tm9-1575-1945",
+          "quote": "The 16-jewel (Hack) type A 11, differs from the standard Elgin wrist watch in that it is equipped with a waterproof case, a sweep second hand, and a black dial.",
+          "locator": "printed page 141 (PDF page 146), section VI, paragraph 58a",
+          "match_mode": "manual"
+        }
+      ]
+    },
+    {
+      "id": "clm-6rsds5usl7",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:elgin-539"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lqzyfb7fie",
+          "source": "source:wornandwound-a11-20251122",
+          "quote": "All watches were also required to feature hacking (second hand stops completely upon pulling out the crown) for ease of synchronization and precise timing, and movements tended to be of high grade and quality, such as the Elgin 539 and the Bulova caliber 10AK CSH",
+          "locator": "paragraph on A-11 movements; Elgin 539 example",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

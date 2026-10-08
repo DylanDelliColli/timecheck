@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:luxurybazaar-submariner-20260623",
+  "kind": "source",
+  "url": "https://www.luxurybazaar.com/grey-market/rolex-submariner-14060-14060m/",
+  "publisher": "Luxury Bazaar",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260623093206id_/https://www.luxurybazaar.com/grey-market/rolex-submariner-14060-14060m/",
+  "snapshot_sha256": "3edfc59d9d2b0251cc407957038d60b2ae1959e18861b6adbb1e6143edd61770",
+  "retrieved_at": "2026-10-08",
+  "notes": ""
+}

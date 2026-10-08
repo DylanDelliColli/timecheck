@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:wornandwound-a11-20251122",
+  "kind": "source",
+  "url": "https://wornandwound.com/military-watches-world-11-watch-won-war/",
+  "publisher": "Worn & Wound",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20251122194317id_/https://wornandwound.com/military-watches-world-11-watch-won-war/",
+  "snapshot_sha256": "bb6bd54e5e8de08fc976be019bbcd5a98ce125779ab6d315aadebf15e3d52f01",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual facts cited from a historical editorial article; no catalogue extraction."
+}

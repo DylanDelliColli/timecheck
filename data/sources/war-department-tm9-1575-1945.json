@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:war-department-tm9-1575-1945",
+  "kind": "source",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/TM_9-1575_Ordnance_Maintenance-_Wrist_Watches,_Pocket_Watches,_Stop_Watches,_and_Clocks,_1945_(IA_TM9-1575).pdf",
+  "publisher": "United States War Department",
+  "trust_tier": "primary",
+  "reuse_class": "open",
+  "licence": "public domain (US federal government work)",
+  "content_type": "image_scan",
+  "archive_url": "https://web.archive.org/web/20261008221339id_/https://upload.wikimedia.org/wikipedia/commons/6/6d/TM_9-1575_Ordnance_Maintenance-_Wrist_Watches,_Pocket_Watches,_Stop_Watches,_and_Clocks,_1945_(IA_TM9-1575).pdf",
+  "snapshot_sha256": "ebd930a53df32524a39c41de7a1c866da538374024cbc18c1c9b0a036df242fb",
+  "retrieved_at": "2026-10-08",
+  "notes": "Scanned government manual, 6 April 1945, digitized by US Army Heritage Collections; Commons file metadata attributes the War Department and marks the work public domain. New capture requested by the pilot. Quotations visually transcribed from scans, not copied from OCR; PDF page numbers include front matter. All scan evidence stays manual/proposed for human attestation."
+}

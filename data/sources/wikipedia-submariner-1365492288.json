@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:wikipedia-submariner-1365492288",
+  "kind": "source",
+  "url": "https://en.wikipedia.org/w/index.php?title=Rolex_Submariner&oldid=1365492288",
+  "publisher": "Wikipedia contributors",
+  "trust_tier": "secondary",
+  "reuse_class": "open",
+  "licence": "CC BY-SA 4.0",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260723125937id_/https://en.wikipedia.org/wiki/Rolex_Submariner",
+  "snapshot_sha256": "47d4f9a43f6b60069ff979d28e3972e0424f823fd7a53381031300fb5149aed4",
+  "retrieved_at": "2026-10-08",
+  "notes": "Raw archived article footer identifies revision 1365492288; url is the permanent link to that same revision. Hash is of gzip-encoded response bytes; decompress only for extraction."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:wikipedia-eta-sa-1359500316",
+  "kind": "source",
+  "url": "https://en.wikipedia.org/w/index.php?title=ETA_SA&oldid=1359500316",
+  "publisher": "Wikipedia contributors",
+  "trust_tier": "secondary",
+  "reuse_class": "open",
+  "licence": "CC BY-SA 4.0",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20261005203221id_/https://en.wikipedia.org/wiki/ETA_SA",
+  "snapshot_sha256": "55aec7541a34f887b02cda970b88522db74fa55198ca06c6bb7da96e293595f6",
+  "retrieved_at": "2026-10-08",
+  "notes": "Raw archived article footer identifies revision 1359500316; url is the permanent link to that same revision. Quotes are at most 200 normalized characters."
+}

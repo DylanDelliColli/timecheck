@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-elabore",
+  "kind": "caliber",
+  "display_name": "Sellita SW200 élaboré",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-zhuwitngym",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mwbf7vvshe",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; alternative calibers and grade",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-eha25imhom",
+      "predicate": "grade_name",
+      "object": {
+        "value": "élaboré"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jwf3aeddpr",
+          "source": "source:steinhart-ocean-one-black-20241214",
+          "quote": "Movement ETA 2824-2/SW 200, élaboré Swiss Made automatic 25/26 Jewels second stop",
+          "locator": "Movement panel; alternative calibers and grade",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

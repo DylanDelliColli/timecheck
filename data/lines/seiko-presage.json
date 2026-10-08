@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:seiko-presage",
+  "kind": "line",
+  "display_name": "Seiko Presage",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-2qolfsxncy",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:seiko"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-br37j5fvxc",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "SRPB41J1 | Seiko Watch Corporation Collections King Seiko Prospex Presage",
+          "locator": "page title and Collections navigation; Presage",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-562",
+  "kind": "caliber",
+  "display_name": "OMEGA 562",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-eylx422ucs",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rfyxb45k2q",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "Movement type Automatic (mechanical) Caliber number 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:rolex-submariner",
+  "kind": "line",
+  "display_name": "Rolex Submariner",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-yjkb2uu52h",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:rolex"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ouvooh2r43",
+          "source": "source:luxurybazaar-submariner-20260623",
+          "quote": "Guide to the Rolex Submariner 14060 and 14060M",
+          "locator": "article title",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

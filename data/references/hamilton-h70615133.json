@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:hamilton-h70615133",
+  "kind": "reference",
+  "display_name": "Hamilton Khaki Field Officer H70615133",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-67ctd4fqlt",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:hamilton-khaki-field-officer"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qt5lqqogba",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "Hamilton Khaki Field Officer H70615133 with Swiss ETA 2824-2 movement",
+          "locator": "ETA 2824-2 section; image caption",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-f7riu2viau",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yrgbxwvtr7",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "Hamilton Khaki Field Officer H70615133 with Swiss ETA 2824-2 movement",
+          "locator": "ETA 2824-2 section; image caption",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

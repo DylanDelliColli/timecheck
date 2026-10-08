@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-srpb41j1-20260518",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/us-en/products/presage/srpb41j1",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260518210242id_/https://www.seikowatches.com/us-en/products/presage/srpb41j1",
+  "snapshot_sha256": "5afd860ea53b415285910c94e07f389fa79a335747d5a79bcf6b56fb6341c837",
+  "retrieved_at": "2026-10-08",
+  "notes": ""
+}

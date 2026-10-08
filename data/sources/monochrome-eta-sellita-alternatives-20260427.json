@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:monochrome-eta-sellita-alternatives-20260427",
+  "kind": "source",
+  "url": "https://monochrome-watches.com/alternatives-to-off-the-shelf-swiss-eta-and-sellita-movements-with-seagull-seiko-and-miyota/",
+  "publisher": "Monochrome Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260427134738id_/https://monochrome-watches.com/alternatives-to-off-the-shelf-swiss-eta-and-sellita-movements-with-seagull-seiko-and-miyota/",
+  "snapshot_sha256": "d97fa346a50290df4c4c5c95c902f89af1129061f87d2a247676cfccc98e0d5a",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual clone/maker claim from an editorial article; no catalogue extraction. The text names SW200, not SW200-1; identities are not conflated."
+}

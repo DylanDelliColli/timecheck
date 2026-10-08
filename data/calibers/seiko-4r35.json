@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "id": "caliber:seiko-4r35",
+  "kind": "caliber",
+  "display_name": "Seiko 4R35",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-73mx3fctef",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zh34fszsme",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Movement Type Automatic with manual winding",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-4jzd7h2dxw",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 41,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ic32b3r6yy",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Power reserve Approx. 41 hours",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-4fbepylcgd",
+      "predicate": "jewels",
+      "object": {
+        "value": 23,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bdrbj4ha5k",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Jewels 23 Functions Stop second hand function",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-6kpdl6bogt",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ll6tpkixnl",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Functions Stop second hand function Date display",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-amcmvzdd4y",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5ekvqrcgfp",
+          "source": "source:seiko-presage-srpb41j1-20260518",
+          "quote": "Functions Stop second hand function Date display",
+          "locator": "Specifications; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}
