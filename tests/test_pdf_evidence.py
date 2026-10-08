@@ -190,3 +190,88 @@ def test_embedded_cff_numeric_text_and_real_build(tmp_path, caplog):
     assert 'fontTools is required' not in caplog.text
     with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
         assert db.execute('SELECT quote FROM v_evidence_all').fetchone()[0] == expected
+
+
+def remapped_cff_pdf(differences=None, *, cff_digit_conflict=False, form=False):
+    """Reserialize the review's AB->52 explicit-encoding reproduction."""
+    from pypdf import PdfReader
+    from pypdf.generic import ArrayObject, NumberObject
+    reader = PdfReader(BytesIO(embedded_cff_pdf()))
+    font = reader.pages[0]['/Resources']['/Font']['/F2'].get_object()
+    if differences is not None:
+        font[NameObject('/Encoding')] = DictionaryObject({
+            NameObject('/BaseEncoding'): NameObject('/StandardEncoding'),
+            NameObject('/Differences'): ArrayObject([
+                NumberObject(x) if isinstance(x, int) else NameObject(x) for x in differences])})
+    if cff_digit_conflict:
+        from fontTools.cffLib import CFFFontSet
+        stream = font['/FontDescriptor']['/FontFile3']
+        cff = CFFFontSet(); cff.decompile(BytesIO(stream.get_data()), None)
+        cff.topDictIndex[0].Encoding[66] = '.notdef'
+        cff.topDictIndex[0].Encoding[50] = 'five'
+        from types import SimpleNamespace
+        raw = BytesIO(); cff.compile(raw, SimpleNamespace(recalcBBoxes=False))
+        stream.set_data(raw.getvalue())
+    if form:
+        page = reader.pages[0]
+        fonts = page['/Resources']['/Font']
+        nested = DecodedStreamObject()
+        nested.set_data(b'BT /F2 12 Tf 36 720 Td (AB) Tj ET')
+        nested[NameObject('/Subtype')] = NameObject('/Form')
+        nested[NameObject('/BBox')] = ArrayObject([NumberObject(x) for x in (0, 0, 612, 792)])
+        nested[NameObject('/Resources')] = DictionaryObject({NameObject('/Font'): DictionaryObject({
+            NameObject('/F2'): fonts.raw_get('/F2')})})
+        page['/Resources'][NameObject('/XObject')] = DictionaryObject({NameObject('/Nested'): nested})
+        del fonts['/F2']
+        page['/Contents'].set_data(b'/Nested Do')
+    writer = PdfWriter(); writer.append(reader)
+    raw = BytesIO(); writer.write(raw)
+    return raw.getvalue()
+
+
+@pytest.mark.parametrize('has_fonttools', [True, False])
+@pytest.mark.parametrize('differences', [
+    [65, '/five', '/two'], [65, '/uni0035', '/uni0032'],
+    [65, '/u0035', '/u0032'], [65, '/five.alt', '/two.alt'],
+])
+def test_pdf_digit_remap_is_unreliable_independent_of_pypdf_fonttools_flag(monkeypatch, has_fonttools, differences):
+    from pypdf import _font
+    monkeypatch.setattr(_font, 'HAS_FONTTOOLS', has_fonttools)
+    with pytest.raises(ValueError, match='SyntheticCFF'):
+        extract(remapped_cff_pdf(differences), 'pdf_text')
+
+
+@pytest.mark.parametrize('quote', [
+    'Synthetic CFF caliber has 25 jewels documented.',
+    'Synthetic CFF caliber has 52 jewels documented.',
+])
+@pytest.mark.parametrize('mode', ['exact', 'fuzzy'])
+def test_real_build_never_verifies_ambiguous_cff_digits(tmp_path, quote, mode):
+    raw = remapped_cff_pdf([65, '/five', '/two'])
+    data, snaps = dataset(tmp_path, mode, quote)
+    sha = hashlib.sha256(raw).hexdigest()
+    (snaps / (sha + '.bin')).write_bytes(raw)
+    path = data / 'sources/synthetic.json'
+    doc = json.loads(path.read_text()); doc['snapshot_sha256'] = sha
+    path.write_text(json.dumps(doc))
+    code, report = build(data_dir=data, snapshot_dir=snaps, strict=True,
+                         out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+    assert code == 2
+    assert report['errors_by_class'] == {'unsupported_content_type': 1}
+    assert 'SyntheticCFF' in report['errors'][0]['message']
+    assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'error'
+    assert not (tmp_path / 'graph.sqlite').exists()
+
+
+def test_explicit_encoding_conflict_at_digit_code_is_unreliable():
+    with pytest.raises(ValueError, match='SyntheticCFF'):
+        extract(remapped_cff_pdf(cff_digit_conflict=True), 'pdf_text')
+
+
+def test_nested_form_digit_remap_is_unreliable():
+    with pytest.raises(ValueError, match='SyntheticCFF'):
+        extract(remapped_cff_pdf([65, '/five', '/two'], form=True), 'pdf_text')
+
+
+def test_correct_explicit_digit_encoding_remains_supported():
+    assert extract(remapped_cff_pdf([50, '/two', 53, '/five']), 'pdf_text') == 'Synthetic CFF caliber has 25 jewels documented.'

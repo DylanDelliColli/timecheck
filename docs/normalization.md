@@ -46,3 +46,19 @@ caliber-number digits, must match exactly and in order. Windows cannot clip a
 numeric token to hide a differing digit. HTML/text retain exact matching only.
 Synthetic PDF extraction and matching golden tests are generated in
 `tests/test_pdf_evidence.py`; no real source PDF bytes are committed.
+
+Before extracting PDF page text, inspect its font resources and nested Form
+XObject font resources. Reject an `/Encoding /Differences` entry assigning a
+glyph that resolves to a digit to any code other than that digit's ASCII code.
+Glyph resolution includes Adobe names, `uni`/`u` Unicode names and name suffixes.
+Also reject an embedded CFF Type1 font when its explicit encoding and CFF-derived
+mapping disagree at an ASCII digit code (48–57). These checks run independently
+of pypdf's optional fonttools detection flag. Errors use
+`unsupported_content_type` and name the font resource and font name. A refused
+page makes the whole PDF unavailable for automatic matching; unreliable pages
+are never silently omitted. Correct digit encodings and ordinary embedded CFF
+fonts remain supported; there is no OCR fallback.
+
+Existing supported extraction outputs are unchanged (`extractor_version: 3`).
+The new validation guard has `pdf_digit_guard_version: 1`, bound into review
+fingerprints so reports produced before this guard require a fresh build.

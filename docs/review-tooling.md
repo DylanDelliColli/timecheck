@@ -63,5 +63,7 @@ ratio (`1 - distance / max(lengths)`) at least 0.90 on contiguous normalized win
 of the normalized quote length. Numeric tokens, including years, decimals and
 numbers embedded in caliber designations, must match exactly and in order;
 window boundaries cannot truncate a number. Fuzzy mode is rejected for other
-content types. Empty, encrypted or unreadable PDFs return the existing
-`unsupported_content_type` error. There is no OCR; scans remain manual.
+content types. Empty, encrypted, unreadable or conflicting digit-encoding PDFs return the
+existing `unsupported_content_type` error. The digit guard checks page and nested
+form fonts before extraction, names an unsafe font, and refuses the PDF rather
+than silently excluding a page; see `docs/normalization.md`. There is no OCR; scans remain manual.
