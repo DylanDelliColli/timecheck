@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:example",
+  "kind": "line",
+  "display_name": "Example line",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaae",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaae",
+          "source": "source:example",
+          "quote": "The Example line belongs to Example Brand.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

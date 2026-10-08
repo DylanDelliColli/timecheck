@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "reference:alpha",
+  "kind": "reference",
+  "display_name": "Alpha",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaai",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaai",
+          "source": "source:example",
+          "quote": "Reference Alpha belongs to the Example line",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaaam",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:one"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaam",
+          "source": "source:example",
+          "quote": "Reference Alpha belongs to the Example line and uses caliber One.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      },
+      "valid_years": {
+        "from": 2000,
+        "to": 2005,
+        "from_evidence": "ev-aaaaaaaaam",
+        "to_evidence": "ev-aaaaaaaaam"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaaaq",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2000,
+          "to": 2005,
+          "from_evidence": "ev-aaaaaaaaaq",
+          "to_evidence": "ev-aaaaaaaaaq"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaaq",
+          "source": "source:example",
+          "quote": "Alpha was produced from 2000 to 2005.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

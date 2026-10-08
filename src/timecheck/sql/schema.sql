@@ -1,0 +1,14 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE brand (id TEXT PRIMARY KEY, kind TEXT NOT NULL, display_name TEXT NOT NULL, aliases TEXT NOT NULL);
+CREATE TABLE line (id TEXT PRIMARY KEY, kind TEXT NOT NULL, display_name TEXT NOT NULL, aliases TEXT NOT NULL);
+CREATE TABLE reference (id TEXT PRIMARY KEY, kind TEXT NOT NULL, display_name TEXT NOT NULL, aliases TEXT NOT NULL);
+CREATE TABLE caliber (id TEXT PRIMARY KEY, kind TEXT NOT NULL, display_name TEXT NOT NULL, aliases TEXT NOT NULL);
+CREATE TABLE source (id TEXT PRIMARY KEY, kind TEXT NOT NULL, url TEXT NOT NULL, publisher TEXT NOT NULL, trust_tier TEXT NOT NULL, reuse_class TEXT NOT NULL, licence TEXT NOT NULL, content_type TEXT NOT NULL, archive_url TEXT NOT NULL, snapshot_sha256 TEXT NOT NULL, retrieved_at TEXT NOT NULL, notes TEXT NOT NULL);
+CREATE TABLE claim (id TEXT PRIMARY KEY, subject_id TEXT NOT NULL, predicate TEXT NOT NULL, status TEXT NOT NULL, disputed INTEGER NOT NULL, contested INTEGER NOT NULL, has_primary INTEGER NOT NULL);
+CREATE TABLE claim_object (claim_id TEXT PRIMARY KEY REFERENCES claim(id), entity_id TEXT, value TEXT, unit TEXT, object_json TEXT NOT NULL);
+CREATE TABLE claim_years (claim_id TEXT PRIMARY KEY REFERENCES claim(id), year_from INTEGER, year_to INTEGER, year_to_kind TEXT NOT NULL, year_from_sort INTEGER NOT NULL, from_evidence TEXT, to_evidence TEXT);
+CREATE TABLE claim_review (claim_id TEXT PRIMARY KEY REFERENCES claim(id), reviewer TEXT NOT NULL, reviewed_at TEXT NOT NULL);
+CREATE TABLE evidence (id TEXT PRIMARY KEY, claim_id TEXT NOT NULL REFERENCES claim(id), source_id TEXT NOT NULL REFERENCES source(id), quote TEXT NOT NULL, locator TEXT NOT NULL, match_mode TEXT NOT NULL);
+CREATE INDEX claim_subject_predicate ON claim(subject_id, predicate);
+CREATE INDEX claim_object_entity ON claim_object(entity_id);
+CREATE INDEX evidence_claim ON evidence(claim_id);

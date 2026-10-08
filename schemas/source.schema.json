@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^source:[a-z0-9-]{1,64}$"
+    },
+    "kind": {
+      "const": "source"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https?://"
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trust_tier": {
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    },
+    "reuse_class": {
+      "enum": [
+        "open",
+        "cite_only"
+      ]
+    },
+    "licence": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_type": {
+      "enum": [
+        "html",
+        "text",
+        "pdf_text",
+        "image_scan"
+      ]
+    },
+    "archive_url": {
+      "type": "string",
+      "pattern": "^https://web\\.archive\\.org/web/[0-9]{14}id_/https?://.+"
+    },
+    "snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "kind",
+    "url",
+    "publisher",
+    "trust_tier",
+    "reuse_class",
+    "licence",
+    "content_type",
+    "archive_url",
+    "snapshot_sha256",
+    "retrieved_at"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://timecheck.example/schemas/v1/source.schema.json"
+}

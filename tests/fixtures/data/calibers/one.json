@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "id": "caliber:one",
+  "kind": "caliber",
+  "display_name": "One",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaabi",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaabi",
+          "source": "source:example",
+          "quote": "Caliber One is made by Example Brand",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaabm",
+      "predicate": "offers_grades",
+      "object": {
+        "value": false
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaabm",
+          "source": "source:example",
+          "quote": "Caliber One is made by Example Brand and offers no grades.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaabq",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaabq",
+          "source": "source:example",
+          "quote": "Caliber One has automatic winding",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaabu",
+      "predicate": "jewels",
+      "object": {
+        "value": 21,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaabu",
+          "source": "source:example",
+          "quote": "Caliber One has automatic winding, 21 jewels and 40 hours of power reserve.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaaby",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 40,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaby",
+          "source": "source:example",
+          "quote": "Caliber One has automatic winding, 21 jewels and 40 hours of power reserve.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaab4",
+      "predicate": "hacking",
+      "object": {
+        "value": false
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaab4",
+          "source": "source:example",
+          "quote": "Caliber One does not have hacking; caliber Two Top has hacking.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

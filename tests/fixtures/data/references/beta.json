@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "id": "reference:beta",
+  "kind": "reference",
+  "display_name": "Beta",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaau",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaau",
+          "source": "source:example",
+          "quote": "Reference Beta belongs to the Example line",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaaay",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:two-top"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaay",
+          "source": "source:example",
+          "quote": "Reference Beta belongs to the Example line and uses caliber Two Top.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      },
+      "valid_years": {
+        "from": 2006,
+        "to": "present",
+        "from_evidence": "ev-aaaaaaaaay",
+        "to_evidence": "ev-aaaaaaaaay"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaaa4",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:alpha"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaa4",
+          "source": "source:example",
+          "quote": "Beta succeeds Alpha within the Example line.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "reference:gamma",
+  "kind": "reference",
+  "display_name": "Gamma",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aaaaaaaaba",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:example"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaaba",
+          "source": "source:example",
+          "quote": "Reference Gamma belongs to the Example line",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    },
+    {
+      "id": "clm-aaaaaaaabe",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1998,
+          "to": 1999,
+          "from_evidence": "ev-aaaaaaaabe",
+          "to_evidence": "ev-aaaaaaaabe"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aaaaaaaabe",
+          "source": "source:example",
+          "quote": "Gamma was produced from 1998 to 1999.",
+          "locator": "fixture paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "fixture-reviewer",
+        "at": "2026-10-08T20:00:00Z"
+      }
+    }
+  ]
+}

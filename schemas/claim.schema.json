@@ -1,0 +1,840 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^clm-[a-z2-7]{10}$"
+    },
+    "predicate": {
+      "enum": [
+        "owned_by",
+        "in_line",
+        "uses_caliber",
+        "produced",
+        "succeeds",
+        "made_by",
+        "offers_grades",
+        "grade_name",
+        "derived_from",
+        "clone_of",
+        "grade_of",
+        "winding",
+        "beat_rate",
+        "jewels",
+        "power_reserve",
+        "hacking",
+        "date_mechanism",
+        "introduced",
+        "discontinued"
+      ]
+    },
+    "object": {
+      "type": "object"
+    },
+    "valid_years": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "to": {
+          "anyOf": [
+            {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            {
+              "const": "present"
+            }
+          ]
+        },
+        "from_evidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ev-[a-z2-7]{10}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "to_evidence": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^ev-[a-z2-7]{10}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "from_evidence",
+        "to_evidence"
+      ],
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "verified"
+      ]
+    },
+    "contested": {
+      "type": "boolean"
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "by",
+        "at"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ev-[a-z2-7]{10}$"
+          },
+          "source": {
+            "type": "string",
+            "pattern": "^source:[a-z0-9-]{1,64}$"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 20
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "match_mode": {
+            "enum": [
+              "exact",
+              "manual"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "quote",
+          "locator",
+          "match_mode"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "predicate",
+    "object",
+    "status",
+    "contested",
+    "evidence"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "verified"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "review"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "owned_by"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "in_line"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "uses_caliber"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "valid_years"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "produced"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "years": {
+                "type": "object",
+                "properties": {
+                  "from": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "to": {
+                    "anyOf": [
+                      {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      {
+                        "const": "present"
+                      }
+                    ]
+                  },
+                  "from_evidence": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^ev-[a-z2-7]{10}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "to_evidence": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^ev-[a-z2-7]{10}$"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "from",
+                  "to",
+                  "from_evidence",
+                  "to_evidence"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "years"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "succeeds"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "made_by"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "offers_grades"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "grade_name"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "derived_from"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "clone_of"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "grade_of"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string",
+                "pattern": "^(brand|line|reference|caliber|source):[a-z0-9-]{1,64}$"
+              }
+            },
+            "required": [
+              "entity"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "winding"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "enum": [
+                  "manual",
+                  "automatic"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "beat_rate"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "unit": {
+                "const": "vph"
+              }
+            },
+            "required": [
+              "value",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "jewels"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unit": {
+                "const": "count"
+              }
+            },
+            "required": [
+              "value",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "power_reserve"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "unit": {
+                "const": "hour"
+              }
+            },
+            "required": [
+              "value",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "hacking"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "date_mechanism"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "enum": [
+                  "none",
+                  "date",
+                  "day_date",
+                  "other"
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "introduced"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unit": {
+                "const": "year"
+              }
+            },
+            "required": [
+              "value",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "predicate": {
+            "const": "discontinued"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "object": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "unit": {
+                "const": "year"
+              }
+            },
+            "required": [
+              "value",
+              "unit"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "not": {
+          "required": [
+            "valid_years"
+          ]
+        }
+      }
+    }
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://timecheck.example/schemas/v1/claim.schema.json"
+}
