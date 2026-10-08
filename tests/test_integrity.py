@@ -396,3 +396,65 @@ def test_double_negative_is_not_hacking_absence(dataset,tmp_path):
  result,report=build(dataset,tmp_path,'--strict','--no-evidence')
  assert result.returncode==2,(result.stdout,result.stderr)
  assert report['errors_by_class']=={'explicit_absence_required':1}
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path,view):
+ secondary=json.loads((dataset/'sources/example.json').read_text());secondary.update(id='source:secondary',trust_tier='secondary')
+ (dataset/'sources/secondary.json').write_text(json.dumps(secondary))
+ for file in dataset.glob('references/*.json'):
+  def duplicate(d):
+   for c in list(d['claims']):
+    if c['predicate'] in ['in_line','produced','succeeds']:
+     copied=clone(c)
+     for e in copied['evidence']:e['source']='source:secondary'
+     d['claims'].append(copied)
+  change(dataset,file.relative_to(dataset),duplicate)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
+ assert report['disputed']==0
+ import sqlite3
+ condition="AND status='verified'" if view=='v_lineage' else ''
+ with sqlite3.connect(tmp_path/'graph.sqlite') as db:
+  uses=db.execute(f"SELECT COUNT(*) FROM claim WHERE predicate='uses_caliber' {condition}").fetchone()[0]
+  missing=db.execute(f"SELECT COUNT(*) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
+ lineage=rows(tmp_path,view);assert len(lineage)==uses+missing==3
+ assert len({r['claim_id'] for r in lineage if r['caliber_id'] is not None})==uses
+ assert all(r['has_primary']==1 for r in lineage)
+ diff=rows(tmp_path,'v_lineage_diff'+('_all' if view.endswith('_all') else ''))
+ keys=[tuple(r[k] for k in ('reference_id','predecessor_id','attribute','before_value','after_value')) for r in diff]
+ assert len(diff)==len(set(keys))==12
+
+@pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
+def test_competing_memberships_surface_once_without_choosing_line(dataset,tmp_path,view):
+ line=json.loads((dataset/'lines/example.json').read_text());line.update(id='line:different',display_name='Different synthetic line',claims=[])
+ (dataset/'lines/different.json').write_text(json.dumps(line))
+ def conflict(d):
+  c=clone(d['claims'][0]);c['object']['entity']='line:different';c['contested']=True;d['claims'].append(c)
+ change(dataset,'references/gamma.json',conflict)
+ result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
+ gamma=[r for r in rows(tmp_path,view) if r['reference_id']=='reference:gamma']
+ assert len(gamma)==1
+ assert gamma[0]['line_id'] is None and gamma[0]['disputed']==1 and gamma[0]['contested']==1
+ assert report['disputed']==2
+
+@pytest.mark.parametrize('predicate,quote',[
+ ('hacking','This caliber is not without hacking.'),
+ ('hacking',"This caliber isn't without hacking."),
+ ('hacking','This caliber is never without hacking.'),
+ ('hacking','This caliber is not non-hacking.'),
+ ('offers_grades','This caliber does not offer no grades.')])
+def test_negated_negation_is_not_absence(dataset,tmp_path,predicate,quote):
+ def replace(d):
+  c=next(c for c in d['claims'] if c['predicate']==predicate);c['evidence'][0]['quote']=quote
+ change(dataset,'calibers/one.json',replace)
+ result,report=build(dataset,tmp_path,'--strict','--no-evidence')
+ assert result.returncode==2,(result.stdout,result.stderr)
+ assert report['errors_by_class']=={'explicit_absence_required':1}
+
+@pytest.mark.parametrize('quote',[
+ 'This caliber is not identical to another; it is without hacking.',
+ 'This caliber is not heavy but is without hacking.'])
+def test_negation_in_separate_clause_does_not_block_absence(dataset,tmp_path,quote):
+ def replace(d):
+  c=next(c for c in d['claims'] if c['predicate']=='hacking');c['evidence'][0]['quote']=quote
+ change(dataset,'calibers/one.json',replace)
+ result,report=build(dataset,tmp_path,'--strict','--no-evidence');assert result.returncode==0,(result.stdout,result.stderr)

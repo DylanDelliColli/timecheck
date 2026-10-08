@@ -47,6 +47,21 @@ CREATE VIEW v_shared_dna AS
  FROM v_reference_calibers u JOIN connections f ON f.a=u.caliber_id
  JOIN v_reference_calibers v ON v.caliber_id=f.b WHERE u.reference_id<>v.reference_id;
 
+CREATE VIEW membership AS
+ SELECT subject_id,CASE WHEN COUNT(DISTINCT entity_id)=1 THEN MIN(entity_id) ELSE NULL END AS entity_id,
+ COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
+ FROM selected_claim WHERE predicate='in_line' GROUP BY subject_id;
+
+CREATE VIEW production AS
+ SELECT subject_id,year_from,year_to,year_to_kind,year_from_sort,
+ COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
+ FROM selected_claim WHERE predicate='produced'
+ GROUP BY subject_id,year_from,year_to,year_to_kind,year_from_sort;
+
 CREATE VIEW v_lineage AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -59,7 +74,10 @@ CREATE VIEW v_lineage AS
  THEN MAX(CASE WHEN s.status='verified' THEN s.entity_id END)
  WHEN COALESCE(v.predecessor_count,0)=0 AND COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.entity_id)
  ELSE NULL END AS entity_id,
- MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,MIN(s.has_primary) AS has_primary
+ MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,
+ CASE WHEN COUNT(DISTINCT CASE WHEN s.status='verified' THEN s.entity_id END)=1
+ THEN MAX(CASE WHEN s.status='verified' THEN s.has_primary END)
+ WHEN COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.has_primary) ELSE MIN(s.has_primary) END AS has_primary
  FROM selected_claim s LEFT JOIN verified_predecessors v ON v.subject_id=s.subject_id
  WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
  )
@@ -72,15 +90,15 @@ CREATE VIEW v_lineage AS
  MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
  MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
- FROM reference r LEFT JOIN selected_claim l ON l.subject_id=r.id AND l.predicate='in_line'
+ FROM reference r LEFT JOIN membership l ON l.subject_id=r.id
  LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
- LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
+ LEFT JOIN production p ON p.subject_id=r.id AND u.claim_id IS NULL
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff AS
  WITH attrs(attribute) AS (VALUES ('caliber'),('offers_grades'),('grade_name'),('winding'),('beat_rate'),('jewels'),('power_reserve'),('hacking'),('date_mechanism'),('introduced'),('discontinued'),('years')),
- edges AS (SELECT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
- FROM selected_claim s JOIN selected_claim l ON l.subject_id=s.subject_id AND l.predicate='in_line'
+ edges AS (SELECT DISTINCT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
+ FROM selected_claim s JOIN membership l ON l.subject_id=s.subject_id
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  unknown_edges AS (SELECT e.* FROM edges e WHERE
@@ -162,6 +180,21 @@ CREATE VIEW v_shared_dna_all AS
  FROM v_reference_calibers_all u JOIN connections f ON f.a=u.caliber_id
  JOIN v_reference_calibers_all v ON v.caliber_id=f.b WHERE u.reference_id<>v.reference_id;
 
+CREATE VIEW membership_all AS
+ SELECT subject_id,CASE WHEN COUNT(DISTINCT entity_id)=1 THEN MIN(entity_id) ELSE NULL END AS entity_id,
+ COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
+ FROM selected_claim_all WHERE predicate='in_line' GROUP BY subject_id;
+
+CREATE VIEW production_all AS
+ SELECT subject_id,year_from,year_to,year_to_kind,year_from_sort,
+ COALESCE(MIN(CASE WHEN status='verified' THEN id END),MIN(id)) AS id,
+ CASE WHEN MAX(status='verified') THEN 'verified' ELSE 'proposed' END AS status,
+ MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
+ FROM selected_claim_all WHERE predicate='produced'
+ GROUP BY subject_id,year_from,year_to,year_to_kind,year_from_sort;
+
 CREATE VIEW v_lineage_all AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -174,7 +207,10 @@ CREATE VIEW v_lineage_all AS
  THEN MAX(CASE WHEN s.status='verified' THEN s.entity_id END)
  WHEN COALESCE(v.predecessor_count,0)=0 AND COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.entity_id)
  ELSE NULL END AS entity_id,
- MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,MIN(s.has_primary) AS has_primary
+ MAX(s.disputed) AS disputed,MAX(s.contested) AS contested,
+ CASE WHEN COUNT(DISTINCT CASE WHEN s.status='verified' THEN s.entity_id END)=1
+ THEN MAX(CASE WHEN s.status='verified' THEN s.has_primary END)
+ WHEN COUNT(DISTINCT s.entity_id)=1 THEN MAX(s.has_primary) ELSE MIN(s.has_primary) END AS has_primary
  FROM selected_claim_all s LEFT JOIN verified_predecessors v ON v.subject_id=s.subject_id
  WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
  )
@@ -187,15 +223,15 @@ CREATE VIEW v_lineage_all AS
  MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
  MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
- FROM reference r LEFT JOIN selected_claim_all l ON l.subject_id=r.id AND l.predicate='in_line'
+ FROM reference r LEFT JOIN membership_all l ON l.subject_id=r.id
  LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
- LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
+ LEFT JOIN production_all p ON p.subject_id=r.id AND u.claim_id IS NULL
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff_all AS
  WITH attrs(attribute) AS (VALUES ('caliber'),('offers_grades'),('grade_name'),('winding'),('beat_rate'),('jewels'),('power_reserve'),('hacking'),('date_mechanism'),('introduced'),('discontinued'),('years')),
- edges AS (SELECT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
- FROM selected_claim_all s JOIN selected_claim_all l ON l.subject_id=s.subject_id AND l.predicate='in_line'
+ edges AS (SELECT DISTINCT s.subject_id AS reference_id,s.entity_id AS predecessor_id,l.entity_id AS line_id
+ FROM selected_claim_all s JOIN membership_all l ON l.subject_id=s.subject_id
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  unknown_edges AS (SELECT e.* FROM edges e WHERE

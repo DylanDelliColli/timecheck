@@ -48,7 +48,16 @@ def _states_absence(quote, predicate):
     if predicate == 'offers_grades':
         patterns.append(rf"\b(?:single grade|one grade only|no grades offered)\b{clause_end}")
     text = normalize(quote).lower()
-    return any(re.search(pattern, text) for pattern in patterns)
+    for pattern in patterns:
+        for match in re.finditer(pattern, text):
+            if re.match(r"(?:without|no\b|non[- ])", match.group()):
+                # Negation of a negation is affirmative. Limit the lookback to
+                # this clause so unrelated earlier negatives do not mask absence.
+                prefix = re.split(r"[,.;:!?)]|\b(?:and|but|or)\b", text[:match.start()])[-1]
+                if re.search(r"\b(?:not|never)\b|n't\b", prefix):
+                    continue
+            return True
+    return False
 
 
 def load_data(data_dir):

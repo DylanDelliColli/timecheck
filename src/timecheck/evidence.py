@@ -4,7 +4,6 @@ import hashlib
 from pathlib import Path
 import time
 import zlib
-from urllib.error import URLError
 from urllib.request import Request, urlopen
 from .extract import extract
 from .normalize import normalize
@@ -52,8 +51,13 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                                 charset = response.headers.get_content_charset()
                             failure = None
                             break
-                        except (OSError, URLError) as exc:
-                            failure = ('snapshot_unavailable', str(exc))
+                        except Exception as exc:
+                            # The transport boundary includes opening, body reads
+                            # and response teardown. IncompleteRead/HTTPException
+                            # are not OSError subclasses; every failed attempt
+                            # must leave no bytes from a partial response behind.
+                            raw, charset = None, None
+                            failure = ('snapshot_unavailable', f'Archive fetch/read failed ({type(exc).__name__}): {exc}')
                             if attempt < 3:
                                 time.sleep(2 ** attempt)
                 if raw is not None:
