@@ -153,6 +153,7 @@ file so the step is auditable.
 | reference | `in_line` | line entity | single |
 | reference | `uses_caliber` | caliber entity + `valid_years` | multi; disputed only on overlapping years |
 | reference | `produced` | years | single |
+| reference | `catalogued` | years (maker's catalogue/collection listing) | single |
 | reference | `succeeds` | reference entity (same line) | single verified; a second verified one is a branch (reported, excluded from diffs); acyclic |
 | caliber | `made_by` | brand entity | single |
 | caliber | `offers_grades` | boolean | single |
@@ -263,8 +264,9 @@ Common columns: `status` (`verified`|`proposed`), `disputed` (0/1), `contested` 
   intervals therefore appear as separate rows, flagged disputed), or a single row with
   null years and `year_from_sort` 9999 when it has neither. Year columns on a
   `uses_caliber` row come from the claim's `valid_years` when known and otherwise from
-  the reference's selected `produced` claim (one row per competing interval), with a
-  `year_source` column (`usage` | `produced` | `unknown`); decision 2026-10-09 after the
+  the reference's selected `produced` claim, otherwise from its selected `catalogued`
+  claim (one row per competing interval), with a `year_source` column (`usage` |
+  `produced` | `catalogued` | `unknown`); decision 2026-10-09 after the
   lineage rehearsal showed most vintage usage years legitimately unknown. Duplicate identical claims
   (same object or value, different ids, e.g. the same fact backed by two sources) are
   legitimate data and yield one row per claim; consumers wanting distinct facts use
