@@ -66,7 +66,7 @@
           "to_evidence": "ev-5sj2zbdvtu"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +76,11 @@
           "locator": "Vintage reference page; Technical Data / International collection field",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex gpt-6.1-sol (PR #15 review at a842b217) / chief",
+        "at": "2026-10-09T03:58:24Z"
+      }
     }
   ]
 }
