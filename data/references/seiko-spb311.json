@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-spb311",
+  "kind": "reference",
+  "display_name": "Seiko Presage Sharp Edged SPB311",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ekgf2ivj52",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-presage"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vfzom5rgvb",
+          "source": "source:seiko-presage-sharp-edged-20251016",
+          "quote": "SPB311 [ Caliber 6R38 ] Available in Jun 2022",
+          "locator": "Sharp Edged Series 2022 launch; model panel in Lineup section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-lexlz4mhrb",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-6r38"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-e35eds62eo",
+          "source": "source:seiko-presage-sharp-edged-20251016",
+          "quote": "SPB311 [ Caliber 6R38 ] Available in Jun 2022",
+          "locator": "Sharp Edged Series 2022 launch; model panel in Lineup section",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

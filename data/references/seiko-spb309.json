@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-spb309",
+  "kind": "reference",
+  "display_name": "Seiko Presage Sharp Edged SPB309",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-nveoqif4bx",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-presage"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-krnf2fgnbv",
+          "source": "source:seiko-presage-sharp-edged-20251016",
+          "quote": "SPB309 [ Caliber 6R38 ] Available in Jun 2022",
+          "locator": "Sharp Edged Series 2022 launch; model panel in Lineup section",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-rennmwte4y",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-6r38"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-h4b7ai4eiw",
+          "source": "source:seiko-presage-sharp-edged-20251016",
+          "quote": "SPB309 [ Caliber 6R38 ] Available in Jun 2022",
+          "locator": "Sharp Edged Series 2022 launch; model panel in Lineup section",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

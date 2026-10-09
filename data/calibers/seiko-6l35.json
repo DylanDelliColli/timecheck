@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "caliber:seiko-6l35",
+  "kind": "caliber",
+  "display_name": "Seiko 6L35",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-4jekwvimxj",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:seiko"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-z3ncqk5kfs",
+          "source": "source:seiko-presage-sje073-20260108",
+          "quote": "The new Presage limited edition features a new caliber, 6L35.",
+          "locator": "Seiko launch page describing its new caliber",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-6jafouzm4c",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 45,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-da5xssybak",
+          "source": "source:seiko-prospex-alpinist-20260306",
+          "quote": "The watch is powered by the slimline Caliber 6L35 which has a power reserve of 45 hours.",
+          "locator": "Movement section; 1959 Alpinist re-creation",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

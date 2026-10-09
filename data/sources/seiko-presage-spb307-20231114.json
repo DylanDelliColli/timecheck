@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-spb307-20231114",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/global-en/products/presage/spb307j1",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20231114045351id_/https://www.seikowatches.com/global-en/products/presage/spb307j1",
+  "snapshot_sha256": "dc0e3ab3e81ea31d855e8e713ea33ff1c88b6a2a3532a2c3e292c924001baa8e",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

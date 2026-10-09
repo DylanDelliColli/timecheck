@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "line": "line:seiko-prospex",
+  "source": "source:seiko-prospex-alpinist-20260306",
+  "references": [
+    "reference:seiko-sje085",
+    "reference:seiko-spb241",
+    "reference:seiko-spb243",
+    "reference:seiko-spb245"
+  ]
+}

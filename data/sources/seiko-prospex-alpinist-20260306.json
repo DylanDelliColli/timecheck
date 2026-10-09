@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-prospex-alpinist-20260306",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/us-en/products/prospex/special/1959-alpinist-recreation",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260306030121id_/https://www.seikowatches.com/us-en/products/prospex/special/1959-alpinist-recreation",
+  "snapshot_sha256": "781fb607d16f69e09ed7ee65294caff50d9a8b8f64f9111a2975df835f4dfece",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

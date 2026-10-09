@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-5sports-srpd55-20260516",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/global-en/products/5sports/srpd55",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260516203541id_/https://www.seikowatches.com/global-en/products/5sports/srpd55",
+  "snapshot_sha256": "bf31ca99fc768e96b47f1de0d8fd17ed24e43e1bbbb39c5c2a875bedbac727d4",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

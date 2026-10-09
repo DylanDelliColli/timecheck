@@ -116,6 +116,25 @@
         "by": "codex:gpt-6.1-sol:pr2 / chief",
         "at": "2026-10-08T23:16:50Z"
       }
+    },
+    {
+      "id": "clm-nmhtfcgf5d",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 21600,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rveownqe46",
+          "source": "source:seiko-usa-srpb43-20260309",
+          "quote": "Caliber 4R35 21,600 vibrations per hour",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-sje073-20260108",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/au-en/products/presage/special/sje073j1",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260108213519id_/https://www.seikowatches.com/au-en/products/presage/special/sje073j1",
+  "snapshot_sha256": "b24f499975d638908aa1b30c5e691a16bb2f69fa95801969abac1c7fdcb29f41",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

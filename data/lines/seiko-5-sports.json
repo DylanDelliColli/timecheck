@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "line:seiko-5-sports",
+  "kind": "line",
+  "display_name": "Seiko 5 Sports",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-s5e5l7x4db",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:seiko"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6wuyc7efxg",
+          "source": "source:seiko-usa-srpd55-20260305",
+          "quote": "Home SRPD55 Men's Seiko 5 Sports SRPD55",
+          "locator": "Manufacturer product heading",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

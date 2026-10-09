@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-usa-srpb43-20260309",
+  "kind": "source",
+  "url": "https://seikousa.com/products/srpb43",
+  "publisher": "Seiko Watch of America LLC",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260309102539id_/https://seikousa.com/products/srpb43",
+  "snapshot_sha256": "6828587f63e75c7413df99ab2ec49cfaa4ba7cf32102fdf43468c2359c4cab4f",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

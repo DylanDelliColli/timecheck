@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-srpb46",
+  "kind": "reference",
+  "display_name": "Seiko Presage SRPB46",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-j7olgu4zdg",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-presage"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-eff5d4l66e",
+          "source": "source:seiko-usa-srpb46-20260211",
+          "quote": "Presage Cocktail Time Seiko Presage Automatic.",
+          "locator": "Model heading and collection context",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-yu6l7voqwp",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-4r35"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aem4xepar4",
+          "source": "source:seiko-usa-srpb46-20260211",
+          "quote": "MOVEMENT: Automatic Caliber 4R35 21,600 vibrations per hour",
+          "locator": "Model movement specifications / launch page model panel",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

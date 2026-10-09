@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-usa-srpg35-20260324",
+  "kind": "source",
+  "url": "https://seikousa.com/products/srpg35",
+  "publisher": "Seiko Watch of America LLC",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260324173924id_/https://seikousa.com/products/srpg35",
+  "snapshot_sha256": "c28b40677c54408e19518cb1485118a439d2d7c64277e79865c717e0d63e79a0",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}
