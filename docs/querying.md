@@ -419,8 +419,8 @@ subcommand help for your installed revision.
 
 ## Worked examples on the merged seed
 
-These real outputs are replayed from release commit `53110a1eb18c7c8cc662165b63935c917a22d868`
-with the final seed. They use the root `timecheck.sqlite` from the real-seed build
+These real outputs were captured at commit `702fd49b5915b2067a5988ef169f00916d2f59c4`,
+rebased on final-seed release commit `19df33caf0dfca3062ef51997dde926e6a55eaea`. They use the root `timecheck.sqlite` from the real-seed build
 above. The structural build and live build compile the same authored claims;
 consult the report separately for archive verification. JSON formatting is
 expanded for readability; row order is incidental. `tests/test_docs_examples.py`
@@ -779,7 +779,21 @@ An ambiguous multi-caliber succession
 ```
 
 ```json
-[]
+[
+  {
+    "line_id": "line:rolex-submariner",
+    "reference_id": "reference:rolex-5514",
+    "predecessor_id": "reference:rolex-5513",
+    "attribute": "caliber",
+    "before_value": null,
+    "after_value": null,
+    "changed": null,
+    "before_status": null,
+    "after_status": null,
+    "before_evidence_id": null,
+    "after_evidence_id": null
+  }
+]
 ```
 
 The predecessor 5513 has both 1520 and 1530 with unknown usage starts. Its
