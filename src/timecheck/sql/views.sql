@@ -67,6 +67,25 @@ CREATE VIEW membership AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim WHERE predicate='in_line' GROUP BY subject_id;
 
+-- Keep a usage interval intact when either bound is known. Production is a
+-- fallback for wholly unknown usage, with its own claim id for year provenance.
+CREATE VIEW lineage_years AS
+ SELECT r.id AS reference_id,u.caliber_id,u.grade,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from ELSE p.year_from END AS year_from,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to ELSE p.year_to END AS year_to,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN 'usage'
+ WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN 'produced' ELSE 'unknown' END AS year_source,
+ COALESCE(u.claim_id,p.id) AS claim_id,COALESCE(p.id,u.claim_id) AS years_claim_id,
+ COALESCE(u.status,p.status) AS status,
+ MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0)) AS disputed,
+ MAX(COALESCE(u.contested,0),COALESCE(p.contested,0)) AS contested,
+ MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1)) AS has_primary
+ FROM reference r LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
+ LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced'
+ AND (u.claim_id IS NULL OR (u.year_from IS NULL AND u.year_to_kind='unknown'));
+
 CREATE VIEW v_lineage AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -87,17 +106,14 @@ CREATE VIEW v_lineage AS
  WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
  )
  SELECT l.entity_id AS line_id,r.id AS reference_id,
- COALESCE(u.year_from,p.year_from) AS year_from,COALESCE(u.year_to,p.year_to) AS year_to,
- CASE WHEN u.claim_id IS NOT NULL THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
- CASE WHEN u.claim_id IS NOT NULL THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
- u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,p.id,l.id) AS claim_id,
- COALESCE(u.status,p.status,l.status,'verified') AS status,
- MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
- MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
- MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
+ u.year_from,u.year_to,u.year_to_kind,u.year_from_sort,u.year_source,
+ u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,l.id) AS claim_id,
+ COALESCE(u.status,l.status,'verified') AS status,
+ MAX(u.disputed,COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
+ MAX(u.contested,COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
+ MIN(u.has_primary,COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN membership l ON l.subject_id=r.id
- LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
- LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
+ JOIN lineage_years u ON u.reference_id=r.id
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff AS
@@ -106,24 +122,32 @@ CREATE VIEW v_lineage_diff AS
  FROM selected_claim s JOIN membership l ON l.subject_id=s.subject_id
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
- unknown_edges AS (SELECT e.* FROM edges e WHERE
- NOT EXISTS(SELECT 1 FROM v_reference_calibers u WHERE u.reference_id=e.reference_id)
- OR NOT EXISTS(SELECT 1 FROM v_reference_calibers u WHERE u.reference_id=e.predecessor_id)
- OR EXISTS(SELECT 1 FROM v_reference_calibers u WHERE u.reference_id IN(e.reference_id,e.predecessor_id) AND (u.year_from IS NULL OR u.year_to_kind='unknown'))),
+ usage AS (SELECT * FROM lineage_years WHERE caliber_id IS NOT NULL),
+ ordering AS (SELECT reference_id,COUNT(DISTINCT caliber_id) AS caliber_count,
+ MAX(year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
+ FROM usage GROUP BY reference_id),
+ unknown_edges AS (SELECT e.* FROM edges e
+ LEFT JOIN ordering b ON b.reference_id=e.predecessor_id
+ LEFT JOIN ordering a ON a.reference_id=e.reference_id
+ WHERE b.caliber_count IS NULL OR a.caliber_count IS NULL
+ OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
  b.claim_id AS before_claim,a.claim_id AS after_claim,
- CAST(b.year_from AS TEXT) || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
- CAST(a.year_from AS TEXT) || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
- FROM edges e JOIN v_reference_calibers b ON b.reference_id=e.predecessor_id
- JOIN v_reference_calibers a ON a.reference_id=e.reference_id
+ b.years_claim_id AS before_years_claim,a.years_claim_id AS after_years_claim,
+ COALESCE(CAST(b.year_from AS TEXT),'unknown') || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
+ COALESCE(CAST(a.year_from AS TEXT),'unknown') || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
+ FROM edges e JOIN usage b ON b.reference_id=e.predecessor_id
+ JOIN usage a ON a.reference_id=e.reference_id
+ JOIN ordering bo ON bo.reference_id=e.predecessor_id
+ JOIN ordering ao ON ao.reference_id=e.reference_id
  WHERE NOT EXISTS(SELECT 1 FROM unknown_edges u WHERE u.reference_id=e.reference_id AND u.predecessor_id=e.predecessor_id)
- AND b.year_from=(SELECT MAX(year_from) FROM v_reference_calibers WHERE reference_id=e.predecessor_id)
- AND a.year_from=(SELECT MIN(year_from) FROM v_reference_calibers WHERE reference_id=e.reference_id)),
+ AND (b.year_from=bo.latest OR (bo.caliber_count=1 AND bo.latest IS NULL))
+ AND (a.year_from=ao.earliest OR (ao.caliber_count=1 AND ao.earliest IS NULL))),
  compared AS (SELECT p.line_id,p.reference_id,p.predecessor_id,t.attribute,
  CASE t.attribute WHEN 'caliber' THEN p.before_caliber WHEN 'years' THEN p.byears ELSE b.value END AS before_value,
  CASE t.attribute WHEN 'caliber' THEN p.after_caliber WHEN 'years' THEN p.ayears ELSE a.value END AS after_value,
- CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END AS before_claim_id,
- CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END AS after_claim_id
+ CASE t.attribute WHEN 'caliber' THEN p.before_claim WHEN 'years' THEN p.before_years_claim ELSE b.id END AS before_claim_id,
+ CASE t.attribute WHEN 'caliber' THEN p.after_claim WHEN 'years' THEN p.after_years_claim ELSE a.id END AS after_claim_id
  FROM pairs p CROSS JOIN attrs t LEFT JOIN selected_claim b ON b.subject_id=p.before_caliber AND b.predicate=t.attribute
  LEFT JOIN selected_claim a ON a.subject_id=p.after_caliber AND a.predicate=t.attribute)
 , representatives AS (
@@ -210,6 +234,25 @@ CREATE VIEW membership_all AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim_all WHERE predicate='in_line' GROUP BY subject_id;
 
+-- Keep a usage interval intact when either bound is known. Production is a
+-- fallback for wholly unknown usage, with its own claim id for year provenance.
+CREATE VIEW lineage_years_all AS
+ SELECT r.id AS reference_id,u.caliber_id,u.grade,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from ELSE p.year_from END AS year_from,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to ELSE p.year_to END AS year_to,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
+ CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN 'usage'
+ WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN 'produced' ELSE 'unknown' END AS year_source,
+ COALESCE(u.claim_id,p.id) AS claim_id,COALESCE(p.id,u.claim_id) AS years_claim_id,
+ COALESCE(u.status,p.status) AS status,
+ MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0)) AS disputed,
+ MAX(COALESCE(u.contested,0),COALESCE(p.contested,0)) AS contested,
+ MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1)) AS has_primary
+ FROM reference r LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
+ LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced'
+ AND (u.claim_id IS NULL OR (u.year_from IS NULL AND u.year_to_kind='unknown'));
+
 CREATE VIEW v_lineage_all AS
  WITH verified_predecessors AS (
  SELECT c.subject_id,COUNT(DISTINCT o.entity_id) AS predecessor_count
@@ -230,17 +273,14 @@ CREATE VIEW v_lineage_all AS
  WHERE s.predicate='succeeds' GROUP BY s.subject_id,v.predecessor_count
  )
  SELECT l.entity_id AS line_id,r.id AS reference_id,
- COALESCE(u.year_from,p.year_from) AS year_from,COALESCE(u.year_to,p.year_to) AS year_to,
- CASE WHEN u.claim_id IS NOT NULL THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
- CASE WHEN u.claim_id IS NOT NULL THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
- u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,p.id,l.id) AS claim_id,
- COALESCE(u.status,p.status,l.status,'verified') AS status,
- MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0),COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
- MAX(COALESCE(u.contested,0),COALESCE(p.contested,0),COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
- MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1),COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
+ u.year_from,u.year_to,u.year_to_kind,u.year_from_sort,u.year_source,
+ u.caliber_id,u.grade,s.entity_id AS succeeds_reference_id,COALESCE(u.claim_id,l.id) AS claim_id,
+ COALESCE(u.status,l.status,'verified') AS status,
+ MAX(u.disputed,COALESCE(l.disputed,0),COALESCE(s.disputed,0)) AS disputed,
+ MAX(u.contested,COALESCE(l.contested,0),COALESCE(s.contested,0)) AS contested,
+ MIN(u.has_primary,COALESCE(l.has_primary,0),COALESCE(s.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN membership_all l ON l.subject_id=r.id
- LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
- LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced' AND u.claim_id IS NULL
+ JOIN lineage_years_all u ON u.reference_id=r.id
  LEFT JOIN succession s ON s.subject_id=r.id;
 
 CREATE VIEW v_lineage_diff_all AS
@@ -249,24 +289,32 @@ CREATE VIEW v_lineage_diff_all AS
  FROM selected_claim_all s JOIN membership_all l ON l.subject_id=s.subject_id
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
- unknown_edges AS (SELECT e.* FROM edges e WHERE
- NOT EXISTS(SELECT 1 FROM v_reference_calibers_all u WHERE u.reference_id=e.reference_id)
- OR NOT EXISTS(SELECT 1 FROM v_reference_calibers_all u WHERE u.reference_id=e.predecessor_id)
- OR EXISTS(SELECT 1 FROM v_reference_calibers_all u WHERE u.reference_id IN(e.reference_id,e.predecessor_id) AND (u.year_from IS NULL OR u.year_to_kind='unknown'))),
+ usage AS (SELECT * FROM lineage_years_all WHERE caliber_id IS NOT NULL),
+ ordering AS (SELECT reference_id,COUNT(DISTINCT caliber_id) AS caliber_count,
+ MAX(year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
+ FROM usage GROUP BY reference_id),
+ unknown_edges AS (SELECT e.* FROM edges e
+ LEFT JOIN ordering b ON b.reference_id=e.predecessor_id
+ LEFT JOIN ordering a ON a.reference_id=e.reference_id
+ WHERE b.caliber_count IS NULL OR a.caliber_count IS NULL
+ OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
  b.claim_id AS before_claim,a.claim_id AS after_claim,
- CAST(b.year_from AS TEXT) || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
- CAST(a.year_from AS TEXT) || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
- FROM edges e JOIN v_reference_calibers_all b ON b.reference_id=e.predecessor_id
- JOIN v_reference_calibers_all a ON a.reference_id=e.reference_id
+ b.years_claim_id AS before_years_claim,a.years_claim_id AS after_years_claim,
+ COALESCE(CAST(b.year_from AS TEXT),'unknown') || '-' || COALESCE(CAST(b.year_to AS TEXT),b.year_to_kind) AS byears,
+ COALESCE(CAST(a.year_from AS TEXT),'unknown') || '-' || COALESCE(CAST(a.year_to AS TEXT),a.year_to_kind) AS ayears
+ FROM edges e JOIN usage b ON b.reference_id=e.predecessor_id
+ JOIN usage a ON a.reference_id=e.reference_id
+ JOIN ordering bo ON bo.reference_id=e.predecessor_id
+ JOIN ordering ao ON ao.reference_id=e.reference_id
  WHERE NOT EXISTS(SELECT 1 FROM unknown_edges u WHERE u.reference_id=e.reference_id AND u.predecessor_id=e.predecessor_id)
- AND b.year_from=(SELECT MAX(year_from) FROM v_reference_calibers_all WHERE reference_id=e.predecessor_id)
- AND a.year_from=(SELECT MIN(year_from) FROM v_reference_calibers_all WHERE reference_id=e.reference_id)),
+ AND (b.year_from=bo.latest OR (bo.caliber_count=1 AND bo.latest IS NULL))
+ AND (a.year_from=ao.earliest OR (ao.caliber_count=1 AND ao.earliest IS NULL))),
  compared AS (SELECT p.line_id,p.reference_id,p.predecessor_id,t.attribute,
  CASE t.attribute WHEN 'caliber' THEN p.before_caliber WHEN 'years' THEN p.byears ELSE b.value END AS before_value,
  CASE t.attribute WHEN 'caliber' THEN p.after_caliber WHEN 'years' THEN p.ayears ELSE a.value END AS after_value,
- CASE WHEN t.attribute IN('caliber','years') THEN p.before_claim ELSE b.id END AS before_claim_id,
- CASE WHEN t.attribute IN('caliber','years') THEN p.after_claim ELSE a.id END AS after_claim_id
+ CASE t.attribute WHEN 'caliber' THEN p.before_claim WHEN 'years' THEN p.before_years_claim ELSE b.id END AS before_claim_id,
+ CASE t.attribute WHEN 'caliber' THEN p.after_claim WHEN 'years' THEN p.after_years_claim ELSE a.id END AS after_claim_id
  FROM pairs p CROSS JOIN attrs t LEFT JOIN selected_claim_all b ON b.subject_id=p.before_caliber AND b.predicate=t.attribute
  LEFT JOIN selected_claim_all a ON a.subject_id=p.after_caliber AND a.predicate=t.attribute)
 , representatives AS (

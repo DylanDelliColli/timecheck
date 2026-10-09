@@ -230,9 +230,10 @@ secondary-supported even when its usage claim alone has primary evidence.
 Year columns use the meanings in `claim_years`. A null year is unknown, never
 zero. An absent claim differs from an explicitly stated negative. A `produced`
 interval describes reference production; usage years describe a caliber's use in
-that reference. `v_lineage` uses usage years when it has a usage row and falls back
-to production only when it has no selected usage; query `produced` claims directly
-for separate production dates. Views contain no `ORDER BY`; sort explicitly with
+that reference. `v_lineage` uses a usage interval when either bound is known and
+falls back to production when usage years are wholly unknown or there is no
+selected usage. `year_source` identifies the interval's source; query `produced`
+claims directly for separate production dates. Views contain no `ORDER BY`; sort explicitly with
 `year_from_sort, reference_id`, keeping unknown starts last.
 
 Every usage/lineage `grade` is a documented grade name (for a caliber entity with
@@ -292,7 +293,8 @@ reference can have multiple routes/results; there is no ranking or price meaning
 
 ### `v_lineage`
 
-One row per selected usage; if none, one per selected production claim; if neither,
+One row per selected usage, multiplied by selected production claims when usage
+years are wholly unknown; if no usage, one per selected production claim; if neither,
 a reference fallback with null years. Membership/succession metadata is aggregated
 and does not multiply rows. Filter `line_id` explicitly to exclude unassigned
 fallbacks. Two distinct verified predecessors are a branch: reported in `branches`,
@@ -303,6 +305,7 @@ with null predecessor here and excluded from diffs.
 | `line_id` | Selected model line; null for no selected or conflicting membership. |
 | `reference_id` | Reference identity. |
 | `year_from`, `year_to`, `year_to_kind`, `year_from_sort` | Usage interval, or production fallback, or unknown. |
+| `year_source` | `usage` when at least one usage bound is known; otherwise `produced` when a selected production interval has a known bound; otherwise `unknown`. Production fallback retains one row per selected production claim, including competing intervals. |
 | `caliber_id` | Selected caliber; null in a non-usage fallback. |
 | `grade` | Usage grade; null in a non-usage fallback. |
 | `succeeds_reference_id` | Selected single predecessor, or null for missing/ambiguous/branched succession. |
@@ -313,9 +316,12 @@ with null predecessor here and excluded from diffs.
 ### `v_lineage_diff`
 
 Along **verified** `succeeds` edges only, including in `_all`. Compare the
-predecessor's latest usage start with the successor's earliest. Missing usage or
-an unknown usage start/end on either reference produces null comparisons for all
-attributes. Known usages can still have unknown attributes. Competing values
+predecessor's latest start with the successor's earliest, using lineage's usage
+years or production fallback. A side with one distinct caliber can be compared
+regardless of years. Missing usage, or several calibers with any unknown start,
+produces null comparisons for all attributes. Unknown ends do not prevent start
+ordering; unknown bounds in `years` strings read `unknown`. Undocumented attributes
+still produce null comparisons. Competing values
 produce cross-product comparisons; identical value pairs are deduplicated with
 one representative evidence ID per side.
 
@@ -327,8 +333,8 @@ one representative evidence ID per side.
 | `attribute` | `caliber`, `years`, `offers_grades`, `grade_name`, `winding`, `beat_rate`, `jewels`, `power_reserve`, `hacking`, `date_mechanism`, `introduced`, `discontinued`. |
 | `before_value`, `after_value` | Text values; caliber IDs, scalar strings or `from-to` years strings; null for unknown. |
 | `changed` | 1 different, 0 equal, null when comparison is unknown. |
-| `before_status`, `after_status` | Status of each compared value's claim, null when absent/unknown interval. |
-| `before_evidence_id`, `after_evidence_id` | Representative excerpt for each value; null when absent/unknown interval. Join to `v_evidence.evidence_id`. |
+| `before_status`, `after_status` | Status of each compared value's claim, null when absent or caliber ordering is ambiguous. |
+| `before_evidence_id`, `after_evidence_id` | Representative excerpt for each value; `years` uses production evidence when falling back. Null when absent or caliber ordering is ambiguous. Join to `v_evidence.evidence_id`. |
 
 ### `v_evidence`
 
@@ -528,10 +534,11 @@ No other host is currently connected in this merged seed. An empty result means 
   {
     "line_id": "line:rolex-submariner",
     "reference_id": "reference:rolex-16610",
-    "year_from": null,
-    "year_to": null,
-    "year_to_kind": "unknown",
-    "year_from_sort": 9999,
+    "year_from": 1988,
+    "year_to": 2010,
+    "year_to_kind": "year",
+    "year_from_sort": 1988,
+    "year_source": "produced",
     "caliber_id": "caliber:rolex-3135",
     "grade": "unknown",
     "succeeds_reference_id": "reference:rolex-168000",
@@ -544,7 +551,7 @@ No other host is currently connected in this merged seed. An empty result means 
 ]
 ```
 
-16610 has a selected predecessor and caliber, but unknown usage years. Query the whole line by removing the reference condition. The guide below gives a sorted SQL form and keeps production dates separate from usage dates.
+16610 has a selected predecessor and caliber. Its usage years are unknown, so lineage shows the sourced production interval with `year_source: produced`. Query the whole line by removing the reference condition. The guide below gives a sorted SQL form; `v_reference_calibers` retains usage years separately.
 
 Compare the sourced succession
 
@@ -559,44 +566,44 @@ Compare the sourced succession
     "reference_id": "reference:rolex-16610",
     "predecessor_id": "reference:rolex-168000",
     "attribute": "caliber",
-    "before_value": null,
-    "after_value": null,
-    "changed": null,
-    "before_status": null,
-    "after_status": null,
-    "before_evidence_id": null,
-    "after_evidence_id": null
+    "before_value": "caliber:rolex-3035",
+    "after_value": "caliber:rolex-3135",
+    "changed": 1,
+    "before_status": "verified",
+    "after_status": "verified",
+    "before_evidence_id": "ev-icnikedvsa",
+    "after_evidence_id": "ev-sqhlxmbazm"
   },
   {
     "line_id": "line:rolex-submariner",
     "reference_id": "reference:rolex-16610",
     "predecessor_id": "reference:rolex-168000",
     "attribute": "power_reserve",
-    "before_value": null,
-    "after_value": null,
-    "changed": null,
-    "before_status": null,
-    "after_status": null,
-    "before_evidence_id": null,
-    "after_evidence_id": null
+    "before_value": "42",
+    "after_value": "48",
+    "changed": 1,
+    "before_status": "verified",
+    "after_status": "verified",
+    "before_evidence_id": "ev-ifwtudp2lu",
+    "after_evidence_id": "ev-gs6xqgtxcd"
   },
   {
     "line_id": "line:rolex-submariner",
     "reference_id": "reference:rolex-16610",
     "predecessor_id": "reference:rolex-168000",
     "attribute": "years",
-    "before_value": null,
-    "after_value": null,
-    "changed": null,
-    "before_status": null,
-    "after_status": null,
-    "before_evidence_id": null,
-    "after_evidence_id": null
+    "before_value": "1988-1989",
+    "after_value": "1988-2010",
+    "changed": 1,
+    "before_status": "verified",
+    "after_status": "verified",
+    "before_evidence_id": "ev-xdbthr6beu",
+    "after_evidence_id": "ev-73my5b56vg"
   }
 ]
 ```
 
-The verified succession is present, but its usage intervals are unknown, so the diff deliberately returns `changed: null` and unknown values/evidence IDs. This is not a claim that nothing changed. Run without the attribute filter to see all twelve attributes. A known change comparison is exercised by the synthetic fixture build in `scripts/check.sh`; these real-seed rows remain honest about their gaps.
+The sourced succession changes from caliber 3035 to 3135, and the documented power reserve changes from 42 to 48 hours. Their production intervals differ too, so `years` has `changed: 1` and cites the production evidence on each side. Run without the attribute filter to see all twelve attributes; undocumented attributes remain null.
 
 ### 4. A-11 designation across makers
 
@@ -807,7 +814,9 @@ They are primary by source tier but not machine-matched or human-attested yet.
 `v_reference_calibers.claim_id` joins evidence for usage, not every contributing
 grade fact. For the latter, read `grade_of`, `grade_name` and `offers_grades` claims
 on the target caliber. `v_lineage.claim_id` likewise does not represent all
-membership/succession facts. For family/shared-DNA paths, inspect the intermediate
+membership/succession facts or production years on a usage row with
+`year_source: produced`; inspect that reference's selected `produced` claims for
+the fallback evidence. For family/shared-DNA paths, inspect the intermediate
 caliber relationship claims: `relation_path` lists predicates, not claim IDs.
 Query their evidence by joining `claim` → `claim_object` → `v_evidence`, selecting
 subjects/targets along the path. `v_lineage_diff` evidence IDs refer to each value,
