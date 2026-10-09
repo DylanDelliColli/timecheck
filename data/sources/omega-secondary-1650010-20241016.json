@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-secondary-1650010-20241016",
+  "kind": "source",
+  "url": "https://omegaforums.net/threads/1965-omega-seamaster-165-010-cal-552-688.164309/",
+  "publisher": "Omega Forums; nanjingcigaretes",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241016005132id_/https://omegaforums.net/threads/1965-omega-seamaster-165-010-cal-552-688.164309/",
+  "snapshot_sha256": "70a617e9f393ca759c48b29eef902b35d585b3a3efc0a7fcdfbf4c60da3b53f2",
+  "retrieved_at": "2026-10-09",
+  "notes": "Secondary fallback after individual manufacturer replay returned 404 and new save requests did not establish a usable capture. Supports the cited caliber; no claim that this exhausts every variant. Omega Forums listing date/serial-estimated year is not encoded as a production bound."
+}

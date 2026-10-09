@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0087",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster ST 166.0087",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-bycdetvndv",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lbj23virxy",
+          "source": "source:omega-seamaster-vintage-listing-20261009",
+          "quote": "Seamaster Omega 1971 Details Details Details - Seamaster Omega - ST 166.0087",
+          "locator": "Products list; exact reference entry",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    },
+    {
+      "id": "clm-d6exesox3l",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-1002"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2exiv6no2l",
+          "source": "source:omega-secondary-1660087-20150612",
+          "quote": "Omega 166.087 Seamaster cal. 1002",
+          "locator": "Thread title; individual specimen listing",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}

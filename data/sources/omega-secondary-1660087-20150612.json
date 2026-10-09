@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-secondary-1660087-20150612",
+  "kind": "source",
+  "url": "https://omegaforums.net/threads/omega-166-087-seamaster-cal-1002.17667/",
+  "publisher": "Omega Forums; peatnick",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20150612031118id_/https://omegaforums.net/threads/omega-166-087-seamaster-cal-1002.17667/",
+  "snapshot_sha256": "581b9dd8e56672d2a3b4d2f5fa595875eae564323067ec290fa64e31c23cea17",
+  "retrieved_at": "2026-10-09",
+  "notes": "Secondary fallback after individual manufacturer replay returned 404 and new save requests did not establish a usable capture. Supports the cited caliber; no claim that this exhausts every variant. Omega Forums listing date/serial-estimated year is not encoded as a production bound."
+}

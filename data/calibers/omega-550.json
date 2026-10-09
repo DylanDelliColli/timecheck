@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-550",
+  "kind": "caliber",
+  "display_name": "OMEGA 550",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-au5fvfgev6",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-djalf4hlof",
+          "source": "source:omega-seamaster-st1650014-20250215",
+          "quote": "Movement type Automatic (mechanical) Caliber number 550 / 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-165-0002",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster ST 165.0002",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-7lhecotzav",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ml7kar3ytg",
+          "source": "source:omega-seamaster-st1650002-20250215",
+          "quote": "Seamaster Omega 1962 - 1966 ST 165.0002",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    },
+    {
+      "id": "clm-vvzhkhw3wt",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-552"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-q6khpffvj4",
+          "source": "source:omega-seamaster-st1650002-20250215",
+          "quote": "Movement type Automatic (mechanical) Caliber number 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}

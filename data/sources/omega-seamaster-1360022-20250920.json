@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-1360022-20250920",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/en-us/watch-omega-seamaster-omega-136-0022",
+  "archive_url": "https://web.archive.org/web/20250920182619id_/https://www.omegawatches.com/en-us/watch-omega-seamaster-omega-136-0022",
+  "snapshot_sha256": "c38b4dabe7ed0c7d74f714fe4aae3a628efede11fbce7df18eb1c1147dd394a2",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

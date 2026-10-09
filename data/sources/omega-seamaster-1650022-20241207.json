@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-1650022-20241207",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/watch-omega-seamaster-omega-165-0022",
+  "archive_url": "https://web.archive.org/web/20241207235608id_/https://www.omegawatches.com/watch-omega-seamaster-omega-165-0022",
+  "snapshot_sha256": "c5a82dd50ea32ce4d6415328c1b37aed6ba20ebb15d7d0486d7f4fad996f9cff",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

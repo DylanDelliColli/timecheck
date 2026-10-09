@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660062-20250218",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/watch-omega-seamaster-60-st-166-0062",
+  "archive_url": "https://web.archive.org/web/20250218135555id_/https://www.omegawatches.com/watch-omega-seamaster-60-st-166-0062",
+  "snapshot_sha256": "ab106e088a74805122e37b4b2e8de1dbd5571dd0359fc442c6e7087766cc650a",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

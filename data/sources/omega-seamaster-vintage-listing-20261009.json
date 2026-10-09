@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-vintage-listing-20261009",
+  "kind": "source",
+  "url": "https://www.omegawatches.com/vintage-watches?p=3&product_collection=3179",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20261009004933id_/https://www.omegawatches.com/vintage-watches?p=3&product_collection=3179",
+  "snapshot_sha256": "6c10e6e1cfd2a5c4961c903247aa34c0629f7725d032edce82e9c69a55b25875",
+  "retrieved_at": "2026-10-09",
+  "notes": "Pinned third load-more page includes first 72 entries, within a 435-watch Seamaster listing. S3 declares a curated 20-reference mechanical sample spanning collection dates in the 1960s/70s; target coverage is sample coverage, not completeness against the entire catalogue. Date labels are not production bounds. Reference identities were individually inspected; no complete catalogue extraction."
+}

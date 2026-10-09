@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0132",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster Cosmic 2000 ST 166.0132",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-hd37lhkyd7",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-op4xgyvdwd",
+          "source": "source:omega-seamaster-st1660132-20261009",
+          "quote": "Seamaster Cosmic 2000 1972 ST 166.0132",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    },
+    {
+      "id": "clm-x7pw75doxk",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-1012"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rtk6vsdhxg",
+          "source": "source:omega-seamaster-st1660132-20261009",
+          "quote": "Movement type Automatic (mechanical) Caliber number 1012",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}

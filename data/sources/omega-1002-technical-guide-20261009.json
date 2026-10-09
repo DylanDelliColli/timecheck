@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-1002-technical-guide-20261009",
+  "kind": "source",
+  "url": "https://myretrowatches.co.uk/wp-content/uploads/2024/01/Omega-Calibre-100010011002.pdf",
+  "publisher": "OMEGA SA (technical guide; mirrored by My Retro Watches)",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "pdf_text",
+  "archive_url": "https://web.archive.org/web/20261009005504id_/https://myretrowatches.co.uk/wp-content/uploads/2024/01/Omega-Calibre-100010011002.pdf",
+  "snapshot_sha256": "96d8ebc46f873c2ec656a3f2945a15c2b2a69a209cee08aaca0c2712aaf670b9",
+  "retrieved_at": "2026-10-09",
+  "notes": "Manufacturer technical guide, dated 1970 in footers; OMEGA logo visible on cover. Nominal specification table and English prose on page 1. PDF matching is advisory; requires human attestation. Full PDF stays outside git."
+}

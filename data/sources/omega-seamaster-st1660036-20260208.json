@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660036-20260208",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/en-us/watch-omega-seamaster-cosmic-st-166-0036",
+  "archive_url": "https://web.archive.org/web/20260208160024id_/https://www.omegawatches.com/en-us/watch-omega-seamaster-cosmic-st-166-0036",
+  "snapshot_sha256": "16c6dda44f9a2c3a9f4e5e6477da2f9b00102dd2cfdb06a9fa25be2b79498ba9",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

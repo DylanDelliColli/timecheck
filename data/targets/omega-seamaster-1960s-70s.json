@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "line": "line:omega-seamaster",
+  "source": "source:omega-seamaster-vintage-listing-20261009",
+  "references": [
+    "reference:omega-st-166-0068-1",
+    "reference:omega-136-0016",
+    "reference:omega-136-0022",
+    "reference:omega-165-0023",
+    "reference:omega-165-0022",
+    "reference:omega-st-166-0023",
+    "reference:omega-st-166-0022",
+    "reference:omega-st-166-0035",
+    "reference:omega-st-166-0062",
+    "reference:omega-st-166-0042",
+    "reference:omega-st-166-0045",
+    "reference:omega-st-165-0002",
+    "reference:omega-st-165-0014",
+    "reference:omega-st-166-0024",
+    "reference:omega-st-166-0027",
+    "reference:omega-st-165-0010",
+    "reference:omega-st-166-0036",
+    "reference:omega-st-166-0087",
+    "reference:omega-st-166-0090",
+    "reference:omega-st-166-0132"
+  ]
+}

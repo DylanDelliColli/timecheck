@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660090-20261009",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/en-us/watch-omega-seamaster-omega-st-166-0090",
+  "archive_url": "https://web.archive.org/web/20261009005604id_/https://www.omegawatches.com/en-us/watch-omega-seamaster-omega-st-166-0090",
+  "snapshot_sha256": "058389c383d170acdba6f28801f7e0fdbab1b1fd7ea612a6def0eae52204ea48",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

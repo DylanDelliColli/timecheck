@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0062",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 60 ST 166.0062",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-34pfcwmkra",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-igwjdbyjjq",
+          "source": "source:omega-seamaster-st1660062-20250218",
+          "quote": "Seamaster 60 1969 ST 166.0062",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    },
+    {
+      "id": "clm-mowlzv7mdc",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-565"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ljglft6nx5",
+          "source": "source:omega-seamaster-st1660062-20250218",
+          "quote": "Movement type Automatic (mechanical) Caliber number 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}

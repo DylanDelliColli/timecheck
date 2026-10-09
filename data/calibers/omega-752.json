@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-752",
+  "kind": "caliber",
+  "display_name": "OMEGA 752",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-3myddaydnf",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-akckwfimrn",
+          "source": "source:omega-seamaster-st1660035-20241109",
+          "quote": "Movement type Automatic (mechanical) Caliber number 752",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
+    }
+  ]
+}
