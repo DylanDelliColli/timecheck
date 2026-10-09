@@ -214,7 +214,8 @@ def test_sourced_multicaliber_chronology(dataset, tmp_path, view, side, ordering
             for claim in doc['claims']:
                 if claim['predicate'] == 'produced':
                     claim['predicate'] = 'catalogued'
-                    claim['evidence'][0]['quote'] = f'{side.title()} International collection 2000 - 2005.'
+                    years = claim['object']['years']
+                    claim['evidence'][0]['quote'] = f"{side.title()} International collection {years['from']} - {years['to']}."
                     quotes.append(claim['evidence'][0]['quote'])
         change(dataset, f'references/{side}.json', catalogue_instead)
     raw = next(SNAPSHOTS.iterdir()).read_bytes() + ('<p>' + '</p><p>'.join(quotes) + '</p>').encode()
