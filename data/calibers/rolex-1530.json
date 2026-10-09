@@ -12,7 +12,7 @@
         "value": 1957,
         "unit": "year"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -22,7 +22,11 @@
           "locator": "Reference 5510; sentence following caliber 1530 identification",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-v7zf53bbew",
@@ -31,7 +35,7 @@
         "value": 17,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -41,7 +45,11 @@
           "locator": "Reference 5510; caliber 1530 variants, dates unknown",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-e4xwa3stp3",
@@ -50,7 +58,7 @@
         "value": 24,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -60,7 +68,11 @@
           "locator": "Reference 5510; caliber 1530 variants, dates unknown",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-wcnayet3w3",
@@ -69,7 +81,7 @@
         "value": 25,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -79,7 +91,11 @@
           "locator": "Reference 5510; caliber 1530 variants, dates unknown",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }

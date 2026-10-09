@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:rolex-submariner"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Discontinued models table; 5513 row (neighbor cells included for excerpt length)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-lwxov3fecz",
@@ -34,7 +38,7 @@
           "to_evidence": "ev-zhsqrwmrzu"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -44,7 +48,11 @@
           "locator": "Discontinued models table; 5513 row, In production column (neighbor cells included)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-6jijulfquw",
@@ -52,7 +60,7 @@
       "object": {
         "entity": "caliber:rolex-1530"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -68,6 +76,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -76,7 +88,7 @@
       "object": {
         "entity": "caliber:rolex-1520"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -92,6 +104,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -100,7 +116,7 @@
       "object": {
         "entity": "reference:rolex-5508"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -110,7 +126,11 @@
           "locator": "History of the Rolex Submariner 5513",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-5rtqxx7rn3",
@@ -123,7 +143,7 @@
           "to_evidence": "ev-fixa7anxog"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -133,7 +153,11 @@
           "locator": "Rolex 5513 vs. 5512: What's the Difference?; left column",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-i4rypccm62",
@@ -141,7 +165,7 @@
       "object": {
         "entity": "reference:rolex-5512"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -151,7 +175,11 @@
           "locator": "Reference 5513 (Explorer Dial); preceding 5512 explicitly identifies predecessor; competes with Bob's 5508 interpretation",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }

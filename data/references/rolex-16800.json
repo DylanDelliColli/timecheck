@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:rolex-submariner"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Discontinued models table; 16800 row (neighbor cells included for excerpt length)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-zjmyz42qoh",
@@ -34,7 +38,7 @@
           "to_evidence": "ev-xz6u25fmll"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -44,7 +48,11 @@
           "locator": "Discontinued models table; 16800 row, In production column (neighbor cells included)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-4e6imjpxm3",
@@ -52,7 +60,7 @@
       "object": {
         "entity": "caliber:rolex-3035"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -68,6 +76,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -76,7 +88,7 @@
       "object": {
         "entity": "reference:rolex-1680"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -86,7 +98,11 @@
           "locator": "Rolex Submariner 16800; immediately follows 1680 section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-eihjq57z6p",
@@ -99,7 +115,7 @@
           "to_evidence": "ev-3tlvp37n4a"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -109,7 +125,11 @@
           "locator": "Rolex 16800 Price; approximate duration does not establish start year",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }

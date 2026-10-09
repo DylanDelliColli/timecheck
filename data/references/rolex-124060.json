@@ -61,7 +61,7 @@
       "object": {
         "entity": "line:rolex-submariner"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -71,7 +71,11 @@
           "locator": "Current models table; 124060 row",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-74uyxdqjpm",
@@ -79,7 +83,7 @@
       "object": {
         "entity": "caliber:rolex-3230"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -102,6 +106,10 @@
         "to": "present",
         "from_evidence": "ev-fwcifztmuz",
         "to_evidence": "ev-fwcifztmuz"
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -115,7 +123,7 @@
           "to_evidence": "ev-x324o2nox3"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -125,7 +133,11 @@
           "locator": "Current models table; 124060 row, production column",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-wgmmw6ksms",
@@ -133,7 +145,7 @@
       "object": {
         "entity": "reference:rolex-114060"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -143,7 +155,11 @@
           "locator": "Opening paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }

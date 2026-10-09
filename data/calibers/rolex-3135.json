@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:rolex"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Technical details; Calibre",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-vf253bkctz",
@@ -29,7 +33,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -39,7 +43,11 @@
           "locator": "Technical details; Winding",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-5oowqgnnmv",
@@ -47,7 +55,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -57,7 +65,11 @@
           "locator": "Technical details; Functions",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-m2jqibbzvt",
@@ -65,7 +77,7 @@
       "object": {
         "value": "date"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -75,7 +87,11 @@
           "locator": "Technical details; Functions",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-f2ibmgg5uv",
@@ -84,7 +100,7 @@
         "value": 48,
         "unit": "hour"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -94,7 +110,11 @@
           "locator": "Key Specifications; Caliber 3135 paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-wqo7zkwo7w",
@@ -103,7 +123,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -113,7 +133,11 @@
           "locator": "Key Specifications; Caliber 3135 paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-vztb66elh6",
@@ -122,7 +146,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -132,7 +156,11 @@
           "locator": "Oyster Perpetual Calibres 3230 & 3235; first paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }

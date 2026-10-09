@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:rolex-submariner"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Discontinued models table; 5512 row (neighbor cells included for excerpt length)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-eu7wl7fuos",
@@ -34,7 +38,7 @@
           "to_evidence": "ev-jfjgylyb4d"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -44,7 +48,11 @@
           "locator": "Discontinued models table; 5512 row, In production column (neighbor cells included)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-weuftggbf3",
@@ -52,7 +60,7 @@
       "object": {
         "entity": "caliber:rolex-1530"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -68,6 +76,10 @@
         "to": 1962,
         "from_evidence": "ev-piaxzzoacr",
         "to_evidence": "ev-piaxzzoacr"
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -76,7 +88,7 @@
       "object": {
         "entity": "caliber:rolex-1560"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -92,6 +104,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -100,7 +116,7 @@
       "object": {
         "entity": "caliber:rolex-1570"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -116,6 +132,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
       }
     },
     {
@@ -129,7 +149,7 @@
           "to_evidence": "ev-pj5aqrejal"
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -139,7 +159,11 @@
           "locator": "5512 vs. 5513; Reference 5512 production chronology",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     },
     {
       "id": "clm-nvielxliuh",
@@ -147,7 +171,7 @@
       "object": {
         "entity": "reference:rolex-5510"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -157,7 +181,11 @@
           "locator": "Twinlock vs. Triplock; article subject 5512, named predecessor 5510",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
     }
   ]
 }
