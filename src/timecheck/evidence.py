@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 import zstandard
 from urllib.error import HTTPError
 from pathlib import Path
+from html.parser import HTMLParser
 import time
 import zlib
 from urllib.request import Request, urlopen
@@ -105,18 +106,58 @@ def decode_representation(raw):
     return raw
 
 
-def _wayback_error(raw):
-    # Recognize archive-owned templates, never an arbitrary mention in an article.
+class _ArchiveTitles(HTMLParser):
+    """Read real title elements; markup inside script text is not an element."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.titles, self.parts, self.active = [], [], False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'title':
+            self.parts, self.active = [], True
+
+    def handle_endtag(self, tag):
+        if tag == 'title' and self.active:
+            self.titles.append(normalize(''.join(self.parts)).lower())
+            self.active = False
+
+    def handle_data(self, data):
+        if self.active:
+            self.parts.append(data)
+
+
+def _wayback_error(raw, source_type, content_type=None, charset=None):
+    """Recognize archive placeholders independently of their particular wording."""
+    media = (content_type or '').split(';', 1)[0].strip().lower()
+    if media == 'text/html' and source_type != 'html':
+        return True
     try:
-        sample = decode_representation(raw)[:65536].lower()
+        decoded = decode_representation(raw)
+        # Confirmed PDF bytes are a PDF, including comments that resemble HTML.
+        if decoded.startswith(b'%PDF-'):
+            return False
+        body = extract(decoded, 'html', charset).lower()
     except (OSError, EOFError, zlib.error, zstandard.ZstdError):
         return False
-    archive_template = (re.search(br'<title>\s*(?:wayback machine|internet archive|rate limit reached)[^<]*</title>', sample) or
-                        b'id="wb-error' in sample)
-    return archive_template and any(message in sample for message in (
-        b'has not archived that url', b'no archived versions', b'cannot be crawled or displayed',
-        b'url has been excluded', b'rate limit', b'temporarily unavailable',
-        b'failed to load', b'cannot be displayed due to robots.txt'))
+    parser = _ArchiveTitles()
+    try:
+        text = decoded.decode(charset or 'utf-8', errors='replace')
+    except LookupError:
+        text = decoded.decode('utf-8', errors='replace')
+    parser.feed(text)
+    titles = parser.titles
+    if 'wayback machine' in titles:
+        return True
+    if any(message in body for message in (
+            "doesn't have that page archived", 'this page is not available', 'hrm.')):
+        return True
+    # Retain earlier archive-owned error templates with more specific titles.
+    archive_template = (any(title.startswith(('wayback machine', 'internet archive', 'rate limit reached'))
+                            for title in titles) or b'id="wb-error' in decoded.lower())
+    return archive_template and any(message in body for message in (
+        'has not archived that url', 'no archived versions', 'cannot be crawled or displayed',
+        'url has been excluded', 'rate limit', 'temporarily unavailable',
+        'failed to load', 'cannot be displayed due to robots.txt'))
 
 
 def _retry_delay(attempt, exc=None):
@@ -194,7 +235,7 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                                 raw = response.read()
                                 charset = response.headers.get_content_charset()
                             transport.update(first_bytes_hex=raw[:32].hex(), actual_sha256=hashlib.sha256(raw).hexdigest())
-                            if _wayback_error(raw):
+                            if _wayback_error(raw, source['content_type'], response.headers.get('Content-Type'), charset):
                                 failure = ('snapshot_unavailable', 'Wayback returned an error/placeholder page')
                                 raw, charset = None, None
                                 if attempt < 3:

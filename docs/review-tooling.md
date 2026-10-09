@@ -24,16 +24,21 @@ timecheck status verify --by 'review-run / chief' --report report.json \
 `--data-dir` defaults to `data`, `--report` to `report.json`. Omit `--files` to
 select all claim files. `--except` accepts one or more claim ids; excluded claims
 remain proposed. `--at` accepts an ISO datetime with timezone and defaults to now
-in UTC. Output is JSON: `{"count": 1, "claim_ids": ["clm-..."]}`. Existing verified
-claims and their reviews are preserved. At least one evidence item on a candidate
-must have state `verified` in the report, mode `exact`, and source type `html` or
-`text`. Other evidence items neither count toward nor block promotion. Candidates
-whose HTML/text evidence is unchecked, warning or error are skipped unless another
-item qualifies. PDF matching is an advisory pre-check in v1; a claim supported only
-by PDF or manual evidence requires human attestation and refuses the operation
-unless explicitly excluded. This command cannot provide that attestation.
-`--include-fuzzy` has been withdrawn. Exclude PDF/manual-only claim ids listed under
-pending attestation to apply a review to eligible HTML/text claims.
+in UTC. Output is JSON: `{"count": 1, "claim_ids": ["clm-..."], "not_promoted": []}`.
+Existing verified claims and their reviews are preserved. At least one evidence
+item on a candidate must have state `verified` in the report, mode `exact`, and
+source type `html` or `text`. Other evidence items neither count toward nor block
+promotion. Ineligible claims stay proposed and appear in `not_promoted` as rows
+with `claim_id` and `reason`: `manual_only` for manual-backed claims without exact
+HTML/text support, `pdf_only` for PDF-backed claims without exact HTML/text support,
+and `no_verified_exact` when HTML/text support was not verified. Manual takes
+priority when both advisory types are present. Missing support never aborts
+promotion of qualifying claims. `--except` remains available to deliberately
+exclude a qualifying claim; excluded claims are omitted from both result lists.
+PDF/manual-only claims still require human attestation; this command cannot
+provide it. `--include-fuzzy` has been withdrawn. Stale claim or source inputs
+still refuse the entire operation before any writes, including stale inputs on
+claims that would otherwise be skipped.
 
 The report records SHA256 fingerprints of claim, subject, source metadata and
 verification algorithm versions. Reports from earlier extraction/matching code
@@ -85,9 +90,12 @@ scans remain manual.
 
 Archive verification requests raw bytes with `Accept-Encoding: identity`, uses one
 request at a time, and spaces requests by at least one second within a build.
-HTTP 429/503, connection refusal and recognized Wayback placeholder pages receive
+HTTP 429/503, connection refusal and Wayback placeholder pages receive
 bounded exponential backoff with jitter; `Retry-After` is honored up to 60 seconds.
-The initial request plus three retries are attempted. Exhausted placeholders are
+Placeholder recognition checks the decoded HTML title, archive error wording,
+and HTML response media type when the source expects another type. Confirmed PDF
+bytes retain PDF semantics; comments are not inspected as HTML elements. The initial
+request plus three retries are attempted. Exhausted placeholders are
 `snapshot_unavailable`; legitimate changed bytes remain `snapshot_hash_mismatch`.
 Failure rows include archive URL, HTTP status, Content-Encoding, a 32-byte hex
 prefix and raw hash when available. These rows also appear on stderr in CI. For a

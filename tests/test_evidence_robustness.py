@@ -123,3 +123,73 @@ def test_corrupt_zstd_reports_decode_failure_not_quote_success(tmp_path, variant
     errors, warnings = verify_evidence(claims, sources, snapshot_dir=tmp_path, strict=True)
     assert not warnings and errors[0]['class'] == 'snapshot_unavailable'
     assert 'zstd decode failed' in errors[0]['message']
+
+
+@pytest.mark.parametrize('body,media,content_type', [
+    (b"<html><title>Wayback Machine</title><p>Hrm. Wayback Machine doesn't have that page archived.</p></html>", 'text/html', 'html'),
+    (b'<html><title>  Wayback&nbsp;Machine </title><p>An unfamiliar archive status.</p></html>', 'text/html', 'html'),
+    (b'<html><title>Archive error</title><p>This page is not available</p></html>', 'text/html', 'html'),
+    (b'<html><title>Archive error</title><p>Hrm.</p></html>', 'text/html', 'html'),
+    (b'<html><title>Archive error</title><p>A generic archive error body.</p></html>', 'text/html; charset=utf-8', 'pdf_text'),
+])
+@pytest.mark.parametrize('strict', [False, True])
+def test_recorded_placeholder_variants_retry_and_remain_unavailable(monkeypatch, body, media, content_type, strict):
+    claims, sources = inputs(b'expected original capture bytes'); sources['source:example']['content_type'] = content_type
+    attempts, delays = [], []
+    def fetch(*a, **k):
+        attempts.append(1); response = Response(body); response.status = 200
+        response.headers['Content-Type'] = media
+        return response
+    monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
+    monkeypatch.setattr('timecheck.evidence.time.sleep', delays.append)
+    errors, warnings = verify_evidence(claims, sources, strict=strict)
+    problems = errors if strict else warnings
+    assert len(attempts) == 4 and len(delays) == 3
+    assert all(5 <= d <= 60 for d in delays)
+    assert len(problems) == 1 and problems[0]['class'] == 'snapshot_unavailable'
+    assert problems[0]['transport']['http_status'] == 200
+    assert not (warnings if strict else errors)
+
+
+def test_real_html_with_wayback_title_literal_in_script_is_not_placeholder(monkeypatch):
+    raw = (b'<html><title>Synthetic archived article</title><script>const example = "<title>Wayback Machine</title>";</script>'
+           b'<p>The synthetic specification gives cafe automatic winding.</p></html>')
+    claims, sources = inputs(raw); sources['source:example']['content_type'] = 'html'
+    claims[0]['evidence'][0]['quote'] = 'The synthetic specification gives cafe automatic winding.'
+    attempts = []
+    def fetch(*a, **k):
+        attempts.append(1); response = Response(raw); response.headers['Content-Type'] = 'text/html'; return response
+    monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
+    monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
+    assert verify_evidence(claims, sources, strict=True) == ([], [])
+    assert len(attempts) == 1
+
+
+def test_placeholder_title_attribute_can_contain_greater_than(monkeypatch):
+    raw = b'<html><title data-example="a>b">Wayback Machine</title><p>Unfamiliar status text.</p></html>'
+    claims, sources = inputs(b'expected original capture'); sources['source:example']['content_type'] = 'html'
+    attempts = []
+    def fetch(*a, **k):
+        attempts.append(1); response = Response(raw); response.headers['Content-Type'] = 'text/html'; return response
+    monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
+    monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
+    errors, warnings = verify_evidence(claims, sources, strict=True)
+    assert len(attempts) == 4 and not warnings and errors[0]['class'] == 'snapshot_unavailable'
+
+
+@pytest.mark.parametrize('media', ['application/pdf', None])
+def test_valid_pdf_with_html_comment_is_not_a_placeholder(monkeypatch, media):
+    from test_pdf_evidence import pdf_bytes, TEXT
+    from timecheck.extract import extract
+    raw = pdf_bytes().replace(b'startxref', b'% <title>Wayback Machine</title> Hrm.\nstartxref')
+    assert extract(raw, 'pdf_text') == TEXT
+    claims, sources = inputs(raw); sources['source:example']['content_type'] = 'pdf_text'
+    claims[0]['evidence'][0]['quote'] = TEXT; attempts = []
+    def fetch(*a, **k):
+        attempts.append(1); response = Response(raw)
+        if media: response.headers['Content-Type'] = media
+        return response
+    monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
+    monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
+    assert verify_evidence(claims, sources, strict=True) == ([], [])
+    assert len(attempts) == 1

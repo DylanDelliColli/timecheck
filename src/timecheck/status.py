@@ -61,7 +61,7 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
     excluded = set(exclude)
     if excluded - {c['id'] for c in claims}:
         raise ValueError('Unknown excluded claim: ' + sorted(excluded - {c['id'] for c in claims})[0])
-    changed, documents, originals = [], {}, {}
+    changed, documents, originals, not_promoted = [], {}, {}, []
     # Validate every candidate before touching any file, including PDF/manual claims.
     for c in claims:
         path = Path(c['path']).resolve()
@@ -73,11 +73,13 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
             has_exact_text = any(e['match_mode'] == 'exact' and
                                  sources[e['source']]['content_type'] in {'html', 'text'}
                                  for e in c['evidence'])
+            reason = 'no_verified_exact'
             if not has_exact_text:
-                if any(sources[e['source']]['content_type'] == 'pdf_text' for e in c['evidence']):
-                    raise ValueError('PDF evidence requires human attestation; exclude claim ' + c['id'])
                 if any(e['match_mode'] == 'manual' for e in c['evidence']):
-                    raise ValueError('Manual evidence requires human attestation; exclude claim ' + c['id'])
+                    reason = 'manual_only'
+                elif any(sources[e['source']]['content_type'] == 'pdf_text' for e in c['evidence']):
+                    reason = 'pdf_only'
+            not_promoted.append({'claim_id': c['id'], 'reason': reason})
             continue
         if path not in documents:
             originals[path] = path.read_bytes()
@@ -100,4 +102,4 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
     finally:
         for temporary in staged.values():
             temporary.unlink(missing_ok=True)
-    return {'count': len(changed), 'claim_ids': changed}
+    return {'count': len(changed), 'claim_ids': changed, 'not_promoted': not_promoted}

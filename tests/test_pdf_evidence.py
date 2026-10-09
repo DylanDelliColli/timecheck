@@ -100,8 +100,9 @@ def test_real_pdf_build_and_review(tmp_path, mode, quote, code):
         assert db.execute('SELECT match_mode FROM v_evidence_all').fetchall() == [(mode,)]
     path = data / 'calibers/synthetic.json'
     before = path.read_bytes()
-    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
-        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    outcome = verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert outcome == {'count': 0, 'claim_ids': [],
+                       'not_promoted': [{'claim_id': 'clm-aaaaaaaaaa', 'reason': 'pdf_only'}]}
     assert path.read_bytes() == before
     assert json.loads(before)['claims'][0]['status'] == 'proposed'
     assert report['pending_attestations'] == [{
@@ -475,8 +476,9 @@ def test_pdf_digit_bypass_match_never_authorizes_promotion(tmp_path, route, mode
     assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'verified'
     path = data / 'calibers/synthetic.json'
     before = path.read_bytes()
-    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
-        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    outcome = verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert outcome == {'count': 0, 'claim_ids': [],
+                       'not_promoted': [{'claim_id': 'clm-aaaaaaaaaa', 'reason': 'pdf_only'}]}
     assert path.read_bytes() == before
     assert 'review' not in json.loads(before)['claims'][0]
     assert report['pending_attestations'][0]['evidence_id'] == 'ev-aaaaaaaaaa'
