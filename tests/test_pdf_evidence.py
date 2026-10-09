@@ -100,8 +100,9 @@ def test_real_pdf_build_and_review(tmp_path, mode, quote, code):
         assert db.execute('SELECT match_mode FROM v_evidence_all').fetchall() == [(mode,)]
     path = data / 'calibers/synthetic.json'
     before = path.read_bytes()
-    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
-        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    outcome = verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert outcome == {'count': 0, 'claim_ids': [],
+                       'not_promoted': [{'claim_id': 'clm-aaaaaaaaaa', 'reason': 'pdf_only'}]}
     assert path.read_bytes() == before
     assert json.loads(before)['claims'][0]['status'] == 'proposed'
     assert report['pending_attestations'] == [{
@@ -475,8 +476,9 @@ def test_pdf_digit_bypass_match_never_authorizes_promotion(tmp_path, route, mode
     assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'verified'
     path = data / 'calibers/synthetic.json'
     before = path.read_bytes()
-    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
-        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    outcome = verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert outcome == {'count': 0, 'claim_ids': [],
+                       'not_promoted': [{'claim_id': 'clm-aaaaaaaaaa', 'reason': 'pdf_only'}]}
     assert path.read_bytes() == before
     assert 'review' not in json.loads(before)['claims'][0]
     assert report['pending_attestations'][0]['evidence_id'] == 'ev-aaaaaaaaaa'
@@ -484,7 +486,7 @@ def test_pdf_digit_bypass_match_never_authorizes_promotion(tmp_path, route, mode
 
 
 @pytest.mark.parametrize('no_evidence', [False, True])
-def test_pdf_mixed_evidence_refuses_atomically_and_can_be_excluded(tmp_path, no_evidence):
+def test_pdf_mixed_evidence_promotes_only_with_verified_text(tmp_path, no_evidence):
     from copy import deepcopy
     data, snaps = dataset(tmp_path, 'exact', TEXT)
     text = TEXT.encode(); sha = hashlib.sha256(text).hexdigest()
@@ -504,14 +506,19 @@ def test_pdf_mixed_evidence_refuses_atomically_and_can_be_excluded(tmp_path, no_
     code, report = build(data_dir=data, snapshot_dir=snaps, strict=True, no_evidence=no_evidence,
                          out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
     assert code == 0, report['errors']
-    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
-        verify_status(by='review / chief', data_dir=data, report=tmp_path / 'report.json')
-    assert path.read_bytes() == before
-    assert report['pending_attestations'] == [{
+    result = verify_status(by='review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert result['claim_ids'] == ([] if no_evidence else ['clm-bbbbbbbbbb', 'clm-aaaaaaaaaa'])
+    assert report['pending_attestations'] == ([{
         'claim_id': 'clm-aaaaaaaaaa', 'evidence_id': 'ev-aaaaaaaaaa',
-        'source_id': 'source:synthetic', 'content_type': 'pdf_text', 'location': str(path)}]
-    result = verify_status(by='review / chief', data_dir=data, report=tmp_path / 'report.json',
-                           exclude=['clm-aaaaaaaaaa'])
-    assert result['claim_ids'] == ([] if no_evidence else ['clm-bbbbbbbbbb'])
+        'source_id': 'source:synthetic', 'content_type': 'pdf_text', 'location': str(path)}] if no_evidence else [])
     updated = json.loads(path.read_text())['claims']
-    assert updated[1]['status'] == 'proposed' and 'review' not in updated[1]
+    if no_evidence:
+        assert path.read_bytes() == before
+        assert all(c['status'] == 'proposed' and 'review' not in c for c in updated)
+    else:
+        assert all(c['status'] == 'verified' and c['review']['by'] == 'review / chief' for c in updated)
+        code, after = build(data_dir=data, snapshot_dir=snaps, strict=True,
+                            out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+        assert code == 0 and after['pending_attestations'] == []
+        with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
+            assert db.execute('SELECT COUNT(*) FROM v_evidence').fetchone()[0] == 3

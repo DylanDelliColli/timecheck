@@ -3,7 +3,15 @@ import math
 import re
 import gzip
 import hashlib
+import json
+import random
+import sys
+from email.utils import parsedate_to_datetime
+from datetime import datetime, timezone
+import zstandard
+from urllib.error import HTTPError
 from pathlib import Path
+from html.parser import HTMLParser
 import time
 import zlib
 from urllib.request import Request, urlopen
@@ -68,24 +76,124 @@ def fuzzy_match(quote, content):
     return False
 
 
+
+ZSTD_MAGIC = b'\x28\xb5\x2f\xfd'
+
+
+def representation_encoding(raw):
+    if raw.startswith(b'\x1f\x8b'):
+        return 'gzip'
+    if raw.startswith(ZSTD_MAGIC):
+        return 'zstd'
+    return 'identity'
+
+
+def decode_representation(raw):
+    """Decode only after the caller validates the hash of the original bytes."""
+    encoding = representation_encoding(raw)
+    if encoding == 'gzip':
+        return gzip.decompress(raw)
+    if encoding == 'zstd':
+        # Streaming captures need not include a decompressed size in the frame.
+        chunks, remaining = [], raw
+        while remaining:
+            frame = zstandard.ZstdDecompressor().decompressobj()
+            chunks.append(frame.decompress(remaining))
+            if not frame.eof:
+                raise zstandard.ZstdError('Incomplete zstd frame')
+            remaining = frame.unused_data
+        return b''.join(chunks)
+    return raw
+
+
+class _ArchiveTitles(HTMLParser):
+    """Read real title elements; markup inside script text is not an element."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.titles, self.parts, self.active = [], [], False
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'title':
+            self.parts, self.active = [], True
+
+    def handle_endtag(self, tag):
+        if tag == 'title' and self.active:
+            self.titles.append(normalize(''.join(self.parts)).lower())
+            self.active = False
+
+    def handle_data(self, data):
+        if self.active:
+            self.parts.append(data)
+
+
+def _wayback_error(raw, source_type, content_type=None, charset=None):
+    """Recognize archive placeholders independently of their particular wording."""
+    media = (content_type or '').split(';', 1)[0].strip().lower()
+    if media == 'text/html' and source_type != 'html':
+        return True
+    try:
+        decoded = decode_representation(raw)
+        # Confirmed PDF bytes are a PDF, including comments that resemble HTML.
+        if decoded.startswith(b'%PDF-'):
+            return False
+        body = extract(decoded, 'html', charset).lower()
+    except (OSError, EOFError, zlib.error, zstandard.ZstdError):
+        return False
+    parser = _ArchiveTitles()
+    try:
+        text = decoded.decode(charset or 'utf-8', errors='replace')
+    except LookupError:
+        text = decoded.decode('utf-8', errors='replace')
+    parser.feed(text)
+    titles = parser.titles
+    if 'wayback machine' in titles:
+        return True
+    return any(message in body for message in (
+        "wayback machine doesn't have that page archived", 'this page is not available',
+        'hrm. wayback machine'))
+
+
+def _retry_delay(attempt, exc=None):
+    status = getattr(exc, 'code', None)
+    throttled = status in {429, 503} or 'connection refused' in str(exc).lower() or exc == 'placeholder'
+    delay = (5 * 2 ** attempt + random.uniform(0, 1)) if throttled else 2 ** attempt
+    headers = getattr(exc, 'headers', None)
+    retry_after = headers.get('Retry-After') if headers else None
+    if retry_after and throttled:
+        try:
+            seconds = float(retry_after)
+        except ValueError:
+            try:
+                seconds = (parsedate_to_datetime(retry_after) - datetime.now(timezone.utc)).total_seconds()
+            except (ValueError, TypeError, OverflowError):
+                seconds = 0
+        delay = max(delay, seconds)
+    return min(60, delay)
+
+
 def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
-                    strict=False, only_changed=None, cache_dir=None):
+                    strict=False, only_changed=None, cache_dir=None, evidence_ids=None):
     errors, warnings = [], []
     selected = None if only_changed is None else {Path(p).resolve() for p in only_changed}
-    cache = {}
+    cache, last_request = {}, None
     for c in claims:
         if selected is not None and Path(c['path']).resolve() not in selected:
             continue
         for e in c['evidence']:
+            if evidence_ids is not None and e['id'] not in evidence_ids:
+                continue
             if e['match_mode'] == 'manual':
                 continue
             source = sources.get(e['source'])
             if source is None:
-                continue  # Integrity validation already reports this.
+                continue
             sha = source['snapshot_sha256']
             key = (sha, source['content_type'], source['archive_url'])
             if key not in cache:
-                raw, charset, failure = None, None, None
+                raw, charset, failure, content = None, None, None, None
+                transport = {'archive_url': source['archive_url'], 'http_status': None,
+                             'content_encoding': None, 'first_bytes_hex': '',
+                             'expected_sha256': sha}
                 local = Path(snapshot_dir, sha + '.bin') if snapshot_dir else None
                 stored = Path(cache_dir, sha + '.bin') if cache_dir else None
                 for candidate in (local, stored):
@@ -101,26 +209,64 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                 if raw is None and (offline or snapshot_dir):
                     failure = ('snapshot_unavailable', f'No local snapshot {sha}')
                 elif raw is None:
-                    for attempt in range(4):  # initial request + three retries
+                    for attempt in range(4):
                         try:
-                            request = Request(source['archive_url'], headers={'User-Agent': 'timecheck/0.1 provenance-verifier'})
+                            # Serial transport (concurrency one), with spacing even
+                            # across different captures in a bulk verification.
+                            if last_request is not None:
+                                remaining = 1 - (time.monotonic() - last_request)
+                                if remaining > 0:
+                                    time.sleep(remaining)
+                            last_request = time.monotonic()
+                            transport.update(http_status=None, content_encoding=None, first_bytes_hex='', attempts=attempt + 1)
+                            request = Request(source['archive_url'], headers={
+                                'User-Agent': 'timecheck/0.1 provenance-verifier',
+                                'Accept-Encoding': 'identity'})
                             with urlopen(request, timeout=30) as response:
+                                transport.update(http_status=getattr(response, 'status', 200),
+                                                 content_encoding=response.headers.get('Content-Encoding', 'identity'))
                                 raw = response.read()
                                 charset = response.headers.get_content_charset()
+                            transport.update(first_bytes_hex=raw[:32].hex(), actual_sha256=hashlib.sha256(raw).hexdigest())
+                            if _wayback_error(raw, source['content_type'], response.headers.get('Content-Type'), charset):
+                                failure = ('snapshot_unavailable', 'Wayback returned an error/placeholder page')
+                                raw, charset = None, None
+                                if attempt < 3:
+                                    delay = _retry_delay(attempt, 'placeholder')
+                                    time.sleep(delay)
+                                    # sleep doubles as pacing; no second delay if a
+                                    # test replaces sleep without advancing its clock.
+                                    last_request = None
+                                continue
                             failure = None
                             break
                         except Exception as exc:
-                            # The transport boundary includes opening, body reads
-                            # and response teardown. IncompleteRead/HTTPException
-                            # are not OSError subclasses; every failed attempt
-                            # must leave no bytes from a partial response behind.
                             raw, charset = None, None
+                            if isinstance(exc, HTTPError):
+                                transport.update(http_status=exc.code,
+                                                 content_encoding=exc.headers.get('Content-Encoding', 'identity') if exc.headers else None)
+                                try:
+                                    transport['first_bytes_hex'] = exc.read(32).hex()
+                                except Exception:
+                                    pass
+                                finally:
+                                    exc.close()
                             failure = ('snapshot_unavailable', f'Archive fetch/read failed ({type(exc).__name__}): {exc}')
                             if attempt < 3:
-                                time.sleep(2 ** attempt)
+                                time.sleep(_retry_delay(attempt, exc))
+                                last_request = None
                 if raw is not None:
-                    if hashlib.sha256(raw).hexdigest() != sha:
+                    transport.update(first_bytes_hex=raw[:32].hex(), actual_sha256=hashlib.sha256(raw).hexdigest(),
+                                     representation_encoding=representation_encoding(raw))
+                    if transport['actual_sha256'] != sha:
                         failure = ('snapshot_hash_mismatch', f'Raw snapshot hash does not match {sha}')
+                        # Diagnostic comparison only: never trust alternate bytes.
+                        if representation_encoding(raw) != 'identity':
+                            try:
+                                decoded_sha = hashlib.sha256(decode_representation(raw)).hexdigest()
+                                transport.update(decoded_sha256=decoded_sha, encoding_variant_of_pin=decoded_sha == sha)
+                            except (OSError, EOFError, zlib.error, zstandard.ZstdError):
+                                transport['encoding_variant_of_pin'] = False
                     else:
                         if stored and not stored.exists():
                             stored.parent.mkdir(parents=True, exist_ok=True)
@@ -128,14 +274,13 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                             if charset:
                                 stored.with_suffix('.charset').write_text(charset)
                         try:
-                            decoded = gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
-                            content = extract(decoded, source['content_type'], charset)
+                            content = extract(decode_representation(raw), source['content_type'], charset)
                         except ValueError as exc:
                             failure = ('unsupported_content_type', str(exc))
-                        except (OSError, EOFError, zlib.error) as exc:
-                            failure = ('snapshot_unavailable', f'Snapshot gzip decode failed: {exc}')
-                cache[key] = (failure, content if not failure else None)
-            failure, content = cache[key]
+                        except (OSError, EOFError, zlib.error, zstandard.ZstdError) as exc:
+                            failure = ('snapshot_unavailable', f"Snapshot {representation_encoding(raw)} decode failed: {exc}")
+                cache[key] = (failure, content, transport)
+            failure, content, transport = cache[key]
             if failure:
                 kind, message = failure
             elif len(normalize(e['quote'])) < 20:
@@ -145,5 +290,7 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
             else:
                 continue
             destination = warnings if kind == 'snapshot_unavailable' and not strict else errors
-            destination.append(issue(kind, message, c['path'], claim_id=c['id'], evidence_id=e['id']))
+            problem = issue(kind, message, c['path'], claim_id=c['id'], evidence_id=e['id'], transport=dict(transport))
+            destination.append(problem)
+            print(json.dumps(problem, sort_keys=True), file=sys.stderr)
     return errors, warnings

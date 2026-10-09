@@ -68,3 +68,90 @@ def test_short_http_body_recovers_on_later_retry(dataset,tmp_path,monkeypatch):
   assert db.execute('SELECT COUNT(*) FROM v_lineage').fetchone()[0]==3
  report=json.loads((tmp_path/'report.json').read_text());assert not report['errors'] and not report['warnings']
  assert set(report['evidence_verification'].values())=={'verified'}
+
+
+@pytest.mark.parametrize('first_response', [429, 503, 'placeholder', 'hrm', 'generic'])
+def test_real_archive_throttle_and_placeholder_recovery(dataset, tmp_path, monkeypatch, first_response):
+ raw = next(SNAPSHOTS.iterdir()).read_bytes(); requests = []; delays = []
+ class Handler(BaseHTTPRequestHandler):
+  def do_GET(self):
+   requests.append(self.path)
+   first = len(requests) == 1
+   status = first_response if first and isinstance(first_response, int) else 200
+   errors = {
+    'placeholder': b'<html><title>Wayback Machine</title><p>The Wayback Machine has not archived that URL.</p></html>',
+    'hrm': b"<html><title>Wayback Machine</title><p>Hrm. Wayback Machine doesn't have that page archived.</p></html>",
+    'generic': b'<html><title>Wayback Machine</title><p>An unfamiliar archive status.</p></html>'}
+   body = errors.get(first_response, raw) if first else raw
+   self.send_response(status); self.send_header('Content-Type', 'text/html; charset=utf-8')
+   self.send_header('Content-Length', str(len(body))); self.send_header('Retry-After', '2')
+   self.end_headers(); self.wfile.write(body)
+  def log_message(self, *args): pass
+ with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+  thread = Thread(target=server.serve_forever, daemon=True); thread.start()
+  endpoint = f'http://127.0.0.1:{server.server_port}/snapshot'
+  monkeypatch.setattr('timecheck.evidence.urlopen', lambda request, timeout: urlopen(endpoint, timeout=timeout))
+  monkeypatch.setattr('timecheck.evidence.time.sleep', delays.append)
+  try:
+   code = main(['build', '--strict', '--data-dir', str(dataset), '--out', str(tmp_path/'graph.sqlite'),
+                '--report', str(tmp_path/'report.json')])
+  finally: server.shutdown(); thread.join(timeout=5)
+ assert code == 0 and len(requests) == 2
+ assert len(delays) == 1 and 5 <= delays[0] <= 60
+ with sqlite3.connect(tmp_path/'graph.sqlite') as db:
+  assert db.execute('SELECT COUNT(*) FROM v_evidence').fetchone()[0] == 23
+
+
+def test_real_pdf_download_keeps_pdf_comments_out_of_html_recognition(tmp_path, monkeypatch):
+ from test_pdf_evidence import dataset as pdf_dataset, pdf_bytes, TEXT
+ import hashlib
+ data, _ = pdf_dataset(tmp_path, 'exact', TEXT)
+ raw = pdf_bytes().replace(b'startxref', b'% <title>Wayback Machine</title> Hrm.\nstartxref')
+ source_path = data / 'sources/synthetic.json'; source = json.loads(source_path.read_text())
+ source['snapshot_sha256'] = hashlib.sha256(raw).hexdigest(); source_path.write_text(json.dumps(source))
+ requests = []
+ class Handler(BaseHTTPRequestHandler):
+  def do_GET(self):
+   requests.append(self.path); self.send_response(200)
+   self.send_header('Content-Type', 'application/pdf'); self.send_header('Content-Length', str(len(raw)))
+   self.end_headers(); self.wfile.write(raw)
+  def log_message(self, *args): pass
+ with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+  thread = Thread(target=server.serve_forever, daemon=True); thread.start()
+  endpoint = f'http://127.0.0.1:{server.server_port}/snapshot'
+  monkeypatch.setattr('timecheck.evidence.urlopen', lambda request, timeout: urlopen(endpoint, timeout=timeout))
+  try:
+   code = main(['build', '--strict', '--data-dir', str(data), '--out', str(tmp_path/'graph.sqlite'),
+                '--report', str(tmp_path/'report.json')])
+  finally: server.shutdown(); thread.join(timeout=5)
+ assert code == 0 and len(requests) == 1
+ report = json.loads((tmp_path/'report.json').read_text())
+ assert report['evidence_verification'] == {'ev-aaaaaaaaaa': 'verified'}
+ with sqlite3.connect(tmp_path/'graph.sqlite') as db:
+  assert db.execute('SELECT quote FROM v_evidence_all').fetchone()[0] == TEXT
+
+
+def test_legitimate_hrm_prose_real_http_build_and_sqlite(dataset, tmp_path, monkeypatch):
+ import hashlib
+ raw = next(SNAPSHOTS.iterdir()).read_bytes() + b'<p>A synthetic archive paragraph says hrm. in ordinary prose.</p>'
+ source_path = dataset / 'sources/example.json'; source = json.loads(source_path.read_text())
+ source['snapshot_sha256'] = hashlib.sha256(raw).hexdigest(); source_path.write_text(json.dumps(source))
+ requests = []
+ class Handler(BaseHTTPRequestHandler):
+  def do_GET(self):
+   requests.append(self.path); self.send_response(200)
+   self.send_header('Content-Type', 'text/html'); self.send_header('Content-Length', str(len(raw)))
+   self.end_headers(); self.wfile.write(raw)
+  def log_message(self, *args): pass
+ with ThreadingHTTPServer(('127.0.0.1', 0), Handler) as server:
+  thread = Thread(target=server.serve_forever, daemon=True); thread.start()
+  endpoint = f'http://127.0.0.1:{server.server_port}/snapshot'
+  monkeypatch.setattr('timecheck.evidence.urlopen', lambda request, timeout: urlopen(endpoint, timeout=timeout))
+  monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
+  try:
+   code = main(['build', '--strict', '--data-dir', str(dataset), '--out', str(tmp_path/'graph.sqlite'),
+                '--report', str(tmp_path/'report.json')])
+  finally: server.shutdown(); thread.join(timeout=5)
+ assert code == 0 and len(requests) == 1
+ with sqlite3.connect(tmp_path/'graph.sqlite') as db:
+  assert db.execute('SELECT COUNT(*) FROM v_evidence').fetchone()[0] == 23

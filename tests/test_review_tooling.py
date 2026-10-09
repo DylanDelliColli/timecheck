@@ -52,7 +52,7 @@ def test_report_and_review_journey(graph, tmp_path):
     excluded = ids[-1]
     result = verify(graph, tmp_path, '--files', path, '--except', excluded)
     assert result.returncode == 0, result.stderr
-    assert json.loads(result.stdout) == {'count': 2, 'claim_ids': ids[:2]}
+    assert json.loads(result.stdout) == {'count': 2, 'claim_ids': ids[:2], 'not_promoted': []}
     claims = json.loads(path.read_text())['claims']
     assert [c['status'] for c in claims] == ['verified', 'verified', 'proposed']
     assert claims[0]['review'] == {'by': 'independent-review / chief', 'at': '2026-10-08T23:30:00Z'}
@@ -102,15 +102,21 @@ def test_review_refuses_untrusted_or_ineligible_inputs(graph, tmp_path, mode):
         flags = ['--by', '   ']
     before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
     result = verify(graph, tmp_path, *flags)
-    # Unchecked/error evidence is skipped; stale inputs and manual evidence refuse.
-    if mode in {'unchecked', 'error'}:
+    # Ineligible evidence is reported without promotion; stale inputs still refuse.
+    if mode in {'unchecked', 'error', 'manual'}:
         assert result.returncode == 0, result.stderr
         changed = json.loads(result.stdout)['claim_ids']
         assert doc['claims'][0]['id'] not in changed
+        skipped = json.loads(result.stdout)['not_promoted']
+        assert any(row['claim_id'] == doc['claims'][0]['id'] and
+                   row['reason'] == ('manual_only' if mode == 'manual' else 'no_verified_exact')
+                   for row in skipped)
+        if mode == 'manual':
+            assert all(p.read_bytes() == raw for p, raw in before.items())
     else:
         assert result.returncode == 2, result.stderr
         assert 'Traceback' not in result.stderr
-        diagnostic = {'stale_claim': 'Stale', 'stale_source': 'Stale', 'manual': 'Manual evidence',
+        diagnostic = {'stale_claim': 'Stale', 'stale_source': 'Stale',
                       'missing': 'No such file', 'wrong_root': 'another data directory',
                       'invalid_at': 'ISO datetime', 'blank_by': 'must not be blank'}[mode]
         assert diagnostic in result.stderr
@@ -133,7 +139,7 @@ def test_unknown_file_and_exception_are_errors(graph, tmp_path):
         assert (graph / 'references/alpha.json').read_bytes() == before
 
 
-def test_all_evidence_must_pass_and_only_changed_is_respected(graph, tmp_path):
+def test_one_exact_item_suffices_and_only_changed_is_respected(graph, tmp_path):
     path = graph / 'references/alpha.json'
     doc = json.loads(path.read_text())
     extra = dict(doc['claims'][0]['evidence'][0], id='ev-zzzzzzzzzz',
@@ -143,7 +149,7 @@ def test_all_evidence_must_pass_and_only_changed_is_respected(graph, tmp_path):
     build(graph, tmp_path, '--strict', '--only-changed', path)
     result = verify(graph, tmp_path)
     assert result.returncode == 0, result.stderr
-    assert json.loads(result.stdout)['claim_ids'] == [c['id'] for c in doc['claims'][1:]]
+    assert json.loads(result.stdout)['claim_ids'] == [c['id'] for c in doc['claims']]
     # No evidence in unselected files was verified by the partial build.
     beta = json.loads((graph / 'references/beta.json').read_text())
     assert all(c['status'] == 'proposed' for c in beta['claims'])
@@ -183,11 +189,13 @@ def test_manual_claim_can_be_excluded_without_attestation(graph, tmp_path):
         'location': str(path)}]
     assert report['pending_manual_attestations'] == [c['evidence'][0]['id']]
     result = verify(graph, tmp_path)
-    assert result.returncode == 2 and 'Manual evidence' in result.stderr
-    assert all(c['status'] == 'proposed' for c in json.loads(path.read_text())['claims'])
-    result = verify(graph, tmp_path, '--except', c['id'])
     assert result.returncode == 0, result.stderr
     assert json.loads(result.stdout)['count'] == 22
+    assert json.loads(result.stdout)['not_promoted'] == [{'claim_id': c['id'], 'reason': 'manual_only'}]
+    result = verify(graph, tmp_path, '--except', c['id'])
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout)['count'] == 0
+    assert json.loads(result.stdout)['not_promoted'] == []
     assert json.loads(path.read_text())['claims'][-1]['status'] == 'proposed'
 
 
@@ -231,6 +239,86 @@ def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path
         raw = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()
         report['review_inputs'][claim['id']] = hashlib.sha256(raw).hexdigest()
     path.write_text(json.dumps(report))
+    before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
+    result = verify(graph, tmp_path)
+    assert result.returncode == 2 and 'Stale' in result.stderr
+    assert all(p.read_bytes() == raw for p, raw in before.items())
+
+
+@pytest.mark.parametrize('advisory', ['pdf_text', 'image_scan'])
+@pytest.mark.parametrize('stale', [False, True])
+def test_mixed_advisory_promotes_with_exact_text_or_rejects_stale(graph, tmp_path, advisory, stale):
+    from test_pdf_evidence import pdf_bytes
+    import hashlib
+    path = graph / 'references/alpha.json'; doc = json.loads(path.read_text())
+    claim = doc['claims'][1]; exact = claim['evidence'][0]
+    source = json.loads((graph / 'sources/example.json').read_text())
+    source.update(id='source:advisory', content_type=advisory)
+    quote = 'The synthetic specification gives automatic winding and 25 jewels.'
+    snaps = tmp_path / 'snapshots'; shutil.copytree(SNAPSHOTS, snaps)
+    if advisory == 'pdf_text':
+        raw = pdf_bytes(quote); sha = hashlib.sha256(raw).hexdigest()
+        (snaps / (sha + '.bin')).write_bytes(raw); source['snapshot_sha256'] = sha
+    (graph / 'sources/advisory.json').write_text(json.dumps(source))
+    claim['evidence'].append(dict(exact, id='ev-zzzzzzzzzz', source='source:advisory', quote=quote,
+                                  match_mode='exact' if advisory == 'pdf_text' else 'manual'))
+    path.write_text(json.dumps(doc))
+    result = cli('build', '--strict', '--data-dir', graph, '--snapshot-dir', snaps,
+                 '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+    assert result.returncode == 0, result.stderr
+    report = json.loads((tmp_path / 'report.json').read_text())
+    assert report['pending_attestations'] == []
+    assert report['pending_manual_attestations'] == []
+    if stale:
+        claim['evidence'][-1]['locator'] = 'Edited after build'; path.write_text(json.dumps(doc))
+    before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
+    result = verify(graph, tmp_path, '--by', 'codex:gpt-6.1-sol:pr2 / chief')
+    if stale:
+        assert result.returncode == 2 and 'Stale' in result.stderr
+        assert all(p.read_bytes() == raw for p, raw in before.items())
+    else:
+        assert result.returncode == 0, result.stderr
+        assert json.loads(result.stdout)['count'] == 23
+        result = cli('build', '--strict', '--data-dir', graph, '--snapshot-dir', snaps,
+                     '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+        assert result.returncode == 0, result.stderr
+        with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
+            assert db.execute('SELECT status FROM claim WHERE id=?', (claim['id'],)).fetchone()[0] == 'verified'
+            assert db.execute('SELECT COUNT(*) FROM v_evidence WHERE claim_id=?', (claim['id'],)).fetchone()[0] == 2
+
+
+def test_manual_only_does_not_abort_eligible_claim_promotion(graph, tmp_path):
+    source = json.loads((graph / 'sources/example.json').read_text())
+    source.update(id='source:scan', content_type='image_scan')
+    (graph / 'sources/scan.json').write_text(json.dumps(source))
+    path = graph / 'references/alpha.json'; doc = json.loads(path.read_text())
+    manual = doc['claims'][-1]; manual['evidence'][0].update(source='source:scan', match_mode='manual')
+    path.write_text(json.dumps(doc))
+    _, report = build(graph, tmp_path, '--strict')
+    assert report['pending_manual_attestations'] == [manual['evidence'][0]['id']]
+    before = json.loads(path.read_text())['claims'][-1]
+    result = verify(graph, tmp_path, '--by', 'codex:gpt-6.1-sol:repair / chief')
+    assert result.returncode == 0, result.stderr
+    output = json.loads(result.stdout)
+    assert output['count'] == 22
+    assert output['not_promoted'] == [{'claim_id': manual['id'], 'reason': 'manual_only'}]
+    assert json.loads(path.read_text())['claims'][-1] == before
+    result, after = build(graph, tmp_path, '--strict')
+    assert result.returncode == 0, result.stderr
+    assert after['claim_counts']['status'] == {'verified': 22, 'proposed': 1}
+    with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
+        assert db.execute('SELECT status FROM claim WHERE id=?', (manual['id'],)).fetchone()[0] == 'proposed'
+        assert db.execute('SELECT COUNT(*) FROM claim WHERE status="verified"').fetchone()[0] == 22
+
+
+def test_stale_manual_candidate_aborts_before_eligible_writes(graph, tmp_path):
+    source = json.loads((graph / 'sources/example.json').read_text())
+    source.update(id='source:scan', content_type='image_scan')
+    (graph / 'sources/scan.json').write_text(json.dumps(source))
+    path = graph / 'references/alpha.json'; doc = json.loads(path.read_text())
+    manual = doc['claims'][-1]; manual['evidence'][0].update(source='source:scan', match_mode='manual')
+    path.write_text(json.dumps(doc)); build(graph, tmp_path, '--strict')
+    manual['evidence'][0]['locator'] += ' stale'; path.write_text(json.dumps(doc))
     before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
     result = verify(graph, tmp_path)
     assert result.returncode == 2 and 'Stale' in result.stderr

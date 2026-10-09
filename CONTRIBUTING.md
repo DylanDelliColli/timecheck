@@ -30,13 +30,16 @@ bundled with pinned `publicsuffix2==2.20191221`; update its rules by reviewed de
 change when new suffixes matter.
 
 Start claims as `proposed`. Verification needs `review.by` and `review.at` and a
-faithful transcription of the evidence. Scans use `manual`, remain proposed until
-a human attests them, and are skipped by exact matching. An agent must never attest
-a scan as a human. Known worker/agent reviewer identities are rejected for verified
-manual evidence; the validator cannot authenticate arbitrary reviewer identities.
+faithful transcription of the evidence. Scans use `manual` and are skipped by
+exact matching. Scan-only claims remain proposed until a human attests them;
+corroborating verified exact HTML/text allows claim promotion without attesting
+the scan. An agent must never attest a scan as a human. Known worker/agent reviewer
+identities are rejected for verified manual claims without exact HTML/text support;
+the validator cannot authenticate arbitrary reviewer identities.
 Digital PDFs use `pdf_text` with exact matching or PDF-only fuzzy matching
 (ratio >= 0.90, numeric tokens and years exact).
-PDF matches are advisory: claims with any PDF evidence need human attestation and are never auto-verified in v1.
+PDF matches are advisory: PDF/manual-only claims need human attestation in v1.
+A verified exact HTML/text item permits promotion; advisory items neither count nor block.
 There is no OCR; image-only PDFs need manual evidence. See `docs/review-tooling.md` for extraction and review commands. A false boolean
 needs an explicit absence quote; silence means unknown. Quote matching confirms
 presence, not the truth of an interpretation: reviewers must assess the claim.
