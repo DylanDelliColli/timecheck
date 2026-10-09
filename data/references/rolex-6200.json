@@ -69,29 +69,6 @@
         "from_evidence": null,
         "to_evidence": null
       }
-    },
-    {
-      "id": "clm-p7hni2jcam",
-      "predicate": "produced",
-      "object": {
-        "years": {
-          "from": 1954,
-          "to": 1954,
-          "from_evidence": "ev-t5clbymyqv",
-          "to_evidence": "ev-t5clbymyqv"
-        }
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-t5clbymyqv",
-          "source": "source:wikipedia-submariner-1365492288",
-          "quote": "In 1954, Rolex also produced a small number of ref. 6200 Submariners.",
-          "locator": "Early models; documented 1954 production occurrence; table lists 1955 separately",
-          "match_mode": "exact"
-        }
-      ]
     }
   ]
 }

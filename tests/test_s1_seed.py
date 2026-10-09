@@ -48,6 +48,19 @@ def test_submariner_targets_have_queryable_movements_and_evidence(submariner_see
         assert db.execute("SELECT COUNT(*) FROM v_evidence_all").fetchone()[0] == report["evidence_count"]
 
 
+def test_6200_production_occurrence_does_not_define_bounds(submariner_seed):
+    database, _, _ = submariner_seed
+    with sqlite3.connect(database) as db:
+        intervals = db.execute(
+            "SELECT y.year_from, y.year_to FROM claim c "
+            "JOIN claim_years y ON y.claim_id = c.id "
+            "WHERE c.subject_id = 'reference:rolex-6200' "
+            "AND c.predicate = 'produced'").fetchall()
+    # The table explicitly gives a production interval in 1955. The prose
+    # reports production during 1954, without identifying either boundary.
+    assert intervals == [(1955, 1955)]
+
+
 def test_submariner_cli_can_show_proposed_history(submariner_seed):
     database, _, _ = submariner_seed
     command = [sys.executable, "-m", "timecheck", "query",
