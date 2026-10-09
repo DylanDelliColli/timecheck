@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "family": "family:eta-sellita-hosts",
+  "source": "docs/releases/v1.md (O2/Seed: ETA 2824-2/2892-A2/7750, Sellita SW200/SW300/SW500 and cross-brand hosts); timecheck-wvc (S4: ~25 hosts, delivered at 50c1a030b6e7b890da781afed8bc5511ce6f4d92, including the Hamilton and Steinhart pilot hosts)",
+  "references": [
+    "reference:anordain-model-1",
+    "reference:baume-mercier-10620",
+    "reference:cw-c60-41c3h31t0kk0-b0",
+    "reference:cw-c60-44adc31b0kk0-vt1",
+    "reference:cw-c60-trident-pro-600",
+    "reference:farr-swit-seaplane-day-trip",
+    "reference:farr-swit-seaplane-midnight-landing",
+    "reference:farr-swit-seaplane-special-edition",
+    "reference:guinand-60-50",
+    "reference:guinand-60-50-t",
+    "reference:guinand-sfl",
+    "reference:hamilton-h38455781",
+    "reference:hamilton-h38735501",
+    "reference:hamilton-h70615133",
+    "reference:le-jour-mark-i-001",
+    "reference:muhle-m1-25-21-lb",
+    "reference:sinn-556-a",
+    "reference:sinn-556-i",
+    "reference:sinn-u50",
+    "reference:steinhart-ocean-one-black",
+    "reference:steinhart-ocean-one-titanium-500-premium",
+    "reference:tissot-le-locle-eta",
+    "reference:zodiac-sea-dragon-chronograph-limited-black",
+    "reference:zodiac-sea-dragon-chronograph-limited-gray",
+    "reference:zodiac-sea-dragon-chronograph-standard"
+  ]
+}
