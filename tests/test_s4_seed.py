@@ -8,6 +8,36 @@ from timecheck.build import build
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_s4_host_family_coverage(tmp_path):
+    database = tmp_path / 'seed.sqlite'
+    code, report = build(data_dir=ROOT / 'data', out=database,
+                         report=tmp_path / 'report.json', strict=True, no_evidence=True)
+    assert code == 0, (report['errors'], report['warnings'])
+    coverage = report['coverage']['family:eta-sellita-hosts']
+    target = json.loads((ROOT / 'data/targets/eta-sellita-hosts.json').read_text())
+    with sqlite3.connect(database) as db:
+        # Includes grades, generic SW200/SW300 and the sourced Mühle derivative.
+        hosts = {row[0] for row in db.execute('''
+            WITH roots(id) AS (VALUES
+                ('caliber:eta-2824-2'), ('caliber:eta-2892-a2'), ('caliber:eta-7750'),
+                ('caliber:sellita-sw200-1'), ('caliber:sellita-sw300-1'), ('caliber:sellita-sw500')
+            ), family(id) AS (
+                SELECT id FROM roots UNION
+                SELECT related_id FROM v_caliber_family_all WHERE caliber_id IN roots
+            )
+            SELECT DISTINCT reference_id FROM v_reference_calibers_all
+            WHERE caliber_id IN family
+        ''')}
+        verified = {row[0] for row in db.execute(
+            'SELECT DISTINCT reference_id FROM v_reference_calibers')}
+    assert len(hosts) == 25
+    assert set(target['references']) == hosts
+    assert coverage == {'target': len(hosts), 'covered': len(hosts & verified),
+                        'missing': sorted(hosts - verified)}
+    assert {'reference:hamilton-h70615133', 'reference:steinhart-ocean-one-black',
+            'reference:muhle-m1-25-21-lb'} <= hosts
+
+
 def test_s4_cross_brand_families(tmp_path):
     report = tmp_path / 'report.json'
     db_path = tmp_path / 'seed.sqlite'

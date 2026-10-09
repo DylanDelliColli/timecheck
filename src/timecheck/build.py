@@ -87,12 +87,17 @@ def _coverage(data_dir, claims, errors):
         try:
             doc = json.loads(target.read_text())
             line = doc.get('line', 'line:' + target.stem) if isinstance(doc, dict) else 'line:' + target.stem
+            family = isinstance(doc, dict) and 'family' in doc
+            key = doc['family'] if family else line
+            if not isinstance(key, str) or not key:
+                raise ValueError('Target line or family must be a nonempty string')
             refs = doc['references'] if isinstance(doc, dict) else doc
             if not isinstance(refs, list) or not all(isinstance(r, str) and r.startswith('reference:') for r in refs):
                 raise ValueError('Target references must be a list of reference ids')
             wanted = set(refs)
-            covered = wanted & used & lines[line]
-            coverage[line] = {'target': len(wanted), 'covered': len(covered), 'missing': sorted(wanted - covered)}
+            # Family targets span model lines; their explicit list defines membership.
+            covered = wanted & used if family else wanted & used & lines[line]
+            coverage[key] = {'target': len(wanted), 'covered': len(covered), 'missing': sorted(wanted - covered)}
         except (OSError, ValueError, KeyError, TypeError) as exc:
             errors.append(issue('invalid_targets', str(exc), target))
     return coverage
