@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:omega-seamaster"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Vintage model heading",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
     },
     {
       "id": "clm-ieopr5jlri",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:omega-613"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -45,6 +49,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
       }
     }
   ]

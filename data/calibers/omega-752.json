@@ -11,7 +11,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Technical Data; Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr8 / chief",
+        "at": "2026-10-09T01:17:12Z"
+      }
     }
   ]
 }
