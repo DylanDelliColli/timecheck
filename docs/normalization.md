@@ -53,12 +53,32 @@ glyph that resolves to a digit to any code other than that digit's ASCII code.
 Glyph resolution includes Adobe names, `uni`/`u` Unicode names and name suffixes.
 Also reject an embedded CFF Type1 font when its explicit encoding and CFF-derived
 mapping disagree at an ASCII digit code (48–57). These checks run independently
-of pypdf's optional fonttools detection flag. Errors use
+of pypdf's optional fonttools detection flag. For simple fonts, inspect the
+`/ToUnicode` CMap using the pinned pypdf parser, including `bfchar` and scalar or
+array `bfrange` entries. Reject any ASCII digit code mapped to something other
+than its own digit, or any other code mapped to a digit. Thus a `2`→`5`,
+`5`→`2` CMap cannot verify a wrong-digit quote. Identity digit mappings remain
+supported.
+
+Type0 fonts require corroboration through their embedded glyph identity rather
+than trusting `/ToUnicode`. v1 uses the conservative fallback: **any emitted
+Type0 digit text rejects the PDF**, even if that particular font includes glyph
+names or a Unicode cmap. v1 does not implement code-to-CID-to-glyph corroboration.
+This restriction includes nested Form XObjects and Type0 digit text decoded
+without `/ToUnicode`. Type0 text without digits remains supported; unused digit
+entries in its CMap do not cause refusal. Extraction visitors record a refusal
+and raise after page traversal, because raising inside a nested Form visitor
+can be swallowed by pypdf.
+
+Errors use
 `unsupported_content_type` and name the font resource and font name. A refused
 page makes the whole PDF unavailable for automatic matching; unreliable pages
-are never silently omitted. Correct digit encodings and ordinary embedded CFF
-fonts remain supported; there is no OCR fallback.
+are never silently omitted. Type0 errors name the page and font name. Correct
+simple-font digit encodings and ordinary embedded CFF fonts remain supported;
+there is no OCR fallback. Maker sheets using Type0 digits need another supported
+source or an explicit evidence gap.
 
 Existing supported extraction outputs are unchanged (`extractor_version: 3`).
-The new validation guard has `pdf_digit_guard_version: 1`, bound into review
-fingerprints so reports produced before this guard require a fresh build.
+The validation guard has `pdf_digit_guard_version: 2`, bound into review
+fingerprints so reports produced before this guard, including guard version 1,
+require a fresh build.

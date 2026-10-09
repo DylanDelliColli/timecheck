@@ -275,3 +275,148 @@ def test_nested_form_digit_remap_is_unreliable():
 
 def test_correct_explicit_digit_encoding_remains_supported():
     assert extract(remapped_cff_pdf([50, '/two', 53, '/five']), 'pdf_text') == 'Synthetic CFF caliber has 25 jewels documented.'
+
+
+def to_unicode_swapped_pdf(mode='bfchar', cmap_override=None):
+    from pypdf import PdfReader
+    reader = PdfReader(BytesIO(pdf_bytes()))
+    font = reader.pages[0]['/Resources']['/Font']['/F1']
+    font[NameObject('/Encoding')] = NameObject('/WinAnsiEncoding')
+    stream = DecodedStreamObject()
+    if mode == 'bfchar':
+        cmap = b'2 beginbfchar\n<32> <0035>\n<35> <0032>\nendbfchar'
+    elif mode == 'bfrange':
+        cmap = b'2 beginbfrange\n<32> <32> <0035>\n<35> <35> <0032>\nendbfrange'
+    else:
+        cmap = b'2 beginbfrange\n<32> <32> [<0035>]\n<35> <35> [<0032>]\nendbfrange'
+    stream.set_data(cmap_override if cmap_override is not None else cmap)
+    font[NameObject('/ToUnicode')] = stream
+    writer = PdfWriter(); writer.append(reader)
+    out = BytesIO(); writer.write(out)
+    return out.getvalue()
+
+
+@pytest.mark.parametrize('cmap_mode', ['bfchar', 'bfrange', 'array'])
+@pytest.mark.parametrize('mode', ['exact', 'fuzzy'])
+def test_real_build_refuses_tounicode_digit_swap(tmp_path, cmap_mode, mode):
+    raw = to_unicode_swapped_pdf(cmap_mode)
+    data, snaps = dataset(tmp_path, mode, TEXT.replace('25', '52'))
+    sha = hashlib.sha256(raw).hexdigest()
+    (snaps / (sha + '.bin')).write_bytes(raw)
+    path = data / 'sources/synthetic.json'
+    doc = json.loads(path.read_text()); doc['snapshot_sha256'] = sha
+    path.write_text(json.dumps(doc))
+    code, report = build(data_dir=data, snapshot_dir=snaps, strict=True,
+                         out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+    assert code == 2
+    assert report['errors_by_class'] == {'unsupported_content_type': 1}
+    assert 'Helvetica' in report['errors'][0]['message']
+    assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'error'
+    assert not (tmp_path / 'graph.sqlite').exists()
+
+
+@pytest.mark.parametrize('mapping', [b'<32> <0041>', b'<41> <0032>', b'<32> <00320035>'])
+def test_simple_font_tounicode_cannot_add_or_remove_digits(mapping):
+    with pytest.raises(ValueError, match='Helvetica'):
+        extract(to_unicode_swapped_pdf(cmap_override=b'1 beginbfchar\n' + mapping + b'\nendbfchar'), 'pdf_text')
+
+
+def test_simple_font_identity_tounicode_digits_remain_supported():
+    raw = to_unicode_swapped_pdf(cmap_override=b'2 beginbfchar\n<32> <0032>\n<35> <0035>\nendbfchar')
+    assert extract(raw, 'pdf_text') == TEXT
+
+
+def type0_pdf(*, identity=True, digit_text=True, to_unicode=True, form=False):
+    """Generate Type0 and actual embedded TrueType, with/without identity tables."""
+    from fontTools.fontBuilder import FontBuilder
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    from fontTools.ttLib import TTFont
+    from pypdf.generic import ArrayObject, NumberObject, TextStringObject
+    names = ['.notdef', 'two', 'five', 'a', 'b', 'c']
+    fb = FontBuilder(1000, isTTF=True)
+    fb.setupGlyphOrder(names)
+    fb.setupCharacterMap({50: 'two', 53: 'five', 97: 'a', 98: 'b', 99: 'c'})
+    fb.setupGlyf({name: TTGlyphPen(None).glyph() for name in names})
+    fb.setupHorizontalMetrics({name: (600, 0) for name in names})
+    fb.setupHorizontalHeader(ascent=800, descent=-200)
+    fb.setupNameTable({'familyName': 'Synthetic CID', 'styleName': 'Regular',
+                       'fullName': 'Synthetic CID', 'psName': 'SyntheticCID'})
+    fb.setupOS2(sTypoAscender=800, sTypoDescender=-200, usWinAscent=800, usWinDescent=200)
+    fb.setupPost(keepGlyphNames=identity)
+    fb.setupMaxp()
+    if not identity:
+        del fb.font['cmap']
+    program_raw = BytesIO(); fb.font.save(program_raw)
+    # Assert the fixture's distinction, not merely a renamed generic font.
+    check = TTFont(BytesIO(program_raw.getvalue()))
+    assert (check['post'].formatType == 2.0 and 'cmap' in check) if identity else (check['post'].formatType == 3.0 and 'cmap' not in check)
+    writer = PdfWriter(); page = writer.add_blank_page(width=612, height=792)
+    program = DecodedStreamObject(); program.set_data(program_raw.getvalue())
+    descriptor = DictionaryObject({NameObject('/Type'): NameObject('/FontDescriptor'),
+                                   NameObject('/FontName'): NameObject('/SyntheticCID'),
+                                   NameObject('/Flags'): NumberObject(32),
+                                   NameObject('/FontFile2'): writer._add_object(program)})
+    descendant = DictionaryObject({NameObject('/Type'): NameObject('/Font'),
+                                  NameObject('/Subtype'): NameObject('/CIDFontType2'),
+                                  NameObject('/BaseFont'): NameObject('/SyntheticCID'),
+                                  NameObject('/FontDescriptor'): writer._add_object(descriptor),
+                                  NameObject('/CIDToGIDMap'): NameObject('/Identity'),
+                                  NameObject('/CIDSystemInfo'): DictionaryObject({
+                                      NameObject('/Registry'): TextStringObject('Adobe'),
+                                      NameObject('/Ordering'): TextStringObject('Identity'),
+                                      NameObject('/Supplement'): NumberObject(0)})})
+    font = DictionaryObject({NameObject('/Type'): NameObject('/Font'),
+                             NameObject('/Subtype'): NameObject('/Type0'),
+                             NameObject('/BaseFont'): NameObject('/SyntheticCID'),
+                             NameObject('/Encoding'): NameObject('/Identity-H'),
+                             NameObject('/DescendantFonts'): ArrayObject([writer._add_object(descendant)])})
+    if to_unicode:
+        cmap = DecodedStreamObject()
+        # Includes unused digit entries when showing abc: rejection must depend
+        # on emitted Type0 text, rather than the existence of an unused mapping.
+        cmap.set_data(b'5 beginbfchar\n<0001> <0032>\n<0002> <0035>\n<0003> <0061>\n<0004> <0062>\n<0005> <0063>\nendbfchar')
+        font[NameObject('/ToUnicode')] = writer._add_object(cmap)
+    fonts = DictionaryObject({NameObject('/F2'): writer._add_object(font)})
+    page[NameObject('/Resources')] = DictionaryObject({NameObject('/Font'): fonts})
+    codes = b'00010002' if digit_text and to_unicode else b'00320035' if digit_text else b'000300040005'
+    content = DecodedStreamObject(); content.set_data(b'BT /F2 12 Tf 36 720 Td <' + codes + b'> Tj ET')
+    if form:
+        content[NameObject('/Subtype')] = NameObject('/Form')
+        content[NameObject('/BBox')] = ArrayObject([NumberObject(x) for x in (0, 0, 612, 792)])
+        content[NameObject('/Resources')] = page['/Resources']
+        page[NameObject('/Resources')] = DictionaryObject({NameObject('/XObject'): DictionaryObject({
+            NameObject('/Nested'): writer._add_object(content)})})
+        wrapper = DecodedStreamObject(); wrapper.set_data(b'/Nested Do')
+        content = wrapper
+    page[NameObject('/Contents')] = writer._add_object(content)
+    out = BytesIO(); writer.write(out)
+    return out.getvalue()
+
+
+@pytest.mark.parametrize('identity', [True, False])
+@pytest.mark.parametrize('to_unicode,form', [(True, False), (False, False), (False, True)])
+def test_v1_fallback_refuses_type0_digit_text(identity, to_unicode, form):
+    with pytest.raises(ValueError, match='SyntheticCID'):
+        extract(type0_pdf(identity=identity, to_unicode=to_unicode, form=form), 'pdf_text')
+
+
+def test_type0_nondigit_text_is_supported_even_with_unused_digit_maps():
+    assert extract(type0_pdf(digit_text=False), 'pdf_text') == 'abc'
+
+
+@pytest.mark.parametrize('mode', ['exact', 'fuzzy'])
+def test_real_build_reports_type0_digit_refusal(tmp_path, mode):
+    raw = type0_pdf(identity=False)
+    data, snaps = dataset(tmp_path, mode, TEXT)
+    sha = hashlib.sha256(raw).hexdigest()
+    (snaps / (sha + '.bin')).write_bytes(raw)
+    path = data / 'sources/synthetic.json'
+    doc = json.loads(path.read_text()); doc['snapshot_sha256'] = sha
+    path.write_text(json.dumps(doc))
+    code, report = build(data_dir=data, snapshot_dir=snaps, strict=True,
+                         out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+    assert code == 2
+    assert report['errors_by_class'] == {'unsupported_content_type': 1}
+    assert 'SyntheticCID' in report['errors'][0]['message']
+    assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'error'
+    assert not (tmp_path / 'graph.sqlite').exists()

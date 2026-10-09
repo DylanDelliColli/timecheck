@@ -204,7 +204,7 @@ def test_include_fuzzy_cli_flag_keeps_exact_review_working(graph, tmp_path):
     assert json.loads(result.stdout)['count'] == 23
 
 
-@pytest.mark.parametrize('contract', ['original', 'previous_pdf_guard'])
+@pytest.mark.parametrize('contract', ['original', 'previous_pdf_guard', 'digit_guard_v1'])
 def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path, contract):
     """The first E1 report fingerprint did not bind verification algorithms."""
     import hashlib
@@ -217,9 +217,11 @@ def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path
     for claim in claims:
         payload = {k: v for k, v in claim.items() if k not in {'path', 'status', 'review'}}
         payload['sources'] = {e['source']: sources.get(e['source']) for e in claim['evidence']}
-        if contract == 'previous_pdf_guard':
+        if contract != 'original':
             payload['verification_contract'] = {'norm_version': 1, 'extractor_version': 3,
                                                 'fuzzy_metric': 'levenshtein-unit-cost-v1'}
+        if contract == 'digit_guard_v1':
+            payload['verification_contract']['pdf_digit_guard_version'] = 1
         raw = json.dumps(payload, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()
         report['review_inputs'][claim['id']] = hashlib.sha256(raw).hexdigest()
     path.write_text(json.dumps(report))

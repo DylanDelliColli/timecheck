@@ -2,12 +2,13 @@
 from html.parser import HTMLParser
 from io import BytesIO
 from pypdf import PdfReader
+from pypdf._cmap import _parse_to_unicode
 from pypdf._codecs import adobe_glyphs, charset_encoding
 import re
 from .normalize import normalize
 
 EXTRACTOR_VERSION = 3
-PDF_DIGIT_GUARD_VERSION = 1
+PDF_DIGIT_GUARD_VERSION = 2
 BLOCKS = set('address article aside blockquote br dd div dl dt fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr li main nav ol p pre section table tbody td th thead tr ul'.split())
 DROP = {'script', 'style', 'noscript', 'template'}
 
@@ -60,6 +61,18 @@ def _glyph_text(name):
 
 def _check_font_digits(font, name):
     label = f'{name} ({font.get("/BaseFont", "unnamed font")})'
+    if font.get('/Subtype') != '/Type0' and '/ToUnicode' in font:
+        # Use the pinned extractor's own bfchar/bfrange parser so validation
+        # checks the same mappings that extraction applies.
+        mapping, _ = _parse_to_unicode(font)
+        for source, target in mapping.items():
+            if not isinstance(source, str):
+                continue
+            code = ord(source) if len(source) == 1 else None
+            own_digit = code is not None and 48 <= code <= 57
+            emits_digit = any(char.isdigit() for char in normalize(target))
+            if (own_digit or emits_digit) and (not own_digit or target != source):
+                raise ValueError(f'Unreliable PDF font {label}: ToUnicode remaps digit at code {code}')
     explicit = _resolved(font.get('/Encoding'))
     encoding = None
     if explicit is not None:
@@ -138,7 +151,21 @@ def extract(raw: bytes, content_type: str, charset: str | None = None) -> str:
             for number, page in enumerate(reader.pages, 1):
                 _check_resource_digits(page.get('/Resources', {}), seen_resources,
                                        seen_fonts, f'page {number}')
-                pages.append(page.extract_text() or '')
+                untrusted_fonts = set()
+
+                def check_emitted_digits(text, cm, tm, font, size):
+                    if font is not None and font.get('/Subtype') == '/Type0' and any(
+                            char.isdigit() for char in normalize(text)):
+                        untrusted_fonts.add(str(font.get('/BaseFont', 'unnamed Type0 font')))
+
+                # Raising inside the callback is unsafe: pypdf catches errors
+                # while extracting nested Form XObjects. Record and reject after
+                # traversal, so a refused form cannot silently disappear.
+                pages.append(page.extract_text(visitor_text=check_emitted_digits) or '')
+                if untrusted_fonts:
+                    raise ValueError(f'Unreliable PDF font on page {number}: '
+                                     + ', '.join(sorted(untrusted_fonts))
+                                     + ': Type0 digit text requires glyph corroboration; unsupported in v1')
             text = '\n'.join(pages)
             if not normalize(text):
                 raise ValueError('PDF has no text layer; scans require manual evidence')
