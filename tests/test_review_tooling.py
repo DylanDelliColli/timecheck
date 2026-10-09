@@ -264,7 +264,7 @@ def test_mixed_advisory_promotes_with_exact_text_or_rejects_stale(graph, tmp_pat
     if stale:
         claim['evidence'][-1]['locator'] = 'Edited after build'; path.write_text(json.dumps(doc))
     before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
-    result = verify(graph, tmp_path)
+    result = verify(graph, tmp_path, '--by', 'codex:gpt-6.1-sol:pr2 / chief')
     if stale:
         assert result.returncode == 2 and 'Stale' in result.stderr
         assert all(p.read_bytes() == raw for p, raw in before.items())

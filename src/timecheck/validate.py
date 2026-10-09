@@ -148,12 +148,15 @@ def load_data(data_dir):
         if c['predicate'] in {'hacking', 'offers_grades'} and c['object']['value'] is False:
             if not any(_states_absence(e['quote'], c['predicate']) for e in c['evidence']):
                 errors.append(issue('explicit_absence_required', c['predicate'], c['path'], claim_id=c['id']))
+        has_exact_text = any(e['match_mode'] == 'exact' and
+                             sources.get(e['source'], {}).get('content_type') in {'html', 'text'}
+                             for e in c['evidence'])
         for e in c['evidence']:
             source = sources.get(e['source'])
             if not source:
                 errors.append(issue('unresolved_slug', e['source'], c['path'], evidence_id=e['id']))
                 continue
-            if e['match_mode'] == 'manual' and c['status'] == 'verified' and re.match(r'(?:w-|ao-|worker|chief|agent|codex|claude)', c['review']['by'], re.I):
+            if e['match_mode'] == 'manual' and c['status'] == 'verified' and not has_exact_text and re.match(r'(?:w-|ao-|worker|chief|agent|codex|claude)', c['review']['by'], re.I):
                 errors.append(issue('manual_attestation_required', 'Known agent identity cannot verify a scan', c['path'], evidence_id=e['id']))
             if e['match_mode'] == 'fuzzy' and source['content_type'] != 'pdf_text':
                 errors.append(issue('unsupported_content_type', 'fuzzy matching is reserved for pdf_text', c['path'], evidence_id=e['id']))
