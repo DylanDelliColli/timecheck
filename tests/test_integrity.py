@@ -24,7 +24,7 @@ def clone(c):
  ('references/alpha.json',lambda d:d['claims'][1]['evidence'][0].update(quote='tiny'),'quote_too_short'),
  ('references/alpha.json',lambda d:d['claims'][1]['evidence'][0].update(quote='                      a'),'quote_too_short'),
  ('references/alpha.json',lambda d:d['claims'][1].pop('review'),'schema_error'),
- ('references/alpha.json',lambda d:d['claims'][1]['evidence'][0].update(match_mode='fuzzy'),'schema_error'),
+ ('references/alpha.json',lambda d:d['claims'][1]['evidence'][0].update(match_mode='fuzzy'),'unsupported_content_type'),
  ('calibers/one.json',lambda d:d['claims'][2]['object'].update(value='self_winding'),'schema_error'),
  ('references/alpha.json',lambda d:d['claims'][1]['object'].update(entity='brand:example'),'predicate_object'),
  ('calibers/one.json',lambda d:d['claims'][2].update(predicate='in_line',object={'entity':'line:example'}),'predicate_subject'),

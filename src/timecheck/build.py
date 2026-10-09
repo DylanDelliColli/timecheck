@@ -10,6 +10,7 @@ from .evidence import verify_evidence
 from .extract import EXTRACTOR_VERSION
 from .normalize import NORM_VERSION
 from .validate import load_data, issue
+from .status import review_fingerprint
 
 
 def parse_years(years):
@@ -97,6 +98,38 @@ def _coverage(data_dir, claims, errors):
     return coverage
 
 
+def _review_summary(entities, claims):
+    proposed = defaultdict(list)
+    memberships, used, family = defaultdict(set), defaultdict(set), defaultdict(set)
+    for c in claims:
+        if c['status'] == 'proposed':
+            proposed[c['path']].append(c['id'])
+        if c['predicate'] == 'in_line':
+            memberships[c['object']['entity']].add(c['subject'])
+        elif c['predicate'] == 'uses_caliber':
+            used[c['subject']].add(c['object']['entity'])
+        elif c['predicate'] in {'derived_from', 'clone_of', 'grade_of'}:
+            a, b = c['subject'], c['object']['entity']
+            family[a].add(b)
+            family[b].add(a)
+    counts = {}
+    for line, entity in entities.items():
+        if entity['kind'] != 'line':
+            continue
+        subjects = {line} | memberships[line]
+        queue = deque(caliber for ref in memberships[line] for caliber in used[ref])
+        while queue:
+            caliber = queue.popleft()
+            if caliber not in subjects:
+                subjects.add(caliber)
+                queue.extend(family[caliber] - subjects)
+        counts[line] = {'verified': 0, 'proposed': 0}
+        for c in claims:
+            if c['subject'] in subjects:
+                counts[line][c['status']] += 1
+    return dict(proposed), counts
+
+
 def _truncations(claims):
     edges = defaultdict(set)
     for c in claims:
@@ -149,7 +182,22 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
         if c['status'] == 'verified' and c['predicate'] == 'succeeds':
             branches[c['subject']].add(c['object']['entity'])
     branches = {k: sorted(v) for k, v in branches.items() if len(v) > 1}
+    proposed_by_file, line_counts = _review_summary(entities, claims)
+    pending_attestations = []
+    for c in claims:
+        if c['status'] != 'proposed':
+            continue
+        for e in c['evidence']:
+            content_type = sources.get(e['source'], {}).get('content_type')
+            if content_type == 'pdf_text' or e['match_mode'] == 'manual':
+                pending_attestations.append({
+                    'claim_id': c['id'], 'evidence_id': e['id'], 'source_id': e['source'],
+                    'content_type': content_type, 'location': c['path']})
+    pending_attestations.sort(key=lambda row: (row['source_id'], row['claim_id'], row['evidence_id']))
     result = {
+        'data_dir': str(Path(data_dir).resolve()),
+        'proposed_claims_by_file': proposed_by_file, 'line_claim_counts': line_counts,
+        'review_inputs': {c['id']: review_fingerprint(c, sources) for c in claims},
         'schema_version': 1, 'norm_version': NORM_VERSION, 'extractor_version': EXTRACTOR_VERSION,
         'entity_counts': dict(Counter(d['kind'] for d in [*entities.values(), *sources.values()])),
         'claim_counts': {'status': dict(Counter(c['status'] for c in claims)),
@@ -161,6 +209,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
         'contested': sum(c['contested'] for c in claims), 'branches': branches,
         'years_unknown': sorted(c['id'] for c in claims if c['predicate'] == 'uses_caliber' and (c['valid_years']['from'] is None or c['valid_years']['to'] is None)),
         'pending_manual_attestations': sorted(e['id'] for c in claims if c['status'] == 'proposed' for e in c['evidence'] if e['match_mode'] == 'manual'),
+        'pending_attestations': pending_attestations,
         'coverage': _coverage(data_dir, claims, errors), 'evidence_share': shares,
         'family_truncated': _truncations(claims), 'errors': errors, 'warnings': warnings}
     output = Path(out)

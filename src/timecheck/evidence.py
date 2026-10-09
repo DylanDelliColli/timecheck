@@ -1,4 +1,6 @@
 """Verify pinned raw archive bytes before extracting their text."""
+import math
+import re
 import gzip
 import hashlib
 from pathlib import Path
@@ -8,6 +10,62 @@ from urllib.request import Request, urlopen
 from .extract import extract
 from .normalize import normalize
 from .validate import issue
+
+
+NUMBER = re.compile(r'\d+(?:[.,]\d+)*')
+
+
+def _levenshtein_at_most(a, b, limit):
+    """Unit-cost edit distance, bounded to the threshold diagonal band.
+
+    Values above limit return limit+1. This keeps sliding PDF windows from
+    allocating a full matrix or computing rows which cannot qualify.
+    """
+    if abs(len(a) - len(b)) > limit:
+        return limit + 1
+    previous = {j: j for j in range(min(len(b), limit) + 1)}
+    for i, char in enumerate(a, 1):
+        current = {0: i} if i <= limit else {}
+        for j in range(max(1, i - limit), min(len(b), i + limit) + 1):
+            current[j] = min(previous.get(j, limit + 1) + 1,
+                             current.get(j - 1, limit + 1) + 1,
+                             previous.get(j - 1, limit + 1) + (char != b[j - 1]))
+        if min(current.values(), default=limit + 1) > limit:
+            return limit + 1
+        previous = current
+    return previous.get(len(b), limit + 1)
+
+
+def fuzzy_match(quote, content):
+    """PDF-only normalized Levenshtein ratio >=0.90 over every contiguous ±20% quote window.
+
+    Both inputs have already been normalized. Numeric tokens must match in
+    order and in full, including digits embedded in caliber names. Window
+    boundaries cannot hide a changed digit by clipping a larger number.
+    """
+    size = len(quote)
+    if not size:
+        return False
+    numbers = NUMBER.findall(quote)
+    spans = [(m.start(), m.end()) for m in NUMBER.finditer(content)]
+    numeric_interior = {i for start, end in spans for i in range(start + 1, end)}
+    minimum, maximum = math.ceil(size * .8), math.floor(size * 1.2)
+    for start in range(len(content) - minimum + 1):
+        if start in numeric_interior:
+            continue
+        for end in range(start + minimum, min(len(content), start + maximum) + 1):
+            if end in numeric_interior:
+                continue
+            window = content[start:end]
+            longest = max(size, len(window))
+            limit = longest // 10
+            if abs(size - len(window)) > limit:
+                continue
+            if NUMBER.findall(window) != numbers:
+                continue
+            if _levenshtein_at_most(quote, window, limit) <= limit:
+                return True
+    return False
 
 
 def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
@@ -82,7 +140,7 @@ def verify_evidence(claims, sources, *, snapshot_dir=None, offline=False,
                 kind, message = failure
             elif len(normalize(e['quote'])) < 20:
                 kind, message = 'quote_too_short', 'Quote needs 20 normalized characters'
-            elif normalize(e['quote']) not in content:
+            elif not (fuzzy_match(normalize(e['quote']), content) if e['match_mode'] == 'fuzzy' else normalize(e['quote']) in content):
                 kind, message = 'quote_not_found', 'Normalized quote absent from pinned snapshot'
             else:
                 continue

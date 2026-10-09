@@ -34,7 +34,10 @@ faithful transcription of the evidence. Scans use `manual`, remain proposed unti
 a human attests them, and are skipped by exact matching. An agent must never attest
 a scan as a human. Known worker/agent reviewer identities are rejected for verified
 manual evidence; the validator cannot authenticate arbitrary reviewer identities.
-PDF extraction, OCR and fuzzy matching are outside v1 tooling. A false boolean
+Digital PDFs use `pdf_text` with exact matching or PDF-only fuzzy matching
+(ratio >= 0.90, numeric tokens and years exact).
+PDF matches are advisory: claims with any PDF evidence need human attestation and are never auto-verified in v1.
+There is no OCR; image-only PDFs need manual evidence. See `docs/review-tooling.md` for extraction and review commands. A false boolean
 needs an explicit absence quote; silence means unknown. Quote matching confirms
 presence, not the truth of an interpretation: reviewers must assess the claim.
 Unknown year bounds and their evidence IDs are null. Known inclusive bounds (including
