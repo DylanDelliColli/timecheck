@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-126618ln",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 126618LN",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ofed6mxvdi",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-24n7kpgood",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126618LN Submariner Date 41 mm Yellow Gold Black 3235 COSC 2020-",
+          "locator": "Current models table; 126618LN row",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-vdse2ntebp",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3235"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jyictfhehg",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126618LN Submariner Date 41 mm Yellow Gold Black 3235 COSC 2020-",
+          "locator": "Current models table; 126618LN row, movement and production columns",
+          "match_mode": "exact"
+        },
+        {
+          "id": "ev-a54m7zocx7",
+          "source": "source:rolex-submariner-126618ln-20260213",
+          "quote": "Calibre 3235, Manufacture Rolex",
+          "locator": "Technical details; Calibre; page Reference 126618LN (production bounds cite Wikipedia row)",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": 2020,
+        "to": "present",
+        "from_evidence": "ev-jyictfhehg",
+        "to_evidence": "ev-jyictfhehg"
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-etxhmorrrx",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2020,
+          "to": "present",
+          "from_evidence": "ev-r72xwwl5p4",
+          "to_evidence": "ev-r72xwwl5p4"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-r72xwwl5p4",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "126618LN Submariner Date 41 mm Yellow Gold Black 3235 COSC 2020-",
+          "locator": "Current models table; 126618LN row, production column",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

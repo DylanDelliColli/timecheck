@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-1680",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 1680",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-d6wt6dwpcl",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4bsvnjgzrt",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "1680 1966-1981 16800 1977-1987",
+          "locator": "Discontinued models table; 1680 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-32roa56r74",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1966,
+          "to": 1981,
+          "from_evidence": "ev-mwxf2pgzxf",
+          "to_evidence": "ev-mwxf2pgzxf"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mwxf2pgzxf",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "1680 1966-1981 16800 1977-1987",
+          "locator": "Discontinued models table; 1680 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-k4souirhfp",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1575"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-tntita2im6",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "The new caliber 1575 by all accounts, is a near twin to its sibling, the cal. 1570, though with the addition of a date wheel.",
+          "locator": "Rolex Submariner 1680 section",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-64z4jh4zh5",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-5512"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-7oydusient",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "Of the key distinguishing features separating it from its predecessor, the Rolex Submariner 5512, the addition of a date window and a magnifying lens to its acrylic crystal are by far the most notable.",
+          "locator": "Rolex Submariner 1680",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

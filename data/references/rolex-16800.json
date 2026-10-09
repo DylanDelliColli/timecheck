@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-16800",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 16800",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-vrpbeoinpe",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ngwcvyr5k4",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16800 1977-1987 168000 1987 16610",
+          "locator": "Discontinued models table; 16800 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-zjmyz42qoh",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1977,
+          "to": 1987,
+          "from_evidence": "ev-xz6u25fmll",
+          "to_evidence": "ev-xz6u25fmll"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xz6u25fmll",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16800 1977-1987 168000 1987 16610",
+          "locator": "Discontinued models table; 16800 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-4e6imjpxm3",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3035"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dtw2l6q2xe",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "With the arrival of the Rolex caliber 3035, the operating frequency of the balance was increased to a modern 4Hz, or 28,800 vibrations per hour, and also marked the introduction of a quick-set date function for the first time.",
+          "locator": "Rolex Submariner 16800 section",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-khn3wvq4o6",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-1680"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-uksd5a62fn",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "Known as the \"transitional Sub\" in most circles, the new model arrived in the late 1970s to replace its aforementioned sibling.",
+          "locator": "Rolex Submariner 16800; immediately follows 1680 section",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-eihjq57z6p",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": null,
+          "to": 1988,
+          "from_evidence": null,
+          "to_evidence": "ev-3tlvp37n4a"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3tlvp37n4a",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "With roughly a decade in production (ending in 1988), they are fairly easy to come by in reasonable shape",
+          "locator": "Rolex 16800 Price; approximate duration does not establish start year",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

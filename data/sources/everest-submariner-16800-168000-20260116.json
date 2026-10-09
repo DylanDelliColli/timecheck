@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:everest-submariner-16800-168000-20260116",
+  "kind": "source",
+  "url": "https://www.everestbands.com/blogs/bezel-barrel/rolex-submariner-16800-vs-168000",
+  "archive_url": "https://web.archive.org/web/20260116055442id_/https://www.everestbands.com/blogs/bezel-barrel/rolex-submariner-16800-vs-168000",
+  "snapshot_sha256": "1cd400efe7b71f778502f6682abadadbf4fd95be0daeb6562b4669bfe2b95afc",
+  "publisher": "Everest Bands",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual 16800/168000 comparison; specific shared caliber statement, sparse cite-only excerpts."
+}

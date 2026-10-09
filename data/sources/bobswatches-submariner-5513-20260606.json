@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:bobswatches-submariner-5513-20260606",
+  "kind": "source",
+  "url": "https://www.bobswatches.com/rolex-blog/rolex-info/vintage-week-rolex-submariner-5513.html",
+  "archive_url": "https://web.archive.org/web/20260606115553id_/https://www.bobswatches.com/rolex-blog/rolex-info/vintage-week-rolex-submariner-5513.html",
+  "snapshot_sha256": "5a2d8d8717f06372dd7bc8511e6a525b5d8d56eacfc7322858649dc8564146dd",
+  "publisher": "Bob's Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual 5513 reference article. Production end differs from pinned Wikipedia; both retained."
+}

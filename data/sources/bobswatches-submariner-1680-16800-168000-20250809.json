@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:bobswatches-submariner-1680-16800-168000-20250809",
+  "kind": "source",
+  "url": "https://www.bobswatches.com/rolex-blog/watch-review/rolex-submariner-evolution-1680-16800-168000.html",
+  "archive_url": "https://web.archive.org/web/20250809084433id_/https://www.bobswatches.com/rolex-blog/watch-review/rolex-submariner-evolution-1680-16800-168000.html",
+  "snapshot_sha256": "7765478802a819ff04bb579eb954e1658990d74b9f6c5f1b8af353dd3b988569",
+  "publisher": "Bob's Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual transitional Submariner comparison; preserves disagreement in 16800/168000 production years. Sparse claims, no price fields extracted."
+}

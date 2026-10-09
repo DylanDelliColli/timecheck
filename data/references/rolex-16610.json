@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-16610",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 16610",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-aavken5okn",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ju7fpgkvtz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16610 1988-2010 14060 1990-2002 No",
+          "locator": "Discontinued models table; 16610 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-4qpnnca5ph",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1988,
+          "to": 2010,
+          "from_evidence": "ev-73my5b56vg",
+          "to_evidence": "ev-73my5b56vg"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-73my5b56vg",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "16610 1988-2010 14060 1990-2002 No",
+          "locator": "Discontinued models table; 16610 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-5gjiu7j3ov",
+      "predicate": "succeeds",
+      "object": {
+        "entity": "reference:rolex-168000"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-er3rs7laxa",
+          "source": "source:bobswatches-submariner-1680-16800-168000-20250809",
+          "quote": "The rare and glossy-dialed Subs were only produced for about nine months from mid-1988 into 1989 before being replaced by the similar-looking ref. 16610",
+          "locator": "Rolex Submariner 168000",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-axqg2rbafk",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3135"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-sqhlxmbazm",
+          "source": "source:beckertime-submariner-16610-20260316",
+          "quote": "the differences between the ref. 16610 and its predecessor, the ref. 168000, are mostly internal. It was the first Sub to be given the Cal. 3135",
+          "locator": "In terms of innovation paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:hodinkee-submariner-126619lb-20201213",
+  "kind": "source",
+  "url": "https://www.hodinkee.com/articles/rolex-submariner-date-reference-126619lb-introducing",
+  "archive_url": "https://web.archive.org/web/20201213165009id_/https://www.hodinkee.com/articles/rolex-submariner-date-reference-126619lb-introducing",
+  "snapshot_sha256": "537e6d6f9876bbf4544cff7eb2025c7f220726e36d768718e9a89a2f357f1e2e",
+  "publisher": "Hodinkee",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual reference article cited for explicit replacement; no inferred parallel-variant predecessors."
+}

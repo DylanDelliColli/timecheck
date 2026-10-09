@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:antiquorum-milsub-353-77-20260120",
+  "kind": "source",
+  "url": "https://catalog.antiquorum.swiss/en/lots/rolex-ref-5513-5517-under-the-lug-submariner-so-called-milsub-lot-353-77",
+  "archive_url": "https://web.archive.org/web/20260120181122id_/https://catalog.antiquorum.swiss/en/lots/rolex-ref-5513-5517-under-the-lug-submariner-so-called-milsub-lot-353-77",
+  "snapshot_sha256": "0d3836c9669c66fd7b04653705ab888143baedced26d075123464bf12b313a87",
+  "publisher": "Antiquorum",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Single auction specimen with double reference 5513/5517 (target table shortens to 5513/17); usage boundaries unknown, circa specimen date is not production interval."
+}

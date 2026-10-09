@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-116610ln",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 116610LN",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6iydg37ccm",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-x522lltdjk",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "116610LN 2010 - 2020 Lunette Noir",
+          "locator": "Discontinued models table; 116610LN row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-ubhbhtl7s7",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 2010,
+          "to": 2020,
+          "from_evidence": "ev-33stnidczw",
+          "to_evidence": "ev-33stnidczw"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-33stnidczw",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "116610LN 2010 - 2020 Lunette Noir",
+          "locator": "Discontinued models table; 116610LN row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-gqqcx4emji",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-3135"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-kxysfyw5q5",
+          "source": "source:rolex-submariner-116610ln-20181113",
+          "quote": "This model is equipped with calibre 3135, a self-winding mechanical movement entirely developed and manufactured by Rolex.",
+          "locator": "Model features; 3135 Movement; Specifications Reference 116610LN",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

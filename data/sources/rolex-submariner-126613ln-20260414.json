@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-126613ln-20260414",
+  "kind": "source",
+  "url": "https://www.rolex.com/en-us/watches/submariner/m126613ln-0002",
+  "archive_url": "https://web.archive.org/web/20260414070923id_/https://www.rolex.com/en-us/watches/submariner/m126613ln-0002",
+  "snapshot_sha256": "a7f094ecf5837af930f2328ee11fcf56a1b3c3daae8a09a5cf6850a4bad9106d",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual current-model manufacturer specification; used only for the reference caliber claim. Historical usage bounds cite the separate open Wikipedia table evidence."
+}
