@@ -6,24 +6,6 @@
   "aliases": [],
   "claims": [
     {
-      "id": "clm-cfhxz5onio",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:seiko"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-3wnbeydynp",
-          "source": "source:seiko-presage-spb307-20231114",
-          "quote": "Caliber Number 6R21 Movement Type Automatic with manual winding",
-          "locator": "Seiko manufacturer specifications for its named caliber",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
       "id": "clm-qn32zghi7m",
       "predicate": "winding",
       "object": {

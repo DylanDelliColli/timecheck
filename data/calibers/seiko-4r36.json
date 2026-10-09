@@ -6,24 +6,6 @@
   "aliases": [],
   "claims": [
     {
-      "id": "clm-7w24hkhbkd",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:seiko"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-vjmk3fy2jg",
-          "source": "source:seiko-usa-srpg35-20260324",
-          "quote": "MOVEMENT Automatic Caliber 4R36 21,600 vibrations per hour",
-          "locator": "Seiko manufacturer specifications for its named caliber",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
       "id": "clm-4x4bdizqyx",
       "predicate": "winding",
       "object": {

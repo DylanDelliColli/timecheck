@@ -6,24 +6,6 @@
   "aliases": [],
   "claims": [
     {
-      "id": "clm-66lcmy7po7",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:seiko"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-g4vsy5djjc",
-          "source": "source:seiko-presage-spb165-20260311",
-          "quote": "Caliber Number 6R35 Movement Type Automatic with manual winding",
-          "locator": "Seiko manufacturer specifications for its named caliber",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
       "id": "clm-uw2t62mxm6",
       "predicate": "winding",
       "object": {

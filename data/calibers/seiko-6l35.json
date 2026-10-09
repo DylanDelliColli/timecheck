@@ -6,24 +6,6 @@
   "aliases": [],
   "claims": [
     {
-      "id": "clm-4jekwvimxj",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:seiko"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-z3ncqk5kfs",
-          "source": "source:seiko-presage-sje073-20260108",
-          "quote": "The new Presage limited edition features a new caliber, 6L35.",
-          "locator": "Seiko launch page describing its new caliber",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
       "id": "clm-6jafouzm4c",
       "predicate": "power_reserve",
       "object": {

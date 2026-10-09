@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import sqlite3
+import shutil
 import subprocess
 import sys
 
@@ -42,7 +43,7 @@ def test_seiko_target_and_unknowns_are_visible(seiko_seed):
     root = Path(__file__).resolve().parents[1]
     targets = json.loads((root / "data/targets/seiko-presage.json").read_text())["references"]
     assert {"reference:seiko-srpb41j1", "reference:seiko-srpe43j1",
-            "reference:seiko-srpb43j1", "reference:seiko-spb165j1"} <= set(targets)
+            "reference:seiko-srpb43", "reference:seiko-spb165j1"} <= set(targets)
     with sqlite3.connect(database) as db:
         rows = db.execute("SELECT u.grade, u.year_from, u.year_to, e.evidence_id "
                           "FROM v_reference_calibers_all u JOIN v_evidence_all e "
@@ -73,3 +74,52 @@ def test_pilot_watch_finds_new_cocktail_time_hosts(seiko_seed):
             "AND via_caliber_id = 'caliber:seiko-4r35'")}
     assert {"reference:seiko-srpb43", "reference:seiko-srpb46",
             "reference:seiko-srpe45j1"} <= hosts
+
+
+def test_seiko_installation_does_not_establish_a_maker(seiko_seed):
+    database, _ = seiko_seed
+    with sqlite3.connect(database) as db:
+        rows = db.execute(
+            "SELECT DISTINCT u.caliber_id, m.entity_id "
+            "FROM v_reference_calibers_all u "
+            "LEFT JOIN selected_claim_all m "
+            "ON m.subject_id=u.caliber_id AND m.predicate='made_by' "
+            "WHERE u.caliber_id IN ('caliber:seiko-4r36', 'caliber:seiko-6l35', "
+            "'caliber:seiko-6r21', 'caliber:seiko-6r35', 'caliber:seiko-6r38')"
+        ).fetchall()
+    assert len(rows) == 5
+    assert all(maker is None for _, maker in rows)
+
+
+def test_presage_coverage_counts_delivered_regional_references(tmp_path):
+    root = Path(__file__).resolve().parents[1]
+    data = tmp_path / "data"
+    shutil.copytree(root / "data", data)
+    # Simulate review only in the temporary accounting fixture. Repository
+    # claims stay proposed; this does not attest the source or promote data.
+    for path in (data / "references").glob("seiko-*.json"):
+        doc = json.loads(path.read_text())
+        if not any(c["predicate"] == "in_line" and
+                   c["object"]["entity"] == "line:seiko-presage"
+                   for c in doc["claims"]):
+            continue
+        for claim in doc["claims"]:
+            if claim["predicate"] in ("in_line", "uses_caliber"):
+                claim["status"] = "verified"
+                claim["review"] = {"by": "synthetic-accounting-fixture",
+                                   "at": "2026-10-09T00:00:00Z"}
+        path.write_text(json.dumps(doc))
+    code, report = build(data_dir=data, out=tmp_path / "graph.sqlite",
+                         report=tmp_path / "report.json", strict=True,
+                         no_evidence=True)
+    assert code == 0, (report["errors"], report["warnings"])
+    coverage = report["coverage"]["line:seiko-presage"]
+    assert coverage["target"] == 108
+    assert coverage["covered"] == 6
+    assert not {"reference:seiko-srpb43", "reference:seiko-srpb46"} & set(coverage["missing"])
+    with sqlite3.connect(tmp_path / "graph.sqlite") as db:
+        for model in ("srpb43", "srpb46"):
+            aliases = json.loads(db.execute(
+                "SELECT aliases FROM reference WHERE id=?",
+                ("reference:seiko-" + model,)).fetchone()[0])
+            assert "reference:seiko-" + model + "j1" in aliases

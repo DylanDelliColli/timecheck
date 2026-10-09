@@ -3,7 +3,9 @@
   "id": "reference:seiko-srpb43",
   "kind": "reference",
   "display_name": "Seiko Presage SRPB43",
-  "aliases": [],
+  "aliases": [
+    "reference:seiko-srpb43j1"
+  ],
   "claims": [
     {
       "id": "clm-eymgxg7edf",

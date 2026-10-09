@@ -4,24 +4,5 @@
   "kind": "caliber",
   "display_name": "Seiko 6R38",
   "aliases": [],
-  "claims": [
-    {
-      "id": "clm-55fad6x3yz",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:seiko"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-r2p7o745b4",
-          "source": "source:seiko-presage-sharp-edged-20251016",
-          "quote": "SPB309 [ Caliber 6R38 ] Available in Jun 2022",
-          "locator": "Sharp Edged Series 2022 launch; model panel in Lineup section",
-          "match_mode": "exact"
-        }
-      ]
-    }
-  ]
+  "claims": []
 }
