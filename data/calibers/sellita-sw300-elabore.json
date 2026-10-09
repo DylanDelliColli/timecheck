@@ -11,7 +11,7 @@
       "object": {
         "entity": "caliber:sellita-sw300"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Technical Details Movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-prlo4e6ztu",
@@ -29,7 +33,7 @@
       "object": {
         "value": "Elaboré"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -39,7 +43,11 @@
           "locator": "Technical Details Movement; canonical Elaboré spelling",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

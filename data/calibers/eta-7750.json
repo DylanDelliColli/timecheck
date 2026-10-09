@@ -13,7 +13,7 @@
       "object": {
         "entity": "brand:eta"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -23,7 +23,11 @@
           "locator": "ETA/Valjoux7750 opening paragraph; explicit ETA designation",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-j2qjcgg56y",
@@ -31,7 +35,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -41,7 +45,11 @@
           "locator": "ETA / Valjoux 7750 section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-ejsfshlos5",
@@ -50,7 +58,7 @@
         "value": 25,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -60,7 +68,11 @@
           "locator": "ETA / Valjoux 7750 section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-sman7vj6z3",
@@ -68,7 +80,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -78,7 +90,11 @@
           "locator": "ETA / Valjoux 7750 grade paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-l7swjbt3g4",
@@ -86,7 +102,7 @@
       "object": {
         "entity": "brand:eta"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -103,7 +119,11 @@
           "locator": "PDF page1: named ETA caliber family; printed ETA SA Manufacture Horlogère Suisse publisher",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-2m3rvsyd7z",
@@ -111,7 +131,7 @@
       "object": {
         "value": "day_date"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -121,7 +141,11 @@
           "locator": "ETA/Valjoux7750 section; standard quick-set day/date mechanism",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

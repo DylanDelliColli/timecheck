@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:farr-swit-seaplane"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Page heading / named reference",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-fu46a5u6rm",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:eta-2824-2"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -45,6 +49,10 @@
         "to_evidence": null,
         "from": null,
         "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
       }
     }
   ]

@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:tissot"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Page heading / product description; brand and model line",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

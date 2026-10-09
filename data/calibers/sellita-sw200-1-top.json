@@ -15,7 +15,7 @@
       "object": {
         "entity": "caliber:sellita-sw200-1"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -25,7 +25,11 @@
           "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-j6iapce6pk",
@@ -33,7 +37,7 @@
       "object": {
         "value": "Premium"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -43,7 +47,11 @@
           "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

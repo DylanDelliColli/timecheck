@@ -15,7 +15,7 @@
       "object": {
         "entity": "caliber:eta-2892-a2"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -25,7 +25,11 @@
           "locator": "ETA 2892-A2 grade paragraph; Elaborated normalized to élaboré",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-j6iowmsktq",
@@ -33,7 +37,7 @@
       "object": {
         "value": "Elaborated"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -43,7 +47,11 @@
           "locator": "ETA 2892-A2 grade paragraph; canonical grade term",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

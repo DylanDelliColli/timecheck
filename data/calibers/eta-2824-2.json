@@ -100,7 +100,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -110,7 +110,11 @@
           "locator": "Movement paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-qroi53e53o",
@@ -119,7 +123,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -129,7 +133,11 @@
           "locator": "ETA2824-2 overview paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-seblfpjnsl",
@@ -138,7 +146,7 @@
         "value": 1982,
         "unit": "year"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -148,7 +156,11 @@
           "locator": "The Clone Wars section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-qjgzbpc63s",
@@ -156,7 +168,7 @@
       "object": {
         "entity": "brand:eta"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -173,7 +185,11 @@
           "locator": "PDF page1: ETA2824-2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-ra2ugieb75",
@@ -182,7 +198,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -199,7 +215,11 @@
           "locator": "PDF page1: ETA2824-2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-63gtvj2gvj",
@@ -208,7 +228,7 @@
         "value": 25,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -225,7 +245,11 @@
           "locator": "PDF page1: ETA2824-2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-6hpevhgzoc",

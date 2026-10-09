@@ -13,7 +13,7 @@
       "object": {
         "entity": "brand:eta"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -23,7 +23,11 @@
           "locator": "ETA2892-A2 opening sentence",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-h33rf54f6u",
@@ -31,7 +35,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -41,7 +45,11 @@
           "locator": "ETA 2892-A2 section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-ofi6idljjy",
@@ -50,7 +58,7 @@
         "value": 21,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -60,7 +68,11 @@
           "locator": "ETA 2892-A2 section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-2wn55u6g5t",
@@ -68,7 +80,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -78,7 +90,11 @@
           "locator": "ETA 2892-A2 grade paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-ey6vcxtxf5",
@@ -86,7 +102,7 @@
       "object": {
         "entity": "brand:eta"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -103,7 +119,11 @@
           "locator": "PDF page1: ETA2892A2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-vscfwcdkkq",
@@ -112,7 +132,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -129,7 +149,11 @@
           "locator": "PDF page1: ETA2892A2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-7pu5kufujy",
@@ -138,7 +162,7 @@
         "value": 21,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -155,7 +179,11 @@
           "locator": "PDF page1: ETA2892A2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-z2vfsukiyi",
@@ -164,7 +192,7 @@
         "value": 42,
         "unit": "hour"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -181,7 +209,11 @@
           "locator": "PDF page1: ETA2892A2 cover specifications",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

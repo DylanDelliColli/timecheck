@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:sellita"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Technical specifications; supplier name",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-f7mcymxmha",
@@ -29,7 +33,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -39,7 +43,11 @@
           "locator": "Description; chronometer version, specs resolve suffix SW200-1",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-j4zusrmmqe",
@@ -47,7 +55,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -57,7 +65,11 @@
           "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-m2qiyuj3bn",
@@ -66,7 +78,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +88,11 @@
           "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-s2lvkzbxju",
@@ -85,7 +101,7 @@
         "value": 26,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -95,7 +111,11 @@
           "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-yv7bcfnmtv",
@@ -103,7 +123,7 @@
       "object": {
         "value": "date"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -113,7 +133,11 @@
           "locator": "Functions; watch with explicitly named movement",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-j2vsbc5zin",
@@ -121,7 +145,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -131,7 +155,11 @@
           "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-jign3auqfg",
@@ -139,7 +167,7 @@
       "object": {
         "entity": "caliber:eta-2824-2"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -149,7 +177,11 @@
           "locator": "The Clone Wars section; manufacturing image caption explicitly identifies both versions",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-4uj5amv4tj",
@@ -157,7 +189,7 @@
       "object": {
         "entity": "caliber:sellita-sw200"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -167,7 +199,11 @@
           "locator": "Opening SW200-1 prose; update version identity",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }

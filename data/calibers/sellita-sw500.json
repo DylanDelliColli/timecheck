@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:sellita"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "The copycats section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-7bd7mmgwhu",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:eta-7750"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -39,7 +43,11 @@
           "locator": "The copycats section",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-5r3gnq6lnl",
@@ -48,7 +56,7 @@
         "value": 2009,
         "unit": "year"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -58,7 +66,11 @@
           "locator": "The copycats section; in production since 2009",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-o7ocg6bdsu",
@@ -66,7 +78,7 @@
       "object": {
         "value": "automatic"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +88,11 @@
           "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-q2uukwq57x",
@@ -85,7 +101,7 @@
         "value": 25,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -95,7 +111,11 @@
           "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-lanr2uyuoe",
@@ -104,7 +124,7 @@
         "value": 28800,
         "unit": "vph"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -114,7 +134,11 @@
           "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-bslc4ddfog",
@@ -122,7 +146,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -132,7 +156,11 @@
           "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     },
     {
       "id": "clm-bicnewwr6i",
@@ -140,7 +168,7 @@
       "object": {
         "value": "day_date"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -150,7 +178,11 @@
           "locator": "Series 60 technical details; manufacturer-listed SW500 configuration",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
     }
   ]
 }
