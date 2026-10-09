@@ -275,9 +275,12 @@ Common columns: `status` (`verified`|`proposed`), `disputed` (0/1), `contested` 
   after_value, changed, before_status, after_status, before_evidence_id,
   after_evidence_id): along verified `succeeds` edges only; `attribute` is `caliber`,
   each v1 caliber attribute, and `years` (`"from-to"` strings); predecessor side =
-  its latest caliber by `year_from`, successor side = its earliest; when a side has exactly one caliber it is used regardless of years, and
-  only when a side has several calibers and no years to order them is the pair emitted
-  once per attribute with `changed = NULL` (decision 2026-10-09, lineage rehearsal);
+  its latest caliber by `year_from`, successor side = its earliest; when a side has exactly one caliber it is used regardless of years; when a side has
+  several calibers, only the claims' own `valid_years` may order them (years borrowed from
+  the `produced` fallback are identical for every caliber and therefore never order
+  them), and if no such order exists, or two calibers tie, the pair is emitted once per
+  attribute with `changed = NULL` (decision 2026-10-09, lineage rehearsal; clarified
+  2026-10-09 after evaluation finding timecheck-wfn.4);
   competing values produce the cross product of rows, and rows are DISTINCT over
   (line_id, reference_id, predecessor_id, attribute, before_value, after_value):
   duplicate identical claims never repeat a diff row (evidence ids then cite one
