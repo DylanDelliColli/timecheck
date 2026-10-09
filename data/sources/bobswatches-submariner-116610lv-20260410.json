@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:bobswatches-submariner-116610lv-20260410",
+  "kind": "source",
+  "url": "https://www.bobswatches.com/rolex-blog/watch-review/closer-look-rolex-hulk-ref-116610lv.html",
+  "archive_url": "https://web.archive.org/web/20260410232503id_/https://www.bobswatches.com/rolex-blog/watch-review/closer-look-rolex-hulk-ref-116610lv.html",
+  "snapshot_sha256": "c824c8ac41e9a6762664f9c5d55e3fec1d10b71f5947987b159fb151b0f02916",
+  "publisher": "Bob's Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual reference article cited for explicit replacement; no inferred parallel-variant predecessors."
+}

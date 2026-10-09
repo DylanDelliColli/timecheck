@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "caliber:rolex-1520",
+  "kind": "caliber",
+  "display_name": "Rolex 1520",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-b3nhctvtmk",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 19800,
+        "unit": "vph"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aauwugydlc",
+          "source": "source:hodinkee-submariner-reference-points-20191122",
+          "quote": "The 1520 ran at a slightly higher frequency of 2.75 Hz (19,800 vph), but used a lower-cost regulator and balance spring",
+          "locator": "Reference 5513 (Underline)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-vggiax7yqq",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-rc3doc4w2c",
+          "source": "source:phillips-comex-5514-20251219",
+          "quote": "Calibre Automatic, cal. 1520, 26 jewels",
+          "locator": "Lot 124; Calibre field",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-zxtqlfvqm4",
+      "predicate": "jewels",
+      "object": {
+        "value": 26,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xhci5v6twl",
+          "source": "source:phillips-comex-5514-20251219",
+          "quote": "Calibre Automatic, cal. 1520, 26 jewels",
+          "locator": "Lot 124; Calibre field",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

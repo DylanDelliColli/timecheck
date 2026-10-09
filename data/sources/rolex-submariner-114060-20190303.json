@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-114060-20190303",
+  "kind": "source",
+  "url": "https://www.rolex.com/watches/submariner/m114060-0002.html",
+  "archive_url": "https://web.archive.org/web/20190303152812id_/https://www.rolex.com/watches/submariner/m114060-0002.html",
+  "snapshot_sha256": "5c5e49ca01fac344ac7c06ac693de0bce30f47f034fc1404fa27e56ed8e71862",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": ""
+}

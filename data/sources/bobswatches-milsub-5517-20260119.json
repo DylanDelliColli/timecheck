@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:bobswatches-milsub-5517-20260119",
+  "kind": "source",
+  "url": "https://www.bobswatches.com/rolex-blog/resources/rolex-milsub-submariner-ref-5517.html",
+  "archive_url": "https://web.archive.org/web/20260119205307id_/https://www.bobswatches.com/rolex-blog/resources/rolex-milsub-submariner-ref-5517.html",
+  "snapshot_sha256": "a3a33b15021fe839417f6eb46c2bd8274ed775fcc17e21b02ff159346c838538",
+  "publisher": "Bob's Watches",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual 5517 historical article, exact movement specification. Replaces a discarded unpublished Sotheby archive whose exact URL returned different script-only bytes on repeated live verification."
+}

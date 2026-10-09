@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-6205",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 6205",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-s2tpetmdgp",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-wegrlwg32o",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6205 1953-1957 6536 1954-1958",
+          "locator": "Discontinued models table; 6205 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-uattwsplbm",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1953,
+          "to": 1957,
+          "from_evidence": "ev-mj7d2o2efz",
+          "to_evidence": "ev-mj7d2o2efz"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-mj7d2o2efz",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6205 1953-1957 6536 1954-1958",
+          "locator": "Discontinued models table; 6205 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-5o4j4tuqua",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-a260"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2ih7gy4c7l",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "Both the 6204 and 6205 were fitted with the A260 movement",
+          "locator": "Early models; second paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

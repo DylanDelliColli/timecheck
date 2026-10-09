@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "id": "reference:rolex-6536-1",
+  "kind": "reference",
+  "display_name": "Rolex Submariner 6536/1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-2wkmaozqxz",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:rolex-submariner"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jnnwxwfp4i",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6536/1 1955-1961 A/6538 1957 6538",
+          "locator": "Discontinued models table; 6536/1 row (neighbor cells included for excerpt length)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-ltd6w5unvn",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1955,
+          "to": 1961,
+          "from_evidence": "ev-ahytz6eiaf",
+          "to_evidence": "ev-ahytz6eiaf"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ahytz6eiaf",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "6536/1 1955-1961 A/6538 1957 6538",
+          "locator": "Discontinued models table; 6536/1 row, In production column (neighbor cells included)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    },
+    {
+      "id": "clm-nstl7zdjiv",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:rolex-1030"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qpxvcp3ah4",
+          "source": "source:wikipedia-submariner-1365492288",
+          "quote": "These watches had \"improved\" movements (the cal. 1030), including a chronometer version in some 6536 models (designated 6536/1)",
+          "locator": "Early models; paragraph naming 6536 and 6538, following sentence",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr4 / chief",
+        "at": "2026-10-09T00:09:14Z"
+      }
+    }
+  ]
+}

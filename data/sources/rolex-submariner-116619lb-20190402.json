@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-116619lb-20190402",
+  "kind": "source",
+  "url": "https://www.rolex.com/watches/submariner/m116619lb-0001.html",
+  "archive_url": "https://web.archive.org/web/20190402090430id_/https://www.rolex.com/watches/submariner/m116619lb-0001.html",
+  "snapshot_sha256": "0c614befd632590eefbb5317b6f6840021bd5eaadec32e4251a5b34bd0f2c5e9",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-09",
+  "notes": ""
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rolex-submariner-126610ln-20260713",
+  "kind": "source",
+  "url": "https://www.rolex.com/en-us/watches/submariner/m126610ln-0001",
+  "archive_url": "https://web.archive.org/web/20260713203931id_/https://www.rolex.com/en-us/watches/submariner/m126610ln-0001",
+  "snapshot_sha256": "0215ff492e890b497acc85fe2e3a59d491bd68d5a5c8956664dbf1015b441cea",
+  "publisher": "Rolex",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual current-model specification cited for the documented caliber 3235 attributes."
+}

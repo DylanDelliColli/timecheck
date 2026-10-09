@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:revolution-submariner-2020-20251217",
+  "kind": "source",
+  "url": "https://revolutionwatch.com/introducing-rolex-new-2020-submariner-family-watch/",
+  "archive_url": "https://web.archive.org/web/20251217043142id_/https://revolutionwatch.com/introducing-rolex-new-2020-submariner-family-watch/",
+  "snapshot_sha256": "8e89491490b68cc501332214b77777620d25142ac5390f5337f07fcb99887f53",
+  "publisher": "Revolution",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual launch report, cited for exact no-date succession and selected explicit movement attributes; generic date-family replacement is not expanded into inferred variant pairings."
+}
