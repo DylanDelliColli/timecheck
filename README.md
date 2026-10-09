@@ -14,7 +14,7 @@ for current gaps. There is no frontend in v1.
 ## Build and query
 
 Use Python 3.13 or newer. While v1 is being developed, clone `release/v1` (the
-repository is currently private; cloning requires an authorized GitHub SSH key):
+repository is public; clone over HTTPS or with an authorized GitHub SSH key):
 
 ```sh
 GIT_SSH_COMMAND='ssh -o BatchMode=yes' git clone --branch release/v1 git@github.com:DylanDelliColli/timecheck.git

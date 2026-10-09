@@ -2,7 +2,7 @@
 
 Start here to build a local database, answer the five v1 questions and follow a
 result back to its evidence. Run commands from the repository root. You need
-Python 3.13 or newer, git and permission to clone the currently private GitHub
+Python 3.13 or newer, git and access to the public GitHub
 repository via an authorized GitHub SSH key. No standalone SQLite client is required.
 
 ## Agent quick start
