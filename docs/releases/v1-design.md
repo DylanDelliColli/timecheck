@@ -261,7 +261,11 @@ Common columns: `status` (`verified`|`proposed`), `disputed` (0/1), `contested` 
   disputed, contested, has_primary): one row per selected `uses_caliber` claim; a
   reference without one gets one fallback row per selected `produced` claim (competing
   intervals therefore appear as separate rows, flagged disputed), or a single row with
-  null years and `year_from_sort` 9999 when it has neither. Duplicate identical claims
+  null years and `year_from_sort` 9999 when it has neither. Year columns on a
+  `uses_caliber` row come from the claim's `valid_years` when known and otherwise from
+  the reference's selected `produced` claim (one row per competing interval), with a
+  `year_source` column (`usage` | `produced` | `unknown`); decision 2026-10-09 after the
+  lineage rehearsal showed most vintage usage years legitimately unknown. Duplicate identical claims
   (same object or value, different ids, e.g. the same fact backed by two sources) are
   legitimate data and yield one row per claim; consumers wanting distinct facts use
   DISTINCT on the value columns. Metadata joins (membership, grade, succession,
@@ -271,8 +275,10 @@ Common columns: `status` (`verified`|`proposed`), `disputed` (0/1), `contested` 
   after_value, changed, before_status, after_status, before_evidence_id,
   after_evidence_id): along verified `succeeds` edges only; `attribute` is `caliber`,
   each v1 caliber attribute, and `years` (`"from-to"` strings); predecessor side =
-  its latest caliber by `year_from`, successor side = its earliest; unknown year on
-  either side → one row per attribute with `changed = NULL`; competing values produce the cross product of rows, and rows are DISTINCT over
+  its latest caliber by `year_from`, successor side = its earliest; when a side has exactly one caliber it is used regardless of years, and
+  only when a side has several calibers and no years to order them is the pair emitted
+  once per attribute with `changed = NULL` (decision 2026-10-09, lineage rehearsal);
+  competing values produce the cross product of rows, and rows are DISTINCT over
   (line_id, reference_id, predecessor_id, attribute, before_value, after_value):
   duplicate identical claims never repeat a diff row (evidence ids then cite one
   representative claim each).
