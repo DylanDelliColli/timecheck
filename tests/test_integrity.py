@@ -68,12 +68,14 @@ def test_identical_produced_bounds_are_not_disputed(dataset,tmp_path):
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
  assert report['disputed']==0
 
-def test_unknown_years_no_overlap_and_null_diff(dataset,tmp_path):
+def test_unknown_start_no_overlap_and_single_caliber_diff(dataset,tmp_path):
  change(dataset,'references/alpha.json',lambda d:d['claims'][1]['valid_years'].update(**{'from':None,'from_evidence':None}))
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
  assert len(report['years_unknown'])==1
  assert len(rows(tmp_path,'v_lineage_diff'))==12
- assert all(r['changed'] is None for r in rows(tmp_path,'v_lineage_diff'))
+ diff=rows(tmp_path,'v_lineage_diff')
+ assert next(r for r in diff if r['attribute']=='caliber')['changed']==1
+ assert next(r for r in diff if r['attribute']=='years')['before_value']=='unknown-2005'
 
 def test_branch_reported_excluded_from_diffs(dataset,tmp_path):
  def add(d):
@@ -137,7 +139,7 @@ def test_exact_view_columns(dataset,tmp_path):
  'v_reference_calibers':'reference_id caliber_id grade year_from year_to year_to_kind year_from_sort claim_id status disputed contested has_primary',
  'v_caliber_family':'caliber_id related_id relation_path depth',
  'v_shared_dna':'reference_id other_reference_id via_caliber_id relation_path disputed has_primary',
- 'v_lineage':'line_id reference_id year_from year_to year_to_kind year_from_sort caliber_id grade succeeds_reference_id claim_id status disputed contested has_primary',
+ 'v_lineage':'line_id reference_id year_from year_to year_to_kind year_from_sort year_source caliber_id grade succeeds_reference_id claim_id status disputed contested has_primary',
  'v_lineage_diff':'line_id reference_id predecessor_id attribute before_value after_value changed before_status after_status before_evidence_id after_evidence_id',
  'v_evidence':'claim_id evidence_id source_id tier match_mode quote locator archive_url retrieved_at'}
  r,report=build(dataset,tmp_path,'--strict');assert r.returncode==0
@@ -399,6 +401,8 @@ def test_double_negative_is_not_hacking_absence(dataset,tmp_path):
 
 @pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
 def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path,view):
+ # A wholly unknown usage contributes one row per selected produced claim.
+ change(dataset,'references/alpha.json',lambda d:d['claims'][1]['valid_years'].update(**{'from':None,'to':None,'from_evidence':None,'to_evidence':None}))
  secondary=json.loads((dataset/'sources/example.json').read_text());secondary.update(id='source:secondary',trust_tier='secondary')
  (dataset/'sources/secondary.json').write_text(json.dumps(secondary))
  for file in dataset.glob('references/*.json'):
@@ -423,10 +427,12 @@ def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path
  condition="AND status='verified'" if view=='v_lineage' else ''
  with sqlite3.connect(tmp_path/'graph.sqlite') as db:
   uses=db.execute(f"SELECT COUNT(*) FROM claim WHERE predicate='uses_caliber' {condition}").fetchone()[0]
+  usage_rows=db.execute(f"SELECT SUM(CASE WHEN y.year_from IS NOT NULL OR y.year_to_kind<>'unknown' THEN 1 ELSE MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=u.subject_id AND predicate='produced' {condition})) END) FROM claim u LEFT JOIN claim_years y ON y.claim_id=u.id WHERE predicate='uses_caliber' {condition}").fetchone()[0]
   missing=db.execute(f"SELECT COALESCE(SUM(MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=r.id AND predicate='produced' {condition}))),0) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
- lineage=rows(tmp_path,view);assert len(lineage)==uses+missing==4
+ lineage=rows(tmp_path,view);assert len(lineage)==usage_rows+missing==5
  assert len({r['claim_id'] for r in lineage if r['caliber_id'] is not None})==uses
- assert all(r['has_primary']==1 for r in lineage if r['caliber_id'] is not None)
+ assert sorted(r['has_primary'] for r in lineage if r['reference_id']=='reference:alpha')==[0,1]
+ assert all(r['has_primary']==1 for r in lineage if r['reference_id']=='reference:beta')
  suffix='_all' if view.endswith('_all') else ''
  calibers=rows(tmp_path,'v_reference_calibers'+suffix)
  assert len(calibers)==uses and all(r['has_primary']==1 for r in calibers)
