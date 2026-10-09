@@ -224,6 +224,15 @@ network and without any real snapshot bytes in the repository.
    claim_review, evidence`; views below); write `report.json`.
 Exit codes: 0 ok, 1 warnings only, 2 errors.
 
+### Coverage targets (`data/targets/<line>.json`; decision 2026-10-09, raised by unit S2)
+A target file lists the reference identifiers a line's coverage is measured against,
+with the source the list was taken from. It holds identifiers only (no attributes)
+and is coverage accounting, not catalogue facts. Taking the identifiers from the
+publisher's own product listing (e.g. a manufacturer's lineup page) or from an open
+source is allowed even when the listing page itself is cite-only; taking them from a
+third-party copyrighted database is not. Target identifiers must match entity ids or
+their aliases, otherwise coverage undercounts.
+
 ### Report (`report.json`)
 Counts per entity kind; claims by status, tier (`has_primary`) and predicate;
 disputed, contested, branches, `years_unknown`, pending manual attestations; coverage
