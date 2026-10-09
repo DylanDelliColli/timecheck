@@ -2,8 +2,8 @@
 
 Start here to build a local database, answer the five v1 questions and follow a
 result back to its evidence. Run commands from the repository root. You need
-Python 3.13 or newer, git and access to the public GitHub
-repository via an authorized GitHub SSH key. No standalone SQLite client is required.
+Python 3.13 or newer, git and an authorized GitHub SSH key for cloning.
+No standalone SQLite client is required.
 
 ## Agent quick start
 
@@ -62,9 +62,18 @@ The cache stores hash-checked raw bytes locally. A later offline replay can use 
 .venv/bin/timecheck build --strict --offline --data-dir data --cache-dir .cache/snapshots --out build/reverified.sqlite --report build/reverified-report.json
 ```
 
-A missing cached snapshot fails the strict replay. Manual scan evidence is skipped
-by machine matching even in a successful strict live build; inspect
-`pending_manual_attestations`. Never commit real source bodies or scans.
+A missing cached snapshot fails the strict replay. Image scans are not machine-matched.
+PDF text matching is advisory: a proposed claim with only PDF/scan evidence stays
+proposed pending human attestation, even when a PDF quote matches. A verified exact
+HTML/text item can support promotion alongside advisory evidence. Inspect
+`pending_attestations` and `pending_manual_attestations`. Never commit real source
+bodies or scans.
+
+CI runs the offline check on pushes and pull requests, and live verification of
+changed evidence on pull requests. The full live archive job checks `release/v1`
+nightly at 04:17 UTC (`17 4 * * *`) and on manual dispatch. It fetches fresh bytes;
+there is no automatic sample job. Scheduled activation depends on GitHub running
+the workflow from the default branch; this release-branch workflow defines the job.
 
 ### Build flags and failures
 
@@ -95,7 +104,8 @@ an output as if it were fresh.
 The report also records `entity_counts`, `claim_counts` (status, primary support,
 predicate), `evidence_count`, per-item `evidence_verification`, `disputed_claims`,
 `contested`, `branches`, `years_unknown`, `pending_manual_attestations`, `coverage`,
-`evidence_share` and `family_truncated`. Coverage uses target files under
+`evidence_share`, `pending_attestations`, `proposed_claims_by_file`,
+`line_claim_counts` and `family_truncated`. Coverage uses target files under
 `data/targets/`, verified membership and verified caliber usage; it is not a count
 of every JSON file or proposed claim. Disputed/contested counts count claims.
 `evidence_verification` distinguishes `verified`, `manual`, `unchecked`, `error`
@@ -141,7 +151,7 @@ entity tables share all four columns:
 | `trust_tier` | `primary` or `secondary`. |
 | `reuse_class` | `open` or `cite_only`; independent of tier. |
 | `licence` | Source's licence/rights statement. |
-| `content_type` | Declared format: `html`, `text`, `pdf_text` or `image_scan`; matching support depends on the tooling revision. |
+| `content_type` | Declared format: `html`, `text`, `pdf_text` or `image_scan`; PDF matching is advisory, and scans require manual attestation. |
 | `archive_url` | Pinned Wayback raw-byte `id_` URL. |
 | `snapshot_sha256` | SHA-256 of the raw archived response bytes, before decompression/extraction. |
 | `retrieved_at` | Source retrieval date. |
@@ -394,22 +404,29 @@ primary excerpts only. It does not mean all excerpts on a mixed-source claim are
 primary. Direct SQLite queries do not activate this CLI transformation.
 
 `id new` only mints an ID; it does not add a claim/evidence file. `snapshot hash`
-hashes raw bytes without altering them. At the example revision below,
-`snapshot pin URL` is reserved and returns 2 with an E1 message; capture tooling
-is being delivered separately. Check `.venv/bin/timecheck --help` and subcommand
-help for your installed revision. Schemas accept PDF/manual formats, but this
-example revision's machine extractor supports HTML/text only; normalization and
-format details are in [normalization.md](normalization.md).
+hashes raw bytes without altering them. `snapshot pin URL` requests a Wayback
+capture, downloads its pinned raw `id_` response and prints a JSON object with
+`archive_url`, `snapshot_sha256`, a guessed `content_type` and `retrieved_at`. It
+needs network access; a queued or unavailable capture can return 2 and need a retry.
+Inspect the format guess and quoted content before authoring evidence.
+
+The extractor supports HTML, text and PDF text; scans need manual attestation.
+Gzip and zstd captures are decompressed after raw-byte hashing and before text
+extraction. PDF-only matching is advisory and cannot promote a claim.
+Normalization, PDF limitations and format details are in
+[normalization.md](normalization.md). Check `.venv/bin/timecheck --help` and
+subcommand help for your installed revision.
 
 ## Worked examples on the merged seed
 
-These are real outputs captured at release commit
-`e09169c2282a6a8663757ec08c4256f178980677` (C1/C2/S1 merged: 116 entity/source
-records, 225 claims). They use the root `timecheck.sqlite` from the real-seed build
-above, not synthetic fixtures. Later seed/tooling merges may add rows or features;
-the revision anchors the pasted outputs. The structural build and live build
-compile the same authored claims; consult the report separately for archive
-verification. JSON formatting is expanded for readability; row order is incidental.
+These real outputs reproduce the CLI and data at release commit
+`19df33caf0dfca3062ef51997dde926e6a55eaea` (the base of this documentation update). They use the root `timecheck.sqlite` from the real-seed build
+above. The structural build and live build compile the same authored claims;
+consult the report separately for archive verification. JSON formatting is
+expanded for readability; row order is incidental. `tests/test_docs_examples.py`
+replays every pasted CLI JSON output against a fresh structural build. An
+intentionally illustrative JSON block must be preceded by `<!-- illustrative -->`
+and is excluded from replay.
 
 ### 1. From a watch: Seiko Presage
 
@@ -448,7 +465,31 @@ Its shared DNA
 [
   {
     "reference_id": "reference:seiko-srpb41j1",
+    "other_reference_id": "reference:seiko-srpb43",
+    "via_caliber_id": "caliber:seiko-4r35",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:seiko-srpb41j1",
+    "other_reference_id": "reference:seiko-srpb46",
+    "via_caliber_id": "caliber:seiko-4r35",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:seiko-srpb41j1",
     "other_reference_id": "reference:seiko-srpe43j1",
+    "via_caliber_id": "caliber:seiko-4r35",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:seiko-srpb41j1",
+    "other_reference_id": "reference:seiko-srpe45j1",
     "via_caliber_id": "caliber:seiko-4r35",
     "relation_path": "",
     "disputed": 0,
@@ -457,7 +498,45 @@ Its shared DNA
 ]
 ```
 
-The other seeded reference uses the identical caliber, so `relation_path` is empty. This revision contains two Presage hosts, not the full set of Seiko lines or every watch using 4R35. The query will find additional hosts as evidenced claims are merged.
+Four other seeded Presage references share the identical 4R35: SRPB43, SRPB46,
+SRPE43J1 and SRPE45J1. Their `relation_path` is empty. This is the sourced
+neighborhood of SRPB41J1 and does not cover every watch using 4R35.
+
+### ETA/Sellita hosts across brands
+
+The same shared-DNA query works across the ETA/Sellita seed. This projection of
+Sinn 556 I's neighborhood shows one identical-caliber host and one clone-family
+host; remove the second condition to see its full neighborhood.
+
+```sh
+.venv/bin/timecheck query v_shared_dna --where "reference_id = 'reference:sinn-556-i' AND other_reference_id IN ('reference:sinn-556-a','reference:tissot-le-locle-eta')" --json
+```
+
+```json
+[
+  {
+    "reference_id": "reference:sinn-556-i",
+    "other_reference_id": "reference:tissot-le-locle-eta",
+    "via_caliber_id": "caliber:sellita-sw200-1",
+    "relation_path": "clone_of",
+    "disputed": 0,
+    "has_primary": 0
+  },
+  {
+    "reference_id": "reference:sinn-556-i",
+    "other_reference_id": "reference:sinn-556-a",
+    "via_caliber_id": "caliber:sellita-sw200-1",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 0
+  }
+]
+```
+
+The Sinn pair uses SW200-1; the Tissot uses ETA 2824-2, connected by `clone_of`.
+These composed routes include secondary support (`has_primary: 0`), and a family
+relationship is not proof of parts interchangeability. The wider seed includes
+2824-2/SW200, 2892-A2/SW300 and 7750/SW500 hosts; grades are separate entities.
 
 ### 2. Vintage buyer: Omega Seamaster
 
@@ -523,10 +602,93 @@ What else shares those Omega calibers?
 ```
 
 ```json
-[]
+[
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0023",
+    "via_caliber_id": "caliber:omega-562",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0027",
+    "via_caliber_id": "caliber:omega-562",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0022",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0023",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0024",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 0
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0027",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0042",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0045",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0062",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  },
+  {
+    "reference_id": "reference:omega-st-166-0002",
+    "other_reference_id": "reference:omega-st-166-0068-1",
+    "via_caliber_id": "caliber:omega-565",
+    "relation_path": "",
+    "disputed": 0,
+    "has_primary": 1
+  }
+]
 ```
 
-No other host is currently connected in this merged seed. An empty result means missing graph coverage, not proof that the calibers were exclusive to this reference.
+Ten shared-DNA rows connect ST 166.0002 to eight other seeded references through
+the identical 562 or 565. A reference using both appears once for each caliber
+route. This does not supply missing usage bounds or establish interchangeability.
 
 ### 3. Submariner lineage and changes
 
@@ -610,6 +772,35 @@ Compare the sourced succession
 
 The sourced succession changes from caliber 3035 to 3135, and the documented power reserve changes from 42 to 48 hours. Their production intervals differ too, so `years` has `changed: 1` and cites the production evidence on each side. Run without the attribute filter to see all twelve attributes; undocumented attributes remain null.
 
+An ambiguous multi-caliber succession
+
+```sh
+.venv/bin/timecheck query v_lineage_diff --where "reference_id = 'reference:rolex-5514' AND attribute = 'caliber'" --json
+```
+
+```json
+[
+  {
+    "line_id": "line:rolex-submariner",
+    "reference_id": "reference:rolex-5514",
+    "predecessor_id": "reference:rolex-5513",
+    "attribute": "caliber",
+    "before_value": null,
+    "after_value": null,
+    "changed": null,
+    "before_status": null,
+    "after_status": null,
+    "before_evidence_id": null,
+    "after_evidence_id": null
+  }
+]
+```
+
+The predecessor 5513 has both 1520 and 1530 with unknown usage starts. Its
+reference production interval cannot identify the latest caliber. The comparison
+therefore stays unknown (`changed: null`), with null values, statuses and evidence
+IDs. A missing chronology must not become a reported caliber change.
+
 ### 4. A-11 designation across makers
 
 ```sh
@@ -617,10 +808,48 @@ The sourced succession changes from caliber 3035 to 3135, and the documented pow
 ```
 
 ```json
-[]
+[
+  {
+    "line_id": "line:usaaf-a-11",
+    "reference_id": "reference:bulova-a-11",
+    "year_from": 1941,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1941,
+    "year_source": "produced",
+    "caliber_id": "caliber:bulova-10ak-csh",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-otj2bvax4z",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 0
+  },
+  {
+    "line_id": "line:usaaf-a-11",
+    "reference_id": "reference:waltham-a-11",
+    "year_from": 1941,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1941,
+    "year_source": "produced",
+    "caliber_id": "caliber:waltham-a-11-6-0",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-rm7rqzo52w",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 0
+  }
+]
 ```
 
-Verified-only lineage is empty at this revision: the Elgin membership excerpt is a scan and remains proposed pending human attestation. Do not replace this with an unsupported maker relationship.
+Verified-only lineage shows Bulova with 10AK CSH and Waltham with its A-11 6/0
+movement. Their production starts at 1941, while their usage bounds are unknown;
+`year_source: produced` identifies the fallback. Elgin is absent because its
+membership evidence is a scan and remains proposed pending human attestation.
 
 Include the pending membership
 
@@ -632,11 +861,29 @@ Include the pending membership
 [
   {
     "line_id": "line:usaaf-a-11",
-    "reference_id": "reference:elgin-a-11",
-    "year_from": null,
+    "reference_id": "reference:bulova-a-11",
+    "year_from": 1941,
     "year_to": null,
     "year_to_kind": "unknown",
-    "year_from_sort": 9999,
+    "year_from_sort": 1941,
+    "year_source": "produced",
+    "caliber_id": "caliber:bulova-10ak-csh",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-otj2bvax4z",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 0
+  },
+  {
+    "line_id": "line:usaaf-a-11",
+    "reference_id": "reference:elgin-a-11",
+    "year_from": 1941,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1941,
+    "year_source": "produced",
     "caliber_id": "caliber:elgin-539",
     "grade": "unknown",
     "succeeds_reference_id": null,
@@ -645,11 +892,32 @@ Include the pending membership
     "disputed": 0,
     "contested": 0,
     "has_primary": 0
+  },
+  {
+    "line_id": "line:usaaf-a-11",
+    "reference_id": "reference:waltham-a-11",
+    "year_from": 1941,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1941,
+    "year_source": "produced",
+    "caliber_id": "caliber:waltham-a-11-6-0",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-rm7rqzo52w",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 0
   }
 ]
 ```
 
-Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `status: verified` describes its usage claim, while its included membership is proposed/manual. The side-by-side maker SQL below currently returns no rows: it requires a verified `made_by` claim, while Elgin 539's maker claim is proposed/manual. It will include makers when their supporting claims are verified. No multi-maker completion is implied.
+All three makers are seeded. Including proposed membership adds Elgin with
+caliber 539 and unknown years. Its `status: verified` describes the usage claim;
+its membership and the caliber's maker claim remain proposed/manual. The maker
+SQL below shows Bulova and Waltham, whose `made_by` claims are verified, and
+excludes Elgin until that maker claim is attested.
 
 ### 5. Apply the evidence filter to the same query
 
@@ -666,6 +934,7 @@ Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `
     "year_to": null,
     "year_to_kind": "unknown",
     "year_from_sort": 9999,
+    "year_source": "unknown",
     "caliber_id": null,
     "grade": null,
     "succeeds_reference_id": null,
@@ -678,7 +947,8 @@ Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `
 ]
 ```
 
-The secondary-only caliber usage is removed. A primary-supported membership fallback remains, with null caliber and grade, its membership `claim_id`, and `status: proposed`. Primary support for membership cannot replace missing primary support for usage. The scan membership still needs human attestation; this fallback is not a verified movement assignment. This is the same designation query, with only `--primary-only` added.
+The secondary-supported Bulova/Waltham relationships and Elgin caliber usage
+are removed. A primary-supported Elgin membership fallback remains, with null caliber and grade, its membership `claim_id`, and `status: proposed`. Primary support for membership cannot replace missing primary support for usage. The scan membership still needs human attestation; this fallback is not a verified movement assignment. This is the same designation query, with only `--primary-only` added.
 
 A primary-supported result that survives
 
@@ -761,7 +1031,7 @@ with sqlite3.connect('file:timecheck.sqlite?mode=ro', uri=True) as db:
     queries = {
         'submariner': """
             SELECT reference_id, caliber_id, grade, year_from, year_to,
-                   year_to_kind, succeeds_reference_id, disputed, has_primary
+                   year_to_kind, year_source, succeeds_reference_id, disputed, has_primary
             FROM v_lineage WHERE line_id = 'line:rolex-submariner'
             ORDER BY year_from_sort, reference_id, caliber_id
         """,
@@ -802,10 +1072,10 @@ with sqlite3.connect('file:timecheck.sqlite?mode=ro', uri=True) as db:
 PY
 ```
 
-At the example revision, `a11_makers` returns `[]`: the SQL requires a verified
-`made_by`, while the Elgin 539 maker claim (`clm-ha7amhj52a`) is proposed with
-manual evidence awaiting human attestation. `v_lineage_all` includes proposed
-membership, but does not change that SQL join's verified-maker requirement.
+`a11_makers` returns Bulova and Waltham with their respective calibers; it excludes
+Elgin because the SQL requires a verified `made_by`, while Elgin 539's maker claim
+(`clm-ha7amhj52a`) is proposed with manual evidence awaiting human attestation.
+`v_lineage_all` includes proposed membership but does not change that join's verified-maker requirement.
 Inspect the pending maker evidence and membership separately:
 
 ```sh
