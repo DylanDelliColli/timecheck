@@ -98,15 +98,16 @@ def test_real_pdf_build_and_review(tmp_path, mode, quote, code):
     assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'verified'
     with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
         assert db.execute('SELECT match_mode FROM v_evidence_all').fetchall() == [(mode,)]
-    result = verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
-    # The automatic E1 status transition explicitly requires exact verification.
-    assert result['count'] == (1 if mode == 'exact' else 0)
-    if mode == 'fuzzy':
-        opted_in = verify_status(by='independent-review / chief', data_dir=data,
-                                report=tmp_path / 'report.json', include_fuzzy=True)
-        assert opted_in['count'] == 1
-        claim = json.loads((data / 'calibers/synthetic.json').read_text())['claims'][0]
-        assert claim['status'] == 'verified'
+    path = data / 'calibers/synthetic.json'
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
+        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert path.read_bytes() == before
+    assert json.loads(before)['claims'][0]['status'] == 'proposed'
+    assert report['pending_attestations'] == [{
+        'claim_id': 'clm-aaaaaaaaaa', 'evidence_id': 'ev-aaaaaaaaaa',
+        'source_id': 'source:synthetic', 'content_type': 'pdf_text',
+        'location': str(path)}]
 
 
 @pytest.mark.parametrize('content_type', ['html', 'text', 'image_scan'])
@@ -420,3 +421,97 @@ def test_real_build_reports_type0_digit_refusal(tmp_path, mode):
     assert 'SyntheticCID' in report['errors'][0]['message']
     assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'error'
     assert not (tmp_path / 'graph.sqlite').exists()
+
+
+def review_bypass_pdf(route):
+    """Review reproductions remain advisory even when the guards miss them."""
+    from pypdf import PdfReader
+    from pypdf.generic import ArrayObject, NumberObject
+    if route == 'differences_nondigit':
+        reader = PdfReader(BytesIO(to_unicode_swapped_pdf(
+            cmap_override=b'2 beginbfchar\n<32> <0032>\n<35> <0035>\nendbfchar')))
+        font = reader.pages[0]['/Resources']['/Font']['/F1']
+        font[NameObject('/Encoding')] = DictionaryObject({
+            NameObject('/BaseEncoding'): NameObject('/WinAnsiEncoding'),
+            NameObject('/Differences'): ArrayObject([NumberObject(50), NameObject('/A')])})
+        # The font displays A5, but identity ToUnicode extracts 25.
+    else:
+        reader = PdfReader(BytesIO(type0_pdf(identity=True)))
+        page = reader.pages[0]
+        font = page['/Resources']['/Font']['/F2']
+        font['/ToUnicode'].set_data(b'2 beginbfchar\n<0001> <0035>\n<0002> <0032>\nendbfchar')
+        simple = DictionaryObject({NameObject('/Type'): NameObject('/Font'),
+                                   NameObject('/Subtype'): NameObject('/Type1'),
+                                   NameObject('/BaseFont'): NameObject('/Helvetica')})
+        page['/Resources']['/Font'][NameObject('/F1')] = simple
+        stream = DecodedStreamObject()
+        # Restoring graphics state before ET makes pypdf flush Type0 text under
+        # the previously selected Helvetica. Glyph ids 1/2 are two/five, yet
+        # ToUnicode emits five/two and the visitor sees a simple font.
+        stream.set_data(b'BT /F1 12 Tf 36 720 Td (Synthetic caliber has ) Tj ET '
+                        b'q BT /F2 12 Tf 36 700 Td <00010002> Tj Q ET '
+                        b'BT /F1 12 Tf 36 680 Td ( jewels documented.) Tj ET')
+        page[NameObject('/Contents')] = stream
+    writer = PdfWriter(); writer.append(reader)
+    out = BytesIO(); writer.write(out)
+    return out.getvalue()
+
+
+@pytest.mark.parametrize('route', ['graphics_state_flush', 'differences_nondigit'])
+@pytest.mark.parametrize('mode', ['exact', 'fuzzy'])
+def test_pdf_digit_bypass_match_never_authorizes_promotion(tmp_path, route, mode):
+    raw = review_bypass_pdf(route)
+    quote = extract(raw, 'pdf_text')
+    assert ('52' if route == 'graphics_state_flush' else '25') in quote
+    data, snaps = dataset(tmp_path, mode, quote)
+    sha = hashlib.sha256(raw).hexdigest()
+    (snaps / (sha + '.bin')).write_bytes(raw)
+    source_path = data / 'sources/synthetic.json'
+    source = json.loads(source_path.read_text()); source['snapshot_sha256'] = sha
+    source_path.write_text(json.dumps(source))
+    code, report = build(data_dir=data, snapshot_dir=snaps, strict=True,
+                         out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+    assert code == 0, report['errors']
+    assert report['evidence_verification']['ev-aaaaaaaaaa'] == 'verified'
+    path = data / 'calibers/synthetic.json'
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
+        verify_status(by='independent-review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert path.read_bytes() == before
+    assert 'review' not in json.loads(before)['claims'][0]
+    assert report['pending_attestations'][0]['evidence_id'] == 'ev-aaaaaaaaaa'
+    assert report['pending_attestations'][0]['source_id'] == 'source:synthetic'
+
+
+@pytest.mark.parametrize('no_evidence', [False, True])
+def test_pdf_mixed_evidence_refuses_atomically_and_can_be_excluded(tmp_path, no_evidence):
+    from copy import deepcopy
+    data, snaps = dataset(tmp_path, 'exact', TEXT)
+    text = TEXT.encode(); sha = hashlib.sha256(text).hexdigest()
+    (snaps / (sha + '.bin')).write_bytes(text)
+    source = json.loads((data / 'sources/synthetic.json').read_text())
+    source.update(id='source:text', content_type='text', snapshot_sha256=sha)
+    (data / 'sources/text.json').write_text(json.dumps(source))
+    path = data / 'calibers/synthetic.json'
+    doc = json.loads(path.read_text())
+    pdf_claim = doc['claims'][0]
+    text_evidence = dict(pdf_claim['evidence'][0], id='ev-bbbbbbbbbb', source='source:text')
+    html_claim = deepcopy(pdf_claim)
+    html_claim.update(id='clm-bbbbbbbbbb', evidence=[text_evidence])
+    pdf_claim['evidence'].append(dict(text_evidence, id='ev-cccccccccc'))
+    doc['claims'].insert(0, html_claim)
+    path.write_text(json.dumps(doc)); before = path.read_bytes()
+    code, report = build(data_dir=data, snapshot_dir=snaps, strict=True, no_evidence=no_evidence,
+                         out=tmp_path / 'graph.sqlite', report=tmp_path / 'report.json')
+    assert code == 0, report['errors']
+    with pytest.raises(ValueError, match='PDF evidence requires human attestation'):
+        verify_status(by='review / chief', data_dir=data, report=tmp_path / 'report.json')
+    assert path.read_bytes() == before
+    assert report['pending_attestations'] == [{
+        'claim_id': 'clm-aaaaaaaaaa', 'evidence_id': 'ev-aaaaaaaaaa',
+        'source_id': 'source:synthetic', 'content_type': 'pdf_text', 'location': str(path)}]
+    result = verify_status(by='review / chief', data_dir=data, report=tmp_path / 'report.json',
+                           exclude=['clm-aaaaaaaaaa'])
+    assert result['claim_ids'] == ([] if no_evidence else ['clm-bbbbbbbbbb'])
+    updated = json.loads(path.read_text())['claims']
+    assert updated[1]['status'] == 'proposed' and 'review' not in updated[1]

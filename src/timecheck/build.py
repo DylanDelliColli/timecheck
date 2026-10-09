@@ -183,6 +183,17 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
             branches[c['subject']].add(c['object']['entity'])
     branches = {k: sorted(v) for k, v in branches.items() if len(v) > 1}
     proposed_by_file, line_counts = _review_summary(entities, claims)
+    pending_attestations = []
+    for c in claims:
+        if c['status'] != 'proposed':
+            continue
+        for e in c['evidence']:
+            content_type = sources.get(e['source'], {}).get('content_type')
+            if content_type == 'pdf_text' or e['match_mode'] == 'manual':
+                pending_attestations.append({
+                    'claim_id': c['id'], 'evidence_id': e['id'], 'source_id': e['source'],
+                    'content_type': content_type, 'location': c['path']})
+    pending_attestations.sort(key=lambda row: (row['source_id'], row['claim_id'], row['evidence_id']))
     result = {
         'data_dir': str(Path(data_dir).resolve()),
         'proposed_claims_by_file': proposed_by_file, 'line_claim_counts': line_counts,
@@ -198,6 +209,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
         'contested': sum(c['contested'] for c in claims), 'branches': branches,
         'years_unknown': sorted(c['id'] for c in claims if c['predicate'] == 'uses_caliber' and (c['valid_years']['from'] is None or c['valid_years']['to'] is None)),
         'pending_manual_attestations': sorted(e['id'] for c in claims if c['status'] == 'proposed' for e in c['evidence'] if e['match_mode'] == 'manual'),
+        'pending_attestations': pending_attestations,
         'coverage': _coverage(data_dir, claims, errors), 'evidence_share': shares,
         'family_truncated': _truncations(claims), 'errors': errors, 'warnings': warnings}
     output = Path(out)

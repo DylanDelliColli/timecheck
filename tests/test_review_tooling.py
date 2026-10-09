@@ -176,7 +176,12 @@ def test_manual_claim_can_be_excluded_without_attestation(graph, tmp_path):
     c = doc['claims'][-1]
     c['evidence'][0].update(source='source:scan', match_mode='manual')
     path.write_text(json.dumps(doc))
-    build(graph, tmp_path, '--strict')
+    _, report = build(graph, tmp_path, '--strict')
+    assert report['pending_attestations'] == [{
+        'claim_id': c['id'], 'evidence_id': c['evidence'][0]['id'],
+        'source_id': 'source:scan', 'content_type': 'image_scan',
+        'location': str(path)}]
+    assert report['pending_manual_attestations'] == [c['evidence'][0]['id']]
     result = verify(graph, tmp_path)
     assert result.returncode == 2 and 'Manual evidence' in result.stderr
     assert all(c['status'] == 'proposed' for c in json.loads(path.read_text())['claims'])
@@ -197,11 +202,12 @@ def test_claim_object_edit_invalidates_evidence_report(graph, tmp_path):
     assert all(c['status'] == 'proposed' for c in json.loads(path.read_text())['claims'])
 
 
-def test_include_fuzzy_cli_flag_keeps_exact_review_working(graph, tmp_path):
+def test_include_fuzzy_cli_flag_is_withdrawn(graph, tmp_path):
     build(graph, tmp_path, '--strict')
+    before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
     result = verify(graph, tmp_path, '--include-fuzzy')
-    assert result.returncode == 0, result.stderr
-    assert json.loads(result.stdout)['count'] == 23
+    assert result.returncode == 2 and 'unrecognized arguments: --include-fuzzy' in result.stderr
+    assert all(p.read_bytes() == raw for p, raw in before.items())
 
 
 @pytest.mark.parametrize('contract', ['original', 'previous_pdf_guard', 'digit_guard_v1'])
@@ -226,6 +232,6 @@ def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path
         report['review_inputs'][claim['id']] = hashlib.sha256(raw).hexdigest()
     path.write_text(json.dumps(report))
     before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
-    result = verify(graph, tmp_path, '--include-fuzzy')
+    result = verify(graph, tmp_path)
     assert result.returncode == 2 and 'Stale' in result.stderr
     assert all(p.read_bytes() == raw for p, raw in before.items())

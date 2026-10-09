@@ -69,7 +69,6 @@ def parser():
     verify = status.add_parser('verify')
     verify.add_argument('--by', required=True)
     verify.add_argument('--at')
-    verify.add_argument('--include-fuzzy', action='store_true')
     verify.add_argument('--data-dir', default='data')
     verify.add_argument('--report', default='report.json')
     verify.add_argument('--files', nargs='+')

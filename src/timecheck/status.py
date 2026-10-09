@@ -27,7 +27,7 @@ def review_fingerprint(claim, sources):
     return hashlib.sha256(raw).hexdigest()
 
 
-def verify_status(*, by, at=None, data_dir='data', report='report.json', files=None, exclude=(), include_fuzzy=False):
+def verify_status(*, by, at=None, data_dir='data', report='report.json', files=None, exclude=()):
     if not by.strip():
         raise ValueError('Reviewer --by must not be blank')
     at = at or datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
@@ -55,19 +55,19 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
     if excluded - {c['id'] for c in claims}:
         raise ValueError('Unknown excluded claim: ' + sorted(excluded - {c['id'] for c in claims})[0])
     changed, documents, originals = [], {}, {}
-    # Validate every candidate before touching any file, including manual claims.
+    # Validate every candidate before touching any file, including PDF/manual claims.
     for c in claims:
         path = Path(c['path']).resolve()
         if path not in selected or c['status'] != 'proposed' or c['id'] in excluded:
             continue
+        if any(sources[e['source']]['content_type'] == 'pdf_text' for e in c['evidence']):
+            raise ValueError('PDF evidence requires human attestation; exclude claim ' + c['id'])
         if any(e['match_mode'] == 'manual' for e in c['evidence']):
             raise ValueError('Manual evidence requires human attestation; exclude claim ' + c['id'])
         if fingerprints.get(c['id']) != review_fingerprint(c, sources):
             raise ValueError('Stale or missing report input for ' + c['id'] + '; rebuild first')
-        if not all(states.get(e['id']) == 'verified' and
-                   (e['match_mode'] == 'exact' or
-                    (include_fuzzy and e['match_mode'] == 'fuzzy' and
-                     sources[e['source']]['content_type'] == 'pdf_text'))
+        if not all(states.get(e['id']) == 'verified' and e['match_mode'] == 'exact' and
+                   sources[e['source']]['content_type'] in {'html', 'text'}
                    for e in c['evidence']):
             continue
         if path not in documents:
