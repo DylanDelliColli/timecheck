@@ -33,8 +33,8 @@ here does not mean archive bytes or quotes have just been verified.
 
 ### Worked example
 
-Output captured at commit `702fd49b5915b2067a5988ef169f00916d2f59c4`,
-rebased on release commit `19df33caf0dfca3062ef51997dde926e6a55eaea`:
+Output reproduces the CLI and data at release commit
+`19df33caf0dfca3062ef51997dde926e6a55eaea` (the base of this documentation update):
 
 ```sh
 .venv/bin/timecheck query v_reference_calibers --where "reference_id = 'reference:seiko-srpb41j1'" --json

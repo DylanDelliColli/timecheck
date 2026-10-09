@@ -419,8 +419,8 @@ subcommand help for your installed revision.
 
 ## Worked examples on the merged seed
 
-These real outputs were captured at commit `702fd49b5915b2067a5988ef169f00916d2f59c4`,
-rebased on final-seed release commit `19df33caf0dfca3062ef51997dde926e6a55eaea`. They use the root `timecheck.sqlite` from the real-seed build
+These real outputs reproduce the CLI and data at release commit
+`19df33caf0dfca3062ef51997dde926e6a55eaea` (the base of this documentation update). They use the root `timecheck.sqlite` from the real-seed build
 above. The structural build and live build compile the same authored claims;
 consult the report separately for archive verification. JSON formatting is
 expanded for readability; row order is incidental. `tests/test_docs_examples.py`
