@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "caliber:waltham-a-11-6-0",
+  "kind": "caliber",
+  "display_name": "Waltham A-11 6/0-size movement",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-un7ihhuhbf",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:waltham"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-eyf6gcgleq",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Elgin, Bulova and Waltham did the details slightly differently, but all fulfilled the fundamental demand: create a mass-production, good quality mechanism to power literally hundreds of thousands of watches with minimal costs and a high degree of functionality and readability.",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; final mechanism/manufacturer paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-6ymxtgztag",
+      "predicate": "jewels",
+      "object": {
+        "value": 16,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-lwkv23n5dv",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "The Waltham version used a 6/0 size movement, i.e. one 26/30th of an inch in size, based on a 15-jewel movement (cal. 884?), but with the addition of the central seconds via the additional pinion bridge the jewel count goes to 16 as well.",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Waltham movement paragraph (uncertain base-model number is not asserted)",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-vcd6i4i7uq",
+      "predicate": "winding",
+      "object": {
+        "value": "manual"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-myyyt2gwov",
+          "source": "source:buzzufy-waltham-a11-20210506",
+          "quote": "The winding of the watch is accomplished by rotating the winding crown in a clockwise direction.",
+          "locator": "Winding paragraph; preceding description identifies Waltham A-11 No. 10616",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-so6gdjukin",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hlcevd7mq3",
+          "source": "source:buzzufy-waltham-a11-20210506",
+          "quote": "When the winding srem is pulled into setting position, a flexible spring contacts the balance wheel and stops its movement, allowing the minute and hour hands to be set.",
+          "locator": "Setting paragraph; srem is retained verbatim from the archived transcription",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    }
+  ]
+}

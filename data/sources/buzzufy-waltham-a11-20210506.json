@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:buzzufy-waltham-a11-20210506",
+  "kind": "source",
+  "url": "https://www.buzzufy.com/blog/2017/02/10/waltham-a-11-navigation-hack-watch-an-05-35a-8/",
+  "archive_url": "https://web.archive.org/web/20210506001431id_/https://www.buzzufy.com/blog/2017/02/10/waltham-a-11-navigation-hack-watch-an-05-35a-8/",
+  "snapshot_sha256": "d7b8c47f14f694366f57da53d307cb2a65147708975e98d72b4bd2223925188d",
+  "publisher": "Buzzufy",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-09",
+  "notes": "Secondary transcription of Waltham AN 05-35A-8 instructions, published 10 February 2017. Individual winding/hacking observations only; HTML exact evidence, not a primary government scan. The transcription typo 6/9-size is not used as size evidence."
+}

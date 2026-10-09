@@ -1,42 +1,46 @@
 {
   "schema_version": 1,
-  "id": "reference:elgin-a-11",
+  "id": "reference:waltham-a-11",
   "kind": "reference",
-  "display_name": "Elgin A-11",
+  "display_name": "Waltham A-11",
   "aliases": [],
   "claims": [
     {
-      "id": "clm-bpgsi66cc5",
+      "id": "clm-qfxpyjqvzn",
       "predicate": "in_line",
       "object": {
         "entity": "line:usaaf-a-11"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-woyocnn46i",
-          "source": "source:war-department-tm9-1575-1945",
-          "quote": "The 16-jewel (Hack) type A 11, differs from the standard Elgin wrist watch in that it is equipped with a waterproof case, a sweep second hand, and a black dial.",
-          "locator": "printed page 141 (PDF page 146), section VI, paragraph 58a",
-          "match_mode": "manual"
-        }
-      ]
-    },
-    {
-      "id": "clm-6rsds5usl7",
-      "predicate": "uses_caliber",
-      "object": {
-        "entity": "caliber:elgin-539"
       },
       "status": "verified",
       "contested": false,
       "evidence": [
         {
-          "id": "ev-lqzyfb7fie",
+          "id": "ev-yp35lddwnx",
           "source": "source:wornandwound-a11-20251122",
-          "quote": "All watches were also required to feature hacking (second hand stops completely upon pulling out the crown) for ease of synchronization and precise timing, and movements tended to be of high grade and quality, such as the Elgin 539 and the Bulova caliber 10AK CSH",
-          "locator": "paragraph on A-11 movements; Elgin 539 example",
+          "quote": "Three American watch manufacturers (Elgin, Waltham, and Bulova) were contracted to make the watches",
+          "locator": "A-11 specification paragraph; three contracted manufacturers",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-rm7rqzo52w",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:waltham-a-11-6-0"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pyh5rmiee6",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "The Waltham version used a 6/0 size movement",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Waltham version paragraph",
           "match_mode": "exact"
         }
       ],
@@ -47,18 +51,18 @@
         "to_evidence": null
       },
       "review": {
-        "by": "codex:gpt-6.1-sol:pr2 / chief",
-        "at": "2026-10-08T23:16:50Z"
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
       }
     },
     {
-      "id": "clm-4agczj7yyz",
+      "id": "clm-5uxxz4vpo7",
       "predicate": "produced",
       "object": {
         "years": {
           "from": 1941,
           "to": null,
-          "from_evidence": "ev-65644rxb33",
+          "from_evidence": "ev-5olmhljb44",
           "to_evidence": null
         }
       },
@@ -66,7 +70,7 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-65644rxb33",
+          "id": "ev-5olmhljb44",
           "source": "source:watchuseek-a11-20260211",
           "quote": "Elgin, Waltham and Bulova all made the A-11 from 1941 on.",
           "locator": "Original article by JohnF and Crusader, 27 November 2008; paragraph before specification numbers",

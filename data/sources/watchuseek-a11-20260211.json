@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:watchuseek-a11-20260211",
+  "kind": "source",
+  "url": "https://www.watchuseek.com/threads/the-wristwatch-which-won-world-war-ii-the-a-11-an-american-watch-icon.207560/",
+  "archive_url": "https://web.archive.org/web/20260211185539id_/https://www.watchuseek.com/threads/the-wristwatch-which-won-world-war-ii-the-a-11-an-american-watch-icon.207560/",
+  "snapshot_sha256": "b2be4d8e440fd410b3461827065f1d65ec9f0508d3ad5e1252cbdfaf31d23e25",
+  "publisher": "JohnF and Crusader, WatchUSeek",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individual historical claims from the 27 November 2008 article, not database extraction. Waltham 6/0 is a size designation; uncertain cal. 884? is not entered. The watch-specific movement identity excludes other Waltham 6/0 Ordnance movements. Bulova 10AK CSH is not equated with plain 10AK."
+}

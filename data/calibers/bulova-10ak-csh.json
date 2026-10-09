@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "caliber:bulova-10ak-csh",
+  "kind": "caliber",
+  "display_name": "Bulova 10AK CSH",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6e2ypdzxc7",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:bulova"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4pjdqi7mpr",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Now, the Bulova version of the A-11: this was the watch that was issued by the British as the Mark VIII, with an A. Schild SA Cal. 1238 movement (10.5'''), which while basically a Swiss movement was actually built in the US by Bulova as the cal. 10AKCSH",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph explicitly says built in the US by Bulova",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-lldgglmtqz",
+      "predicate": "jewels",
+      "object": {
+        "value": 16,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-beas6uujly",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "This movement also hacks and is also a 16-jewel movement",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-li3uns453g",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-v27ynxx5ye",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "This movement also hacks and is also a 16-jewel movement",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    },
+    {
+      "id": "clm-z4ewvs3wnb",
+      "predicate": "winding",
+      "object": {
+        "value": "manual"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-f3j2pq4cmw",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "though some design aspects were largely universal: Black dial; white hands; a handwound hacking movement with center second hand",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; common A-11 design paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
+    }
+  ]
+}
