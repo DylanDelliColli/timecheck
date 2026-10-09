@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:baume-mercier-10620",
+  "kind": "reference",
+  "display_name": "Baume & Mercier Riviera 42mm Automatic Blue 10620",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-p5emoi2h6a",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:baume-mercier-riviera"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hcica7thhh",
+          "source": "source:watchgecko-baume-20241111",
+          "quote": "Specs Riviera 42mm Automatic - solid dials Available colours: blue with rubber strap (Ref: 10619), blue (Ref: 10620), black (Ref: 10621), Silver (Ref: 10622) Thickness: 10.66mm Case: Stainless steel Movement: Sellita SW200 automatic",
+          "locator": "Riviera 42mm solid-dial specifications; blue reference 10620",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-3dca3cmnxn",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-i5umra4uk3",
+          "source": "source:watchgecko-baume-20241111",
+          "quote": "Specs Riviera 42mm Automatic - solid dials Available colours: blue with rubber strap (Ref: 10619), blue (Ref: 10620), black (Ref: 10621), Silver (Ref: 10622) Thickness: 10.66mm Case: Stainless steel Movement: Sellita SW200 automatic",
+          "locator": "Riviera 42mm solid-dial specifications; blue reference 10620",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      }
+    }
+  ]
+}

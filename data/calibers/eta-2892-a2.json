@@ -90,10 +90,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-tln4plb6v4",
-          "source": "source:eta2892-corner-old-20240105",
-          "quote": "Manufacturer ETA Caliber Number 2892A2",
-          "locator": "Individual table; title/prose resolve canonical 2892-A2 alias",
+          "id": "ev-id2ylgezgd",
+          "source": "source:eta2892-corner-20200107",
+          "quote": "ETA Caliber 2892-A2 Brand ETA Caliber Number 2892-A2",
+          "locator": "Individual ETA 2892-A2 specification table",
           "match_mode": "exact"
         },
         {
@@ -116,10 +116,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-5az6vd7obj",
-          "source": "source:eta2892-corner-old-20240105",
-          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
-          "locator": "Individual 2892A2 specification table",
+          "id": "ev-tmcbi7ys66",
+          "source": "source:eta2892-corner-20200107",
+          "quote": "Power Reserve 42 hours Lift Angle 51 degrees Vibrations Per Hour 28,800 (4 Hz)",
+          "locator": "Individual ETA 2892-A2 specification table",
           "match_mode": "exact"
         },
         {
@@ -142,10 +142,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-nancakv5h7",
-          "source": "source:eta2892-corner-old-20240105",
-          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
-          "locator": "Individual 2892A2 specification table",
+          "id": "ev-bxe7tvykfe",
+          "source": "source:eta2892-corner-20200107",
+          "quote": "Movement Type Automatic Jewels 21 Diameter 11 1/2\"' (25.60mm)",
+          "locator": "Individual ETA 2892-A2 specification table",
           "match_mode": "exact"
         },
         {
@@ -168,10 +168,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-tuoffhwjqp",
-          "source": "source:eta2892-corner-old-20240105",
-          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
-          "locator": "Individual 2892A2 specification table",
+          "id": "ev-ri3ldb3evo",
+          "source": "source:eta2892-corner-20200107",
+          "quote": "Power Reserve 42 hours Lift Angle 51 degrees Vibrations Per Hour 28,800 (4 Hz)",
+          "locator": "Individual ETA 2892-A2 specification table",
           "match_mode": "exact"
         },
         {

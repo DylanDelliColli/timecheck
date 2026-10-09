@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:watchgecko-baume-20241111",
+  "kind": "source",
+  "url": "https://www.watchgecko.com/blogs/magazine/introducing-the-new-baume-mercier-2021-watches",
+  "publisher": "WatchGecko",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "Copyright WatchGecko; short quotation for verification",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241111040203id_/https://www.watchgecko.com/blogs/magazine/introducing-the-new-baume-mercier-2021-watches",
+  "snapshot_sha256": "ac17c253072ff7642dcd9060977dff4ba0fc1412c077c152f4e953c204ffeee5",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individual 2021 release article. The Riviera 42mm solid-dial specifications explicitly name blue reference 10620 and Sellita SW200; sapphire-dial Baumatic references are a separate configuration. No production-year inference."
+}

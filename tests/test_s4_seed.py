@@ -60,6 +60,13 @@ def test_s4_cross_brand_families(tmp_path):
             WHERE parent.predicate='grade_of' AND target.entity_id=?
         ''', ('caliber:sellita-sw200-1',)).fetchall()
         assert {row[0] for row in grades} == {'standard', 'élaboré', 'top', 'chronometer'}
+        # A named Riviera configuration replaces the uncited generic Classima host.
+        assert db.execute(
+            'SELECT caliber_id FROM v_reference_calibers_all WHERE reference_id=?',
+            ('reference:baume-mercier-10620',),
+        ).fetchall() == [('caliber:sellita-sw200',)]
+        assert not db.execute('SELECT 1 FROM reference WHERE id=?',
+                              ('reference:baume-mercier-classima-42mm',)).fetchone()
         # Generic SW200 and SW200-1 remain separate identities.
         assert db.execute('SELECT COUNT(*) FROM caliber WHERE id IN (?,?)',
                           ('caliber:sellita-sw200', 'caliber:sellita-sw200-1')).fetchone()[0] == 2
