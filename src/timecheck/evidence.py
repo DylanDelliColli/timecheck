@@ -148,16 +148,9 @@ def _wayback_error(raw, source_type, content_type=None, charset=None):
     titles = parser.titles
     if 'wayback machine' in titles:
         return True
-    if any(message in body for message in (
-            "doesn't have that page archived", 'this page is not available', 'hrm.')):
-        return True
-    # Retain earlier archive-owned error templates with more specific titles.
-    archive_template = (any(title.startswith(('wayback machine', 'internet archive', 'rate limit reached'))
-                            for title in titles) or b'id="wb-error' in decoded.lower())
-    return archive_template and any(message in body for message in (
-        'has not archived that url', 'no archived versions', 'cannot be crawled or displayed',
-        'url has been excluded', 'rate limit', 'temporarily unavailable',
-        'failed to load', 'cannot be displayed due to robots.txt'))
+    return any(message in body for message in (
+        "wayback machine doesn't have that page archived", 'this page is not available',
+        'hrm. wayback machine'))
 
 
 def _retry_delay(attempt, exc=None):

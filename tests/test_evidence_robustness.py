@@ -129,7 +129,7 @@ def test_corrupt_zstd_reports_decode_failure_not_quote_success(tmp_path, variant
     (b"<html><title>Wayback Machine</title><p>Hrm. Wayback Machine doesn't have that page archived.</p></html>", 'text/html', 'html'),
     (b'<html><title>  Wayback&nbsp;Machine </title><p>An unfamiliar archive status.</p></html>', 'text/html', 'html'),
     (b'<html><title>Archive error</title><p>This page is not available</p></html>', 'text/html', 'html'),
-    (b'<html><title>Archive error</title><p>Hrm.</p></html>', 'text/html', 'html'),
+    (b'<html><title>Archive error</title><p>Hrm. Wayback Machine</p></html>', 'text/html', 'html'),
     (b'<html><title>Archive error</title><p>A generic archive error body.</p></html>', 'text/html; charset=utf-8', 'pdf_text'),
 ])
 @pytest.mark.parametrize('strict', [False, True])
@@ -189,6 +189,19 @@ def test_valid_pdf_with_html_comment_is_not_a_placeholder(monkeypatch, media):
         attempts.append(1); response = Response(raw)
         if media: response.headers['Content-Type'] = media
         return response
+    monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
+    monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
+    assert verify_evidence(claims, sources, strict=True) == ([], [])
+    assert len(attempts) == 1
+
+
+def test_legitimate_html_prose_containing_hrm_verifies_once(monkeypatch):
+    quote = 'A legitimate archived paragraph says hrm. while describing automatic winding.'
+    raw = ('<html><title>Synthetic article</title><p>' + quote + '</p></html>').encode()
+    claims, sources = inputs(raw); sources['source:example']['content_type'] = 'html'
+    claims[0]['evidence'][0]['quote'] = quote; attempts = []
+    def fetch(*a, **k):
+        attempts.append(1); response = Response(raw); response.headers['Content-Type'] = 'text/html'; return response
     monkeypatch.setattr('timecheck.evidence.urlopen', fetch)
     monkeypatch.setattr('timecheck.evidence.time.sleep', lambda _: None)
     assert verify_evidence(claims, sources, strict=True) == ([], [])
