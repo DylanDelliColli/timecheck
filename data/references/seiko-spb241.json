@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-spb241",
+  "kind": "reference",
+  "display_name": "Seiko Prospex SPB241",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ncxbi6rfbn",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-prospex"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dup2vxnhi3",
+          "source": "source:seiko-prospex-alpinist-20260306",
+          "quote": "SEIKO PROSPEX The 1959 Alpinist Modern Re-interpretation SPB241",
+          "locator": "Model heading and collection context",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-ehnvsxv5vy",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-6r35"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ph45pujoqd",
+          "source": "source:seiko-prospex-alpinist-20260306",
+          "quote": "SPB241 [Caliber 6R35] Available in August 2021",
+          "locator": "Model movement specifications / launch page model panel",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

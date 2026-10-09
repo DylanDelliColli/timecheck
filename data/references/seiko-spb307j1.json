@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-spb307j1",
+  "kind": "reference",
+  "display_name": "Seiko Presage SPB307J1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-shiopueh5w",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-presage"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ew4w3lpnen",
+          "source": "source:seiko-presage-spb307-20231114",
+          "quote": "Home Collections Presage SPB307J1",
+          "locator": "Model heading and collection context",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-7wkdqr5i3d",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-6r21"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dp4moaooib",
+          "source": "source:seiko-presage-spb307-20231114",
+          "quote": "Caliber Number 6R21 Movement Type Automatic with manual winding",
+          "locator": "Model movement specifications / launch page model panel",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

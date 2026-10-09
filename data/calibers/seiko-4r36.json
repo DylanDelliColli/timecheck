@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "id": "caliber:seiko-4r36",
+  "kind": "caliber",
+  "display_name": "Seiko 4R36",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-4x4bdizqyx",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-o63ahqfvum",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "MOVEMENT Automatic Caliber 4R36 21,600 vibrations per hour",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-oykos37pto",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 41,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5ub7k7ogrw",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "Power reserve: approximately 41 hours",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-x3pi4esqil",
+      "predicate": "jewels",
+      "object": {
+        "value": 24,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4ddtcolurn",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "21,600 vibrations per hour 24 jewels",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-7nctlhuzmy",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 21600,
+        "unit": "vph"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-onpwo7ml2d",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "Caliber 4R36 21,600 vibrations per hour",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-eam54mb63g",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "day_date"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4fgfxpweps",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "Black dial Day/date calendar Beige luminous hands and markers",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-yspffxwcco",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5jy3ssw6cj",
+          "source": "source:seiko-5sports-srpd55-20260516",
+          "quote": "Functions Stop second hand function Day/Date display",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

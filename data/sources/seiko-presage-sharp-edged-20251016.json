@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-sharp-edged-20251016",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/us-en/products/presage/special/Sharp_Edged_Series_2",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20251016155555id_/https://www.seikowatches.com/us-en/products/presage/special/Sharp_Edged_Series_2",
+  "snapshot_sha256": "b4c5ca8b6572a131a37dcdc44450eb6a05722f89226513ee00555460aa394905",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individual model-panel excerpts from the archived 2022 four-model launch; availability dates are not production bounds."
+}

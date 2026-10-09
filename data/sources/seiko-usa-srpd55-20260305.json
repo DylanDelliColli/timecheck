@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-usa-srpd55-20260305",
+  "kind": "source",
+  "url": "https://seikousa.com/products/srpd55",
+  "publisher": "Seiko Watch of America LLC",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260305083956id_/https://seikousa.com/products/srpd55",
+  "snapshot_sha256": "7e00ecbf2b325abdac3999b481ca1e0943e13b2298936c1e3a1964542134982f",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

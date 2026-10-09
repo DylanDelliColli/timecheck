@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:seiko-presage-srpe45-20260207",
+  "kind": "source",
+  "url": "https://www.seikowatches.com/us-en/products/presage/srpe45j1",
+  "publisher": "Seiko Watch Corporation",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260207113212id_/https://www.seikowatches.com/us-en/products/presage/srpe45j1",
+  "snapshot_sha256": "7661afa08b10bd20a80fae42dba9050fd1fb5b5cdfb1b607511dac21abf9410a",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individually cited manufacturer page; raw snapshot bytes retained outside git."
+}

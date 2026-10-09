@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": "caliber:seiko-6l35",
+  "kind": "caliber",
+  "display_name": "Seiko 6L35",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6jafouzm4c",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 45,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-da5xssybak",
+          "source": "source:seiko-prospex-alpinist-20260306",
+          "quote": "The watch is powered by the slimline Caliber 6L35 which has a power reserve of 45 hours.",
+          "locator": "Movement section; 1959 Alpinist re-creation",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

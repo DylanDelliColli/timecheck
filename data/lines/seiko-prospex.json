@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:seiko-prospex",
+  "kind": "line",
+  "display_name": "Seiko Prospex",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-cbgwj6wh7e",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:seiko"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ddxjfgatzm",
+          "source": "source:seiko-prospex-alpinist-20260306",
+          "quote": "SEIKO PROSPEX The 1959 Alpinist Re-creation",
+          "locator": "Manufacturer launch page title",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

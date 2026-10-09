@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:seiko-srpg35",
+  "kind": "reference",
+  "display_name": "Seiko 5 Sports SRPG35",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-yik6bxxckz",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:seiko-5-sports"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dm7xdq523k",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "Home SRPG35 Men's Seiko 5 Sports SRPG35",
+          "locator": "Model heading and collection context",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-rwydtem36g",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:seiko-4r36"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-woip6p4ohv",
+          "source": "source:seiko-usa-srpg35-20260324",
+          "quote": "MOVEMENT Automatic Caliber 4R36 21,600 vibrations per hour",
+          "locator": "Model movement specifications / launch page model panel",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}

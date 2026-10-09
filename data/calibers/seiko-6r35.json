@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "id": "caliber:seiko-6r35",
+  "kind": "caliber",
+  "display_name": "Seiko 6R35",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-uw2t62mxm6",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-scsnz7pkik",
+          "source": "source:seiko-presage-spb165-20260311",
+          "quote": "Caliber Number 6R35 Movement Type Automatic with manual winding",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-hokcj4qecu",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 70,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dmrmoobpjm",
+          "source": "source:seiko-presage-spb165-20260311",
+          "quote": "Power reserve Approx. 70 hours",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-yntl5qvwvn",
+      "predicate": "jewels",
+      "object": {
+        "value": 24,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-tl7lguss6n",
+          "source": "source:seiko-presage-spb165-20260311",
+          "quote": "Jewels 24 Functions Stop second hand function",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-bmnpba463l",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-n73uel5gqo",
+          "source": "source:seiko-presage-spb165-20260311",
+          "quote": "Stop second hand function Date display",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    },
+    {
+      "id": "clm-74pdah7iff",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hzeoxdvpvq",
+          "source": "source:seiko-presage-spb165-20260311",
+          "quote": "Stop second hand function Date display",
+          "locator": "Movement specifications",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
+    }
+  ]
+}
