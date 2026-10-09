@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:bulova"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph explicitly says built in the US by Bulova",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-lldgglmtqz",
@@ -30,7 +34,7 @@
         "value": 16,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -40,7 +44,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-li3uns453g",
@@ -48,7 +56,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -58,7 +66,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova movement paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-z4ewvs3wnb",
@@ -66,7 +78,7 @@
       "object": {
         "value": "manual"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +88,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; common A-11 design paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     }
   ]
 }

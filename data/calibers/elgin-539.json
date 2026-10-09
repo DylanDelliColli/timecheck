@@ -48,7 +48,7 @@
       "object": {
         "value": "manual"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -58,7 +58,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; common A-11 design paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-kgncdd2as5",
@@ -66,7 +70,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +80,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; Elgin 539 paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     }
   ]
 }

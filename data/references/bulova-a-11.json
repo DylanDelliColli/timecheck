@@ -11,7 +11,7 @@
       "object": {
         "entity": "line:usaaf-a-11"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "A-11 specification paragraph; three contracted manufacturers",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-otj2bvax4z",
@@ -29,7 +33,7 @@
       "object": {
         "entity": "caliber:bulova-10ak-csh"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -45,6 +49,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
       }
     },
     {
@@ -58,7 +66,7 @@
           "to_evidence": null
         }
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -68,7 +76,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; paragraph before specification numbers",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     }
   ]
 }

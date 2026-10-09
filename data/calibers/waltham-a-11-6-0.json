@@ -11,7 +11,7 @@
       "object": {
         "entity": "brand:waltham"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -21,7 +21,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; final mechanism/manufacturer paragraph",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-6ymxtgztag",
@@ -30,7 +34,7 @@
         "value": 16,
         "unit": "count"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -40,7 +44,11 @@
           "locator": "Original article by JohnF and Crusader, 27 November 2008; Waltham movement paragraph (uncertain base-model number is not asserted)",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-vcd6i4i7uq",
@@ -48,7 +56,7 @@
       "object": {
         "value": "manual"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -58,7 +66,11 @@
           "locator": "Winding paragraph; preceding description identifies Waltham A-11 No. 10616",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     },
     {
       "id": "clm-so6gdjukin",
@@ -66,7 +78,7 @@
       "object": {
         "value": true
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -76,7 +88,11 @@
           "locator": "Setting paragraph; srem is retained verbatim from the archived transcription",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr9 / chief",
+        "at": "2026-10-09T02:17:54Z"
+      }
     }
   ]
 }
