@@ -50,6 +50,29 @@
         "by": "codex:gpt-6.1-sol:pr2 / chief",
         "at": "2026-10-08T23:16:50Z"
       }
+    },
+    {
+      "id": "clm-4agczj7yyz",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1941,
+          "to": null,
+          "from_evidence": "ev-65644rxb33",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-65644rxb33",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Elgin, Waltham and Bulova all made the A-11 from 1941 on.",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; paragraph before specification numbers",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:waltham-a-11",
+  "kind": "reference",
+  "display_name": "Waltham A-11",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-qfxpyjqvzn",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:usaaf-a-11"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yp35lddwnx",
+          "source": "source:wornandwound-a11-20251122",
+          "quote": "Three American watch manufacturers (Elgin, Waltham, and Bulova) were contracted to make the watches",
+          "locator": "A-11 specification paragraph; three contracted manufacturers",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-rm7rqzo52w",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:waltham-a-11-6-0"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pyh5rmiee6",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "The Waltham version used a 6/0 size movement",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Waltham version paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-5uxxz4vpo7",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1941,
+          "to": null,
+          "from_evidence": "ev-5olmhljb44",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5olmhljb44",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Elgin, Waltham and Bulova all made the A-11 from 1941 on.",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; paragraph before specification numbers",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

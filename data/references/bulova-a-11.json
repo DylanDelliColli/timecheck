@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "id": "reference:bulova-a-11",
+  "kind": "reference",
+  "display_name": "Bulova A-11",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-htr2mi57qa",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:usaaf-a-11"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ipjnv2ed5v",
+          "source": "source:wornandwound-a11-20251122",
+          "quote": "Three American watch manufacturers (Elgin, Waltham, and Bulova) were contracted to make the watches",
+          "locator": "A-11 specification paragraph; three contracted manufacturers",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-otj2bvax4z",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:bulova-10ak-csh"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-h5ugf5spoq",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Now, the Bulova version of the A-11: this was the watch that was issued by the British as the Mark VIII, with an A. Schild SA Cal. 1238 movement (10.5'''), which while basically a Swiss movement was actually built in the US by Bulova as the cal. 10AKCSH",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; Bulova version paragraph",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-fsrwgq3epu",
+      "predicate": "produced",
+      "object": {
+        "years": {
+          "from": 1941,
+          "to": null,
+          "from_evidence": "ev-3ah5jvvyfa",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3ah5jvvyfa",
+          "source": "source:watchuseek-a11-20260211",
+          "quote": "Elgin, Waltham and Bulova all made the A-11 from 1941 on.",
+          "locator": "Original article by JohnF and Crusader, 27 November 2008; paragraph before specification numbers",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "line": "line:usaaf-a-11",
+  "source": "source:wornandwound-a11-20251122",
+  "references": [
+    "reference:elgin-a-11",
+    "reference:waltham-a-11",
+    "reference:bulova-a-11"
+  ]
+}
