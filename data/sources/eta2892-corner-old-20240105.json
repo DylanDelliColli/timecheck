@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta2892-corner-old-20240105",
+  "kind": "source",
+  "url": "https://calibercorner.com/eta-caliber-2892-a2/",
+  "publisher": "Caliber Corner",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "Copyright Caliber Corner; short quotation for verification",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20240105045014id_/https://calibercorner.com/eta-caliber-2892-a2/",
+  "snapshot_sha256": "1e7060a948ee68b093fc31c77741241adadcc0f2101a8435ea3adbbf08cdb083",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual manufacturer/specification table and opening description, not catalogue extraction. Title and prose identify 2892A2; table also prints 2982-A2, a discrepancy retained without treating it as a separate identity."
+}

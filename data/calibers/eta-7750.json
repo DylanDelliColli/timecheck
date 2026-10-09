@@ -90,6 +90,13 @@
       "contested": false,
       "evidence": [
         {
+          "id": "ev-2ngbvqtiaw",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "Products ETA 2824-2 movement Valjoux 7750 movement and ETA 2892 movement Powermatic 80",
+          "locator": "ETA manufacturer infobox product list, corroborating original technical document",
+          "match_mode": "exact"
+        },
+        {
           "id": "ev-2shruzj5mi",
           "source": "source:eta7750-pdf-20251005",
           "quote": "TECHNICAL COMMUNICATION ETA 7750 - 7765 Français / Deutsch / English",

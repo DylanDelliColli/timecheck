@@ -90,6 +90,13 @@
       "contested": false,
       "evidence": [
         {
+          "id": "ev-tln4plb6v4",
+          "source": "source:eta2892-corner-old-20240105",
+          "quote": "Manufacturer ETA Caliber Number 2892A2",
+          "locator": "Individual table; title/prose resolve canonical 2892-A2 alias",
+          "match_mode": "exact"
+        },
+        {
           "id": "ev-hadzq63vx5",
           "source": "source:eta2892-pdf-20250729",
           "quote": "TECHNICAL COMMUNICATION ETA SA Manufacture Horlogère Suisse SC Marketing & Communication",
@@ -108,6 +115,13 @@
       "status": "proposed",
       "contested": false,
       "evidence": [
+        {
+          "id": "ev-5az6vd7obj",
+          "source": "source:eta2892-corner-old-20240105",
+          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
+          "locator": "Individual 2892A2 specification table",
+          "match_mode": "exact"
+        },
         {
           "id": "ev-d4raukvjpt",
           "source": "source:eta2892-pdf-20250729",
@@ -128,6 +142,13 @@
       "contested": false,
       "evidence": [
         {
+          "id": "ev-nancakv5h7",
+          "source": "source:eta2892-corner-old-20240105",
+          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
+          "locator": "Individual 2892A2 specification table",
+          "match_mode": "exact"
+        },
+        {
           "id": "ev-knmjhzsx5e",
           "source": "source:eta2892-pdf-20250729",
           "quote": "Nombre de rubis Anzahl Rubine Number of jewels 21",
@@ -146,6 +167,13 @@
       "status": "proposed",
       "contested": false,
       "evidence": [
+        {
+          "id": "ev-tuoffhwjqp",
+          "source": "source:eta2892-corner-old-20240105",
+          "quote": "Jewels 21 Power Reserve 42 hours Beat Rate 28,800 vph (4Hz)",
+          "locator": "Individual 2892A2 specification table",
+          "match_mode": "exact"
+        },
         {
           "id": "ev-wtiaqmtwtf",
           "source": "source:eta2892-pdf-20250729",

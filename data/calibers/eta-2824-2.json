@@ -160,6 +160,13 @@
       "contested": false,
       "evidence": [
         {
+          "id": "ev-anoix7ql5f",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "One workhorse of the ETA mechanical line is the ETA 2824-2",
+          "locator": "ETA 2824-2 section; existing pilot wording with normalized dash",
+          "match_mode": "exact"
+        },
+        {
           "id": "ev-r6duwcsf5q",
           "source": "source:eta2824-pdf-20240617",
           "quote": "TECHNICAL COMMUNICATION ETA SA Manufacture Horlogère Suisse Customer Service",
@@ -179,6 +186,13 @@
       "contested": false,
       "evidence": [
         {
+          "id": "ev-5so7tov2dd",
+          "source": "source:eta2824-history-20260418",
+          "quote": "the ETA 2824-2 beats at a frequency of 28,800 vibrations/hour.",
+          "locator": "ETA 2824-2 architecture and specifications",
+          "match_mode": "exact"
+        },
+        {
           "id": "ev-rwtvzwyxbd",
           "source": "source:eta2824-pdf-20240617",
           "quote": "Fréquence Frequenz Frequency 28'800 A/h",
@@ -197,6 +211,13 @@
       "status": "proposed",
       "contested": false,
       "evidence": [
+        {
+          "id": "ev-t3eqi3ju66",
+          "source": "source:eta2824-history-20260418",
+          "quote": "notably the ETA 2824-2 - which has 25 jewels - and all 25-jewelled clones.",
+          "locator": "Clone comparison explicitly identifies ETA 2824-2 jewel count",
+          "match_mode": "exact"
+        },
         {
           "id": "ev-ybkvyirros",
           "source": "source:eta2824-pdf-20240617",
