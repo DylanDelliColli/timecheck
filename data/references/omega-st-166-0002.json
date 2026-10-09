@@ -82,6 +82,29 @@
         "by": "codex:gpt-6.1-sol:pr2 / chief",
         "at": "2026-10-08T23:16:50Z"
       }
+    },
+    {
+      "id": "clm-eaoquc5ehh",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1962,
+          "to": null,
+          "from_evidence": "ev-s26yzzfrt5",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-s26yzzfrt5",
+          "source": "source:omega-seamaster-st1660002-20261008",
+          "quote": "International collection 1962",
+          "locator": "Vintage reference page; Technical Data / International collection field",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

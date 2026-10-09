@@ -54,6 +54,29 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-n27zwmfi7h",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1967,
+          "to": null,
+          "from_evidence": "ev-yc2fux2man",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yc2fux2man",
+          "source": "source:omega-seamaster-1360022-20250920",
+          "quote": "International collection 1967",
+          "locator": "Vintage reference page; Technical Data / International collection field",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

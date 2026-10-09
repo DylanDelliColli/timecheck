@@ -11,6 +11,7 @@
         "in_line",
         "uses_caliber",
         "produced",
+        "catalogued",
         "succeeds",
         "made_by",
         "offers_grades",
@@ -271,7 +272,10 @@
       "if": {
         "properties": {
           "predicate": {
-            "const": "produced"
+            "enum": [
+              "produced",
+              "catalogued"
+            ]
           }
         }
       },

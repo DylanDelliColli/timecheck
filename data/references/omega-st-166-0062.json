@@ -54,6 +54,29 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-gwmle7uyvx",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1969,
+          "to": null,
+          "from_evidence": "ev-kuodck5dva",
+          "to_evidence": null
+        }
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-kuodck5dva",
+          "source": "source:omega-seamaster-st1660062-20250218",
+          "quote": "International collection 1969",
+          "locator": "Vintage reference page; Technical Data / International collection field",
+          "match_mode": "exact"
+        }
+      ]
     }
   ]
 }

@@ -32,6 +32,12 @@
       "terms": null,
       "cardinality": "single"
     },
+    "catalogued": {
+      "subject": "reference",
+      "object": "years",
+      "terms": null,
+      "cardinality": "single"
+    },
     "succeeds": {
       "subject": "reference",
       "object": "entity",
