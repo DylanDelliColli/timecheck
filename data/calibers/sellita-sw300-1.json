@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw300-1",
+  "kind": "caliber",
+  "display_name": "Sellita SW300-1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-xhowhgpumi",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-34wczmg2gi",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-w5skw4i4fv",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-r4uwphh533",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-cpygdwjdog",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bfatpfl5hm",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-ab7qfhzjkn",
+      "predicate": "jewels",
+      "object": {
+        "value": 25,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-fwqs5nvyxb",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-wycfgpjl24",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-sq4r4swe33",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Functions Hours, minutes, seconds Date display",
+          "locator": "Functions; watch with explicitly named movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-p2jdvtcfej",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-xh24mckzke",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-tdbpqk5gu6",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-v4yv2fso74",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-yc6cj246a4",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-2892-a2"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-piyfwhpbup",
+          "source": "source:sw300-forum-20241206",
+          "quote": "The Swiss Sellita Calibre SW300-1 is, as far as I understand, an excellent clone of the 2892-A2.",
+          "locator": "Tomek opening service-walkthrough post; explicit tentative clone statement",
+          "match_mode": "exact"
+        },
+        {
+          "id": "ev-l6r6eshmob",
+          "source": "source:sw300-corner-old-20231209",
+          "quote": "The Sellita caliber SW300-1 is a slim automatic watch movement, Swiss made with 25 jewels. This caliber is the main competitor and clone of the ETA caliber 2892-A2.",
+          "locator": "Opening SW300-1 description; direct explicit clone identification corroborates tentative forum source",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

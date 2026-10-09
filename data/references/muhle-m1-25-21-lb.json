@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:muhle-m1-25-21-lb",
+  "kind": "reference",
+  "display_name": "Mühle-Glashütte 29er M1-25-21-LB",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-wlhuewriov",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:muhle-29er"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gna7ufb7c4",
+          "source": "source:muhle29er-20260421",
+          "quote": "Watches > 29er > 29er 29er has been added to cart. Continue shopping Go to cart reference M1-25-21-LB.",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-qvcglgfu6t",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:muhle-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-nbsstc6pjc",
+          "source": "source:muhle29er-20260421",
+          "quote": "Automatic. SW200-1, version Mühle. Woodpecker neck regulation. Stop-second. Quick set date.",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

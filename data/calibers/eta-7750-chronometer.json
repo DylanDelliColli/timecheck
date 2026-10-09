@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:eta-7750-chronometer",
+  "kind": "caliber",
+  "display_name": "ETA / Valjoux 7750 Chronometer",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6gi52xlt2n",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:eta-7750"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-b7eqkku52b",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "It is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA / Valjoux 7750 grade paragraph; Elaborated normalized to élaboré",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-djyzhg2obn",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Chronometer"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jt2fv7qdxx",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "It is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA / Valjoux 7750 grade paragraph; canonical grade term",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

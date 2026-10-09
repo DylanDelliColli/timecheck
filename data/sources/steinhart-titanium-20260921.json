@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:steinhart-titanium-20260921",
+  "kind": "source",
+  "url": "https://www.steinhartwatches.de/en/ocean-titanium-500-premium.html",
+  "publisher": "Steinhart",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260921205033id_/https://www.steinhartwatches.de/en/ocean-titanium-500-premium.html",
+  "snapshot_sha256": "0eaa2baa382f2313342cbe33e3009708eac0671fe9953ac3d73a029b6b9747f9",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

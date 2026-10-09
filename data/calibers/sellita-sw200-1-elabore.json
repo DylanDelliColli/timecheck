@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1-elabore",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1 élaboré",
+  "aliases": [
+    "caliber:sellita-sw200-1-special",
+    "Sellita SW200-1 Special",
+    "Sellita SW200-1 Elabore",
+    "Sellita SW200-1 élaboré"
+  ],
+  "claims": [
+    {
+      "id": "clm-tgyu5oriz7",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dzpjhgflsb",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Special (Elabore) - adjusted in three positions; accuracy of +/-7 sec/day up to +/- 20 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-ithc5cc75g",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Special"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-urjohwz6vr",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Special (Elabore) - adjusted in three positions; accuracy of +/-7 sec/day up to +/- 20 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

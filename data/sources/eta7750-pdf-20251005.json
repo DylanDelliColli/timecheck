@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta7750-pdf-20251005",
+  "kind": "source",
+  "url": "https://www.watchmaterial.com/content/eta_7750-7765.pdf",
+  "publisher": "ETA SA Manufacture Horlogère Suisse",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "pdf_text",
+  "archive_url": "https://web.archive.org/web/20251005084843id_/https://www.watchmaterial.com/content/eta_7750-7765.pdf",
+  "snapshot_sha256": "8d3772c1c02c047b569627137c8155b4f8b0513bbffd9967cf4ed69c7544260c",
+  "retrieved_at": "2026-10-08",
+  "notes": "Original ETA7750-7765 manufacturer technical communication STAR/02,25.09.2003; archived WatchMaterial mirror. Copyright ETA; individual excerpt only. Family/part-table data not promoted to unspecified attributes."
+}

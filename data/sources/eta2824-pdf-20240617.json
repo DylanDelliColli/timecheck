@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta2824-pdf-20240617",
+  "kind": "source",
+  "url": "https://www.darthalex.com/etapdf/ETA_2824-2_DEF_Tech.pdf",
+  "publisher": "ETA SA Manufacture Horlogère Suisse",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "pdf_text",
+  "archive_url": "https://web.archive.org/web/20240617043537id_/https://www.darthalex.com/etapdf/ETA_2824-2_DEF_Tech.pdf",
+  "snapshot_sha256": "94c43a08926ddc22f278fd2a6dc2f2556d7ae297f3172cab0d155057b1fddc05",
+  "retrieved_at": "2026-10-08",
+  "notes": "Original manufacturer technical communication CT2824-2FDE48168811,01.09.2010; archived third-party mirror. Copyright ETA; individual verification excerpts only, no document republication or original live capture. Maker document provenance is distinct from mirror host."
+}

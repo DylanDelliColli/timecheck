@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:zodiac-chrono-20241013",
+  "kind": "source",
+  "url": "https://wornandwound.com/zodiac-adds-bronze-and-7750-chronos-to-their-line-up/",
+  "publisher": "Worn & Wound",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241013013007id_/https://wornandwound.com/zodiac-adds-bronze-and-7750-chronos-to-their-line-up/",
+  "snapshot_sha256": "daa5a280e1e15633308995316e804e11312ce175e6e5823195bc068411b5817d",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

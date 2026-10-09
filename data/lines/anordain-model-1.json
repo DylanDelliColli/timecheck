@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:anordain-model-1",
+  "kind": "line",
+  "display_name": "anOrdain Model 1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6cedc56w3o",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:anordain"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-w2gnp6gp5u",
+          "source": "source:rescapement-sw200-20241007",
+          "quote": "AnOrdain Model 1 With AnOrdain, admittedly it's all about the dial.",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

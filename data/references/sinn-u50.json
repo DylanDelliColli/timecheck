@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:sinn-u50",
+  "kind": "reference",
+  "display_name": "Sinn U50",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-augprwddah",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:sinn-u50"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jxbig7qkm7",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Sinn Spezialuhren | U50 | purchase online",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-4olf43o5jq",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw300-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dmhxxghrxh",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

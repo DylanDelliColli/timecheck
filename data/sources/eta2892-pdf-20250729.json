@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta2892-pdf-20250729",
+  "kind": "source",
+  "url": "https://calibercorner.com/wp-content/uploads/2014/11/eta-2892a2.pdf",
+  "publisher": "ETA SA Manufacture Horlogère Suisse",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "pdf_text",
+  "archive_url": "https://web.archive.org/web/20250729094030id_/https://calibercorner.com/wp-content/uploads/2014/11/eta-2892a2.pdf",
+  "snapshot_sha256": "1a62ee407ec4e7ac885093c0d04da8e82335ac7c064f732dbcd2cfc893f60068",
+  "retrieved_at": "2026-10-08",
+  "notes": "Original ETA manufacturer technical communication CT2892A2FDE30005412,29.08.2016; archived CaliberCorner mirror. Individual maker specification excerpts, no page-table extraction. Mirror host is separately counted in evidence cap."
+}

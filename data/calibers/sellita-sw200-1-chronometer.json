@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1-chronometer",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1 Chronometer",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-tu5k3vmsoq",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-47bhx4sv4y",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Movement Sellita SW200-1 COSC Power Reserve minimum 38 hours / typical 41 hours No of Jewels 26",
+          "locator": "Technical specifications; COSC movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-bqkurofbo3",
+      "predicate": "grade_name",
+      "object": {
+        "value": "chronometer"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-leim6yzrtv",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Power is provided by an ultra-accurate chronometer version of Sellita's SW200 automatic movement",
+          "locator": "Description; chronometer execution, not decorated rotor grade",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

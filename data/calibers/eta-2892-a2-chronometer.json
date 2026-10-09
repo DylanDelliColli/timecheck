@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:eta-2892-a2-chronometer",
+  "kind": "caliber",
+  "display_name": "ETA 2892-A2 Chronometer",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-bvw3a3t7bn",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:eta-2892-a2"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-z474qerfel",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "An automatic winding, 21-jewel movement, the 2892 is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA 2892-A2 grade paragraph; Elaborated normalized to élaboré",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-gqd7knm3wp",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Chronometer"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ffmtgnduy2",
+          "source": "source:wikipedia-eta-sa-1359500316",
+          "quote": "An automatic winding, 21-jewel movement, the 2892 is available in three executions or grades: Elaborated, Top and Chronometer.",
+          "locator": "ETA 2892-A2 grade paragraph; canonical grade term",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

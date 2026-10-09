@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:farr-seaplane-20260803",
+  "kind": "source",
+  "url": "https://www.farrandswit.com/watches/seaplane",
+  "publisher": "Farr + Swit",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260803172200id_/https://www.farrandswit.com/watches/seaplane",
+  "snapshot_sha256": "4e5e007abb040812f19b7b0b330be8b307f672d71c31fd3bc70caacee6997c4f",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

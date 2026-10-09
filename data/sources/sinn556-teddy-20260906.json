@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sinn556-teddy-20260906",
+  "kind": "source",
+  "url": "https://teddybaldassarre.com/blogs/watches/sinn-556-review",
+  "publisher": "Teddy Baldassarre",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260906163836id_/https://teddybaldassarre.com/blogs/watches/sinn-556-review",
+  "snapshot_sha256": "65002c81227c1a63fcb2f1a156abfb566466cd9fd93d2f75ac43ae28614d7b45",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

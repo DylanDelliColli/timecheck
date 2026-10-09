@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "caliber:muhle-sw200-1",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1, Mühle version",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ceszoazkk4",
+      "predicate": "derived_from",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hforeafeq5",
+          "source": "source:muhle29er-20260421",
+          "quote": "Automatic. SW200-1, version Mühle. Woodpecker neck regulation. Stop-second. Quick set date.",
+          "locator": "Movement panel; explicitly branded version of base SW200-1, retained as separate identity",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

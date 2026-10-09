@@ -1,0 +1,209 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-6qjaepaxpg",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:sellita"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-zr5aemepl5",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Movement Sellita SW200-1 COSC Power Reserve minimum 38 hours / typical 41 hours No of Jewels 26",
+          "locator": "Technical specifications; supplier name",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-f7mcymxmha",
+      "predicate": "offers_grades",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5qme7da5cn",
+          "source": "source:cw-bronze-20260703",
+          "quote": "Power is provided by an ultra-accurate chronometer version of Sellita's SW200 automatic movement",
+          "locator": "Description; chronometer version, specs resolve suffix SW200-1",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-j4zusrmmqe",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-7wvj3uira5",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-m2qiyuj3bn",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-e5pm743uht",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-s2lvkzbxju",
+      "predicate": "jewels",
+      "object": {
+        "value": 26,
+        "unit": "count"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-p5whrzuyiu",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-yv7bcfnmtv",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-d4doldglgg",
+          "source": "source:sinn556a-20251210",
+          "quote": "Functions Hours, minutes, seconds Date display",
+          "locator": "Functions; watch with explicitly named movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-j2vsbc5zin",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-dmg5lkyhb2",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-jign3auqfg",
+      "predicate": "clone_of",
+      "object": {
+        "entity": "caliber:eta-2824-2"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-6tcco4krox",
+          "source": "source:eta2824-history-20260418",
+          "quote": "Production of a Sellita SW200-1, the most distributed \"clone\" or \"alternative\" to the ETA 2824-2",
+          "locator": "The Clone Wars section; manufacturing image caption explicitly identifies both versions",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-4uj5amv4tj",
+      "predicate": "derived_from",
+      "object": {
+        "entity": "caliber:sellita-sw200"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bw2bwfmi7o",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "The SW200-1 is an update to the original caliber SW200.",
+          "locator": "Opening SW200-1 prose; update version identity",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:sw300-forum-20241206",
+  "kind": "source",
+  "url": "https://www.watchrepairtalk.com/topic/25027-eta-2892-a2-service-walkthrough/",
+  "publisher": "Watch Repair Talk; contributor Tomek",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241206145609id_/https://www.watchrepairtalk.com/topic/25027-eta-2892-a2-service-walkthrough/#comment-205408",
+  "snapshot_sha256": "5258cde983d54b932cff55c2571720c9fb260b185b1287221cadf51a7e26343f",
+  "retrieved_at": "2026-10-08",
+  "notes": "Attributed individual technical discussion; caveat retained verbatim. Forum post authored December9,2022; proposed clone interpretation awaits independent review."
+}

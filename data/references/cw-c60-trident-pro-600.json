@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:cw-c60-trident-pro-600",
+  "kind": "reference",
+  "display_name": "Christopher Ward C60 Trident Pro 600",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-pvbgxtglqm",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:christopher-ward-c60"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ggp6lll2mr",
+          "source": "source:rescapement-sw200-20241007",
+          "quote": "Christopher Ward C60 Trident Pro English brand Christopher Ward used ETA movements in its early days",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-mx3uswxktc",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yekdh36btb",
+          "source": "source:rescapement-sw200-20241007",
+          "quote": "the best is the classic C60 Trident Pro 600, powered by the Sellita SW200.",
+          "locator": "Named host section; model-level identity because no numeric reference supplied",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

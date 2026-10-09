@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw300-1-chronometer",
+  "kind": "caliber",
+  "display_name": "Sellita SW300-1 chronometer",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-r6ymrgrxcv",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw300-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-evzdsaehaj",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-aspb4f6fyj",
+      "predicate": "grade_name",
+      "object": {
+        "value": "chronometer"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-hcs5o42pm5",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-zpgimeqxux",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 56,
+        "unit": "hour"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3uifac3n2r",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Not only is the movement ultra-accurate, but it also gives you a 56-hour power reserve.",
+          "locator": "Description following explicitly named chronometer-certified SW300-1; configured movement",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

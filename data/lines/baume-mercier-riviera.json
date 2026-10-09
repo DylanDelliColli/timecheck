@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:baume-mercier-riviera",
+  "kind": "line",
+  "display_name": "Baume & Mercier Riviera",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-jbt7jgcet7",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:baume-mercier"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-yr3l2bebdw",
+          "source": "source:watchgecko-baume-20241111",
+          "quote": "The New Baume & Mercier Riviera 42mm Black Sapphire - Image Credit: Baume & Mercier",
+          "locator": "Named Baume & Mercier Riviera section",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

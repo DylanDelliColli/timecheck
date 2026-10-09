@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:guinand60-20260421",
+  "kind": "source",
+  "url": "https://www.guinand-uhren.de/series-60.html",
+  "publisher": "Guinand",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260421134858id_/https://www.guinand-uhren.de/series-60.html",
+  "snapshot_sha256": "ac12aef79085fb14a374fc3748b5423e5cd928b3e9a800282069d90e90eadd03",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

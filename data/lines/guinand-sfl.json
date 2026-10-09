@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:guinand-sfl",
+  "kind": "line",
+  "display_name": "Guinand SFL",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-rudvppy7le",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:guinand"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2edkwysyp6",
+          "source": "source:guinand-sfl-20260608",
+          "quote": "SFL - Guinand Pilot Watches Frankfurt am Main, Deutschland",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

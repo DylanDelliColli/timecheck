@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:rescapement-sw200-20241007",
+  "kind": "source",
+  "url": "https://www.rescapement.com/blog/five-great-watches-with-sellita-sw200-movements",
+  "publisher": "Rescapement",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20241007140643id_/https://www.rescapement.com/blog/five-great-watches-with-sellita-sw200-movements",
+  "snapshot_sha256": "7c2f250811d9838be2dc6adec4092628f6d813b1cdc48d711c04973991cdbb3f",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual host citations from an editorial comparison; generic SW200 is not conflated with suffixed SW200-1 despite the article conflating them. No catalog database extraction."
+}

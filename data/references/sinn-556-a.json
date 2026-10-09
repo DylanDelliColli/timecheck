@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:sinn-556-a",
+  "kind": "reference",
+  "display_name": "Sinn 556 A",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-7vpfrjr5cy",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:sinn-556"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-s7yvf44o2m",
+          "source": "source:sinn556a-20251210",
+          "quote": "Sinn Spezialuhren | 556 A | purchase online",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-oaarjnhhg7",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pz6ax4w6kd",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

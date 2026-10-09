@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:lejour-mark1-20250823",
+  "kind": "source",
+  "url": "https://wornandwound.com/review/le-jour-mark-001-chronograph-review/",
+  "publisher": "Worn & Wound",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20250823114024id_/https://wornandwound.com/review/le-jour-mark-001-chronograph-review/",
+  "snapshot_sha256": "79231b893e8f96d4e0e0dd1f26e03914b2853674932763bfbbe82a10577f52b1",
+  "retrieved_at": "2026-10-08",
+  "notes": "Individual cited facts; no systematic catalogue extraction."
+}

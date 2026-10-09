@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:eta2892-corner-20200107",
+  "kind": "source",
+  "url": "https://calibercorner.com/eta-caliber-2892-a2/",
+  "publisher": "Caliber Corner",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "Copyright Caliber Corner; short quotation for verification",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20200107043632id_/https://calibercorner.com/eta-caliber-2892-a2/",
+  "snapshot_sha256": "0d4147a6b564c9a01bfa994f3b83e2c6be0aadecff63a9aba9f24633ee1a00d8",
+  "retrieved_at": "2026-10-09",
+  "notes": "Individual specification table and opening description. Earlier reachable capture replaces the unavailable 2024 capture; original ETA PDF corroboration remains on the same claims."
+}

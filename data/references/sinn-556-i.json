@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "reference:sinn-556-i",
+  "kind": "reference",
+  "display_name": "Sinn 556 I",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-wcaici6k3i",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:sinn-556"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-js6sgym72g",
+          "source": "source:sinn556-teddy-20260906",
+          "quote": "Sinn 556 I Review Erin Wilborn July 17, 2025",
+          "locator": "Page heading / named reference",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-xgly2rrw4x",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-pj5njib4dj",
+          "source": "source:sinn556-teddy-20260906",
+          "quote": "Specifically, we're talking about the Swiss-made Sellita SW200-1 automatic movement.",
+          "locator": "Movement specification",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from_evidence": null,
+        "to_evidence": null,
+        "from": null,
+        "to": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

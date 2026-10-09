@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:sinn-556",
+  "kind": "line",
+  "display_name": "Sinn 556",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-3hdkkec2hp",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:sinn"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-uroq7bqo4s",
+          "source": "source:sinn556-teddy-20260906",
+          "quote": "Sinn 556 I Review Erin Wilborn July 17, 2025",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

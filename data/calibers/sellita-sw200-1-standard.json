@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1-standard",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1 Standard",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-tax2sja6an",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-prmytpqedp",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "there are four grades of the SW200-1 movement: Standard - adjusted in two positions",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-atewlpebmy",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Standard"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ihto3jic6y",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "there are four grades of the SW200-1 movement: Standard - adjusted in two positions",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

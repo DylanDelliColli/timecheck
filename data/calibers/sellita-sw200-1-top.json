@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "caliber:sellita-sw200-1-top",
+  "kind": "caliber",
+  "display_name": "Sellita SW200-1 top",
+  "aliases": [
+    "caliber:sellita-sw200-1-premium",
+    "Sellita SW200-1 Premium",
+    "Sellita SW200-1 Top"
+  ],
+  "claims": [
+    {
+      "id": "clm-qiw5cflr7z",
+      "predicate": "grade_of",
+      "object": {
+        "entity": "caliber:sellita-sw200-1"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-j6azv7kzqi",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Premium (Top) - adjusted in five positions; accuracy of +/-4 sec/day up to +/- 15 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    },
+    {
+      "id": "clm-j6iapce6pk",
+      "predicate": "grade_name",
+      "object": {
+        "value": "Premium"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-577nogl3q5",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Premium (Top) - adjusted in five positions; accuracy of +/-4 sec/day up to +/- 15 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}

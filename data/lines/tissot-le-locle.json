@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "line:tissot-le-locle",
+  "kind": "line",
+  "display_name": "Tissot Le Locle",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-lc6q34hcdh",
+      "predicate": "owned_by",
+      "object": {
+        "entity": "brand:tissot"
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-aappcr7ydt",
+          "source": "source:tissot-lelocle-20260608",
+          "quote": "Tissot Le Locle Review By Cameron Martel",
+          "locator": "Page heading / product description; brand and model line",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr5 / chief",
+        "at": "2026-10-09T01:20:45Z"
+      }
+    }
+  ]
+}
