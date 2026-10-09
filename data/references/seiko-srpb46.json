@@ -13,7 +13,7 @@
       "object": {
         "entity": "line:seiko-presage"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -23,7 +23,11 @@
           "locator": "Model heading and collection context",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
     },
     {
       "id": "clm-yu6l7voqwp",
@@ -31,7 +35,7 @@
       "object": {
         "entity": "caliber:seiko-4r35"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -47,6 +51,10 @@
         "to": null,
         "from_evidence": null,
         "to_evidence": null
+      },
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
       }
     }
   ]

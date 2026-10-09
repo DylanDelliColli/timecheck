@@ -12,7 +12,7 @@
         "value": 45,
         "unit": "hour"
       },
-      "status": "proposed",
+      "status": "verified",
       "contested": false,
       "evidence": [
         {
@@ -22,7 +22,11 @@
           "locator": "Movement section; 1959 Alpinist re-creation",
           "match_mode": "exact"
         }
-      ]
+      ],
+      "review": {
+        "by": "codex:gpt-6.1-sol:pr7 / chief",
+        "at": "2026-10-09T01:09:31Z"
+      }
     }
   ]
 }
