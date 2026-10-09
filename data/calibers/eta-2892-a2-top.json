@@ -27,7 +27,7 @@
       "id": "clm-6poscrrbao",
       "predicate": "grade_name",
       "object": {
-        "value": "top"
+        "value": "Top"
       },
       "status": "proposed",
       "contested": false,

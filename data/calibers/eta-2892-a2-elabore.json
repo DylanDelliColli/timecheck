@@ -3,7 +3,11 @@
   "id": "caliber:eta-2892-a2-elabore",
   "kind": "caliber",
   "display_name": "ETA 2892-A2 élaboré",
-  "aliases": [],
+  "aliases": [
+    "caliber:eta-2892-a2-elaborated",
+    "ETA 2892-A2 Elaborated",
+    "ETA 2892-A2 élaboré"
+  ],
   "claims": [
     {
       "id": "clm-s6yniy25qb",
@@ -27,7 +31,7 @@
       "id": "clm-j6iowmsktq",
       "predicate": "grade_name",
       "object": {
-        "value": "élaboré"
+        "value": "Elaborated"
       },
       "status": "proposed",
       "contested": false,

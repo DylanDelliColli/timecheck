@@ -3,7 +3,11 @@
   "id": "caliber:sellita-sw200-1-top",
   "kind": "caliber",
   "display_name": "Sellita SW200-1 top",
-  "aliases": [],
+  "aliases": [
+    "caliber:sellita-sw200-1-premium",
+    "Sellita SW200-1 Premium",
+    "Sellita SW200-1 Top"
+  ],
   "claims": [
     {
       "id": "clm-qiw5cflr7z",
@@ -27,7 +31,7 @@
       "id": "clm-j6iapce6pk",
       "predicate": "grade_name",
       "object": {
-        "value": "top"
+        "value": "Premium"
       },
       "status": "proposed",
       "contested": false,

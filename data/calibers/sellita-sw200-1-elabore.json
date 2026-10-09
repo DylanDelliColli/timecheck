@@ -3,7 +3,12 @@
   "id": "caliber:sellita-sw200-1-elabore",
   "kind": "caliber",
   "display_name": "Sellita SW200-1 élaboré",
-  "aliases": [],
+  "aliases": [
+    "caliber:sellita-sw200-1-special",
+    "Sellita SW200-1 Special",
+    "Sellita SW200-1 Elabore",
+    "Sellita SW200-1 élaboré"
+  ],
   "claims": [
     {
       "id": "clm-tgyu5oriz7",
@@ -27,7 +32,7 @@
       "id": "clm-ithc5cc75g",
       "predicate": "grade_name",
       "object": {
-        "value": "élaboré"
+        "value": "Special"
       },
       "status": "proposed",
       "contested": false,

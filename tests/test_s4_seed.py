@@ -59,7 +59,40 @@ def test_s4_cross_brand_families(tmp_path):
             JOIN claim_object label ON label.claim_id=name.id
             WHERE parent.predicate='grade_of' AND target.entity_id=?
         ''', ('caliber:sellita-sw200-1',)).fetchall()
-        assert {row[0] for row in grades} == {'standard', 'élaboré', 'top', 'chronometer'}
+        assert {row[0] for row in grades} == {'Standard', 'Special', 'Premium', 'chronometer'}
+        # Grade labels preserve the maker's quoted vocabulary, including its spelling.
+        expected_grades = {
+            'sellita-sw200-1-standard': 'Standard',
+            'sellita-sw200-1-elabore': 'Special',
+            'sellita-sw200-1-top': 'Premium',
+            'sellita-sw200-1-chronometer': 'chronometer',
+            'sellita-sw300-elabore': 'Elaboré',
+            'sellita-sw300-1-chronometer': 'chronometer',
+            'eta-2892-a2-elabore': 'Elaborated',
+            'eta-2892-a2-top': 'Top',
+            'eta-2892-a2-chronometer': 'Chronometer',
+            'eta-7750-elabore': 'Elaborated',
+            'eta-7750-top': 'Top',
+            'eta-7750-chronometer': 'Chronometer',
+        }
+        for slug, grade in expected_grades.items():
+            assert db.execute(
+                "SELECT value FROM claim JOIN claim_object ON claim_id=claim.id "
+                "WHERE subject_id=? AND predicate='grade_name'",
+                ('caliber:' + slug,),
+            ).fetchall() == [(grade,)], slug
+        # Both quoted maker names and common synonyms resolve to the retained identities.
+        for slug, names in {
+            'sellita-sw200-1-top': ('Sellita SW200-1 Premium', 'Sellita SW200-1 Top'),
+            'sellita-sw200-1-elabore': ('Sellita SW200-1 Special', 'Sellita SW200-1 élaboré'),
+            'eta-2892-a2-elabore': ('ETA 2892-A2 Elaborated', 'ETA 2892-A2 élaboré'),
+            'eta-7750-elabore': ('ETA 7750 Elaborated', 'ETA 7750 élaboré'),
+        }.items():
+            for name in names:
+                assert db.execute(
+                    'SELECT caliber.id FROM caliber, json_each(caliber.aliases) AS alias '
+                    'WHERE alias.value=?', (name,),
+                ).fetchall() == [('caliber:' + slug,)], name
         # A named Riviera configuration replaces the uncited generic Classima host.
         assert db.execute(
             'SELECT caliber_id FROM v_reference_calibers_all WHERE reference_id=?',

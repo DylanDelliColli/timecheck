@@ -3,7 +3,11 @@
   "id": "caliber:eta-7750-elabore",
   "kind": "caliber",
   "display_name": "ETA / Valjoux 7750 élaboré",
-  "aliases": [],
+  "aliases": [
+    "caliber:eta-7750-elaborated",
+    "ETA 7750 Elaborated",
+    "ETA 7750 élaboré"
+  ],
   "claims": [
     {
       "id": "clm-qwhwhuaftg",
@@ -27,7 +31,7 @@
       "id": "clm-bdaskpz256",
       "predicate": "grade_name",
       "object": {
-        "value": "élaboré"
+        "value": "Elaborated"
       },
       "status": "proposed",
       "contested": false,

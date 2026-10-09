@@ -27,7 +27,7 @@
       "id": "clm-atewlpebmy",
       "predicate": "grade_name",
       "object": {
-        "value": "standard"
+        "value": "Standard"
       },
       "status": "proposed",
       "contested": false,
