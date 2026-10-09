@@ -155,7 +155,7 @@ def test_diff_years_use_production_and_its_evidence(dataset, tmp_path, view):
 
 @pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])
 @pytest.mark.parametrize('unknown_end', [False, True])
-def test_latest_caliber_ordering_uses_production_start_and_ignores_end(dataset, tmp_path, view, unknown_end):
+def test_mixed_usage_and_production_starts_cannot_order_calibers(dataset, tmp_path, view, unknown_end):
     change(dataset, 'references/alpha.json', unknown_usage)
     def earlier(doc):
         claim = clone(doc['claims'][1])
@@ -167,8 +167,75 @@ def test_latest_caliber_ordering_uses_production_start_and_ignores_end(dataset, 
     change(dataset, 'references/alpha.json', earlier)
     result, report = build(dataset, tmp_path, '--strict')
     assert result.returncode == 0, report['errors']
-    caliber = next(r for r in rows(tmp_path, view) if r['attribute'] == 'caliber')
-    assert (caliber['before_value'], caliber['after_value'], caliber['changed']) == ('caliber:one', 'caliber:two-top', 1)
+    diff = rows(tmp_path, view)
+    assert len(diff) == 12 and all(r['changed'] is None for r in diff)
+
+
+@pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])
+@pytest.mark.parametrize('side', ['alpha', 'beta'])
+@pytest.mark.parametrize('ordering', ['production', 'mixed', 'tie', 'known'])
+@pytest.mark.parametrize('duplicate', [False, True])
+def test_sourced_multicaliber_chronology(dataset, tmp_path, view, side, ordering, duplicate):
+    """The evaluator's unknown-usage case, plus own-year ties and known neighbors."""
+    # Every altered usage has a faithful, machine-matched synthetic quote.
+    quotes = []
+    def usages(doc):
+        original = doc['claims'][1]
+        other = clone(original)
+        other['object']['entity'] = 'caliber:two'
+        first_start = 2000 if side == 'alpha' else 2006
+        second_start = first_start if ordering == 'tie' else first_start + 2
+        for claim, start in [(original, first_start), (other, second_start)]:
+            known = ordering in {'known', 'tie'} or (ordering == 'mixed' and claim is other)
+            name = {'caliber:one': 'One', 'caliber:two': 'Two', 'caliber:two-top': 'Two Top'}[claim['object']['entity']]
+            quote = f'Reference {side.title()} used caliber {name}; '
+            quote += f'usage began in {start}, and its end year is unknown.' if known else 'the individual usage years are unknown.'
+            claim['evidence'][0]['quote'] = quote
+            ev = claim['evidence'][0]['id']
+            claim['valid_years'] = {'from': start if known else None, 'to': None,
+                                    'from_evidence': ev if known else None, 'to_evidence': None}
+            quotes.append(quote)
+        doc['claims'].append(other)
+        if duplicate:
+            doc['claims'].append(clone(original))
+            doc['claims'].append(clone(other))
+    change(dataset, f'references/{side}.json', usages)
+    # Alpha's production remains 2000–2005. Beta has no production in the
+    # baseline; give it a sourced fallback too so both edge sides are covered.
+    if side == 'beta':
+        production = clone(json.loads((dataset / 'references/alpha.json').read_text())['claims'][2])
+        ev = production['evidence'][0]['id']
+        production['object']['years'] = {'from': 2006, 'to': 'present', 'from_evidence': ev, 'to_evidence': ev}
+        production['evidence'][0]['quote'] = 'Beta was produced from 2006 to the present.'
+        quotes.append(production['evidence'][0]['quote'])
+        change(dataset, 'references/beta.json', lambda d: d['claims'].append(production))
+    raw = next(SNAPSHOTS.iterdir()).read_bytes() + ('<p>' + '</p><p>'.join(quotes) + '</p>').encode()
+    sha = hashlib.sha256(raw).hexdigest()
+    snapshots = tmp_path / 'snapshots'
+    snapshots.mkdir()
+    (snapshots / (sha + '.bin')).write_bytes(raw)
+    change(dataset, 'sources/example.json', lambda d: d.update(snapshot_sha256=sha))
+    result = cli('build', '--strict', '--data-dir', dataset, '--snapshot-dir', snapshots,
+                 '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+    assert result.returncode == 0, result.stderr
+    diff = rows(tmp_path, view)
+    assert len(diff) == 12  # One row per attribute, including ambiguous edges.
+    query = cli('query', 'v_lineage_diff', '--db', tmp_path / 'graph.sqlite', '--json',
+                *(['--include-proposed'] if view.endswith('_all') else []))
+    assert query.returncode == 0, query.stderr
+    assert json.loads(query.stdout) == diff
+    if ordering == 'known':
+        caliber = next(r for r in diff if r['attribute'] == 'caliber')
+        assert (caliber['before_value'], caliber['after_value'], caliber['changed']) == (
+            ('caliber:two', 'caliber:two-top', 1) if side == 'alpha' else ('caliber:one', 'caliber:two-top', 1))
+    else:
+        assert all(all(r[column] is None for column in (
+            'before_value', 'after_value', 'changed', 'before_status', 'after_status',
+            'before_evidence_id', 'after_evidence_id')) for r in diff)
+    if ordering == 'production':
+        lineage = rows(tmp_path, 'v_lineage_all' if view.endswith('_all') else 'v_lineage')
+        affected = [r for r in lineage if r['reference_id'] == f'reference:{side}']
+        assert all(r['year_source'] == 'produced' for r in affected)
 
 
 @pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])

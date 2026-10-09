@@ -65,7 +65,7 @@ def test_revision_comparison_and_real_partial_build(dataset, tmp_path, edit):
     if edit == 'quote': assert report['errors_by_class'] == {'quote_not_found': 1}
 
 
-def test_nightly_sample_is_bounded_deterministic_and_rotates():
+def test_sample_is_bounded_deterministic_and_rotates():
     module = helper()
     sources = {f'source:{i}': {'snapshot_sha256': str(i), 'archive_url': str(i), 'content_type': 'html'} for i in range(30)}
     claims = [{'evidence': [{'id': f'ev-{i}', 'source': f'source:{i}', 'match_mode': 'exact'}]} for i in range(30)]

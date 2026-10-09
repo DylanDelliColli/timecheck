@@ -106,7 +106,8 @@ CI compares evidence items by id and source metadata at the PR base/head commits
 Status/review-only edits require no live fetch; changed quotes, locators, modes,
 sources or pins are checked individually. Every build still validates the whole
 graph structurally, and unselected evidence is explicitly `unchecked` in the report.
-The nightly job rotates across ten pinned captures with fresh bytes and checks all
-evidence sharing those captures. The weekly full live job and manual dispatch check
-the entire seed. Samples supplement full verification and do not establish that the
-whole seed's evidence was checked.
+The nightly full live job and manual dispatch check the entire seed on `release/v1`
+with fresh archive bytes. The optional sample mode in `scripts/verify_evidence.py`
+can check ten rotating pinned captures and all evidence sharing those captures;
+samples supplement full verification and do not establish that the whole seed's
+evidence was checked.

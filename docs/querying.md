@@ -316,11 +316,16 @@ with null predecessor here and excluded from diffs.
 ### `v_lineage_diff`
 
 Along **verified** `succeeds` edges only, including in `_all`. Compare the
-predecessor's latest start with the successor's earliest, using lineage's usage
-years or production fallback. A side with one distinct caliber can be compared
-regardless of years. Missing usage, or several calibers with any unknown start,
-produces null comparisons for all attributes. Unknown ends do not prevent start
-ordering; unknown bounds in `years` strings read `unknown`. Undocumented attributes
+predecessor's latest usage start with the successor's earliest. A side with one
+distinct caliber can be compared regardless of years, and its `years` value may
+use the lineage production fallback. With several calibers, only each usage
+claim's own start year can establish order; reference production dates cannot.
+Missing usage, any unknown usage start on a side with several calibers, or distinct
+calibers tied at a start year produces one row per attribute with null values,
+statuses, evidence IDs and `changed`. For example, the seeded 5513→5514 succession
+has an unknown caliber comparison: 5513's production years do not establish
+whether its 1520 or 1530 came last. Unknown ends do not prevent start ordering;
+unknown bounds in `years` strings read `unknown`. Undocumented attributes
 still produce null comparisons. Competing values
 produce cross-product comparisons; identical value pairs are deduplicated with
 one representative evidence ID per side.

@@ -72,3 +72,22 @@ def test_submariner_cli_can_show_proposed_history(submariner_seed):
                                capture_output=True, text=True, check=True)
     assert {row["caliber_id"] for row in json.loads(inclusive.stdout)} >= {
         "caliber:rolex-1530", "caliber:rolex-1560", "caliber:rolex-1570"}
+
+
+@pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])
+def test_submariner_diff_requires_sourced_caliber_order(submariner_seed, view):
+    database, _, _ = submariner_seed
+    with sqlite3.connect(database) as db:
+        db.row_factory = sqlite3.Row
+        ambiguous = db.execute(
+            f"SELECT * FROM {view} WHERE predecessor_id = 'reference:rolex-5513' "
+            "AND reference_id = 'reference:rolex-5514'").fetchall()
+        assert len(ambiguous) == 12
+        assert all(row['changed'] is None for row in ambiguous)
+        caliber, = [row for row in ambiguous if row['attribute'] == 'caliber']
+        assert caliber['before_value'] is None and caliber['after_value'] is None
+        modern, = db.execute(
+            f"SELECT * FROM {view} WHERE predecessor_id = 'reference:rolex-114060' "
+            "AND reference_id = 'reference:rolex-124060' AND attribute = 'caliber'").fetchall()
+        assert (modern['before_value'], modern['after_value'], modern['changed']) == (
+            'caliber:rolex-3130', 'caliber:rolex-3230', 1)
