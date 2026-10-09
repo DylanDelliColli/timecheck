@@ -105,3 +105,66 @@ def test_seamaster_variants_and_documented_specs_remain_auditable(seamaster_seed
             "SELECT reference_id FROM v_lineage WHERE line_id = 'line:omega-seamaster' "
             "AND caliber_id IS NOT NULL")}
     assert coverage['covered'] == len(set(target['references']) & verified)
+
+
+# Years transcribed from the already-pinned Omega collection fields/list entries.
+COLLECTION_YEARS = {
+    'omega-136-0016': (1967, None), 'omega-136-0022': (1967, None),
+    'omega-165-0022': (1967, None), 'omega-165-0023': (1967, None),
+    'omega-st-165-0002': (1962, 1966), 'omega-st-165-0010': (1966, None),
+    'omega-st-165-0014': (1962, 1966), 'omega-st-166-0002': (1962, None),
+    'omega-st-166-0022': (1967, None), 'omega-st-166-0023': (1967, None),
+    'omega-st-166-0024': (1966, None), 'omega-st-166-0027': (1966, None),
+    'omega-st-166-0035': (1967, None), 'omega-st-166-0036': (1967, None),
+    'omega-st-166-0042': (1968, 1975), 'omega-st-166-0045': (1968, None),
+    'omega-st-166-0062': (1969, None), 'omega-st-166-0068-1': (1969, None),
+    'omega-st-166-0087': (1971, None), 'omega-st-166-0090': (1971, None),
+    'omega-st-166-0132': (1972, None),
+}
+
+
+def test_seamaster_collection_years_are_evidenced_without_production_inference(seamaster_seed):
+    root, database, _, _ = seamaster_seed
+    documents = {p.stem: json.loads(p.read_text()) for p in (root / 'data/references').glob('omega-*.json')}
+    assert documents.keys() == COLLECTION_YEARS.keys()
+    for slug, (start, end) in COLLECTION_YEARS.items():
+        claim, = [c for c in documents[slug]['claims'] if c['predicate'] == 'catalogued']
+        years = claim['object']['years']
+        assert (years['from'], years['to']) == (start, end)
+        evidence = {e['id']: e for e in claim['evidence']}
+        assert str(start) in evidence[years['from_evidence']]['quote']
+        if end is None:
+            assert years['to_evidence'] is None
+        else:
+            assert str(end) in evidence[years['to_evidence']]['quote']
+        assert all(e['match_mode'] == 'exact' for e in evidence.values())
+        if claim['status'] == 'proposed':
+            assert 'review' not in claim
+    with sqlite3.connect(database) as db:
+        rows = db.execute("SELECT reference_id,year_from,year_to,year_source FROM v_lineage_all "
+                          "WHERE line_id='line:omega-seamaster'").fetchall()
+        assert {r[0] for r in rows} == {'reference:' + slug for slug in COLLECTION_YEARS}
+        for reference, start, end, source in rows:
+            assert (start, end) == COLLECTION_YEARS[reference.split(':')[1]]
+            assert source == 'catalogued'
+        assert db.execute("SELECT COUNT(*) FROM v_reference_calibers_all WHERE reference_id LIKE 'reference:omega-%' "
+                          "AND (year_from IS NOT NULL OR year_to_kind <> 'unknown')").fetchone()[0] == 0
+
+
+def test_seamaster_1970s_collection_query_exposes_calibers_and_year_evidence(seamaster_seed):
+    _, database, _, _ = seamaster_seed
+    command = [sys.executable, '-m', 'timecheck', 'query', 'v_lineage', '--db', str(database),
+               '--include-proposed', '--where', "line_id='line:omega-seamaster' AND "
+               "(year_from BETWEEN 1970 AND 1979 OR (year_from <= 1979 AND year_to >= 1970))", '--json']
+    result = json.loads(subprocess.run(command, text=True, capture_output=True, check=True).stdout)
+    assert {r['reference_id'] for r in result} == {
+        'reference:omega-st-166-0042', 'reference:omega-st-166-0087',
+        'reference:omega-st-166-0090', 'reference:omega-st-166-0132'}
+    assert {r['caliber_id'] for r in result} == {'caliber:omega-565', 'caliber:omega-1002', 'caliber:omega-1012'}
+    assert all(r['year_source'] == 'catalogued' for r in result)
+    with sqlite3.connect(database) as db:
+        for row in result:
+            quote, tier = db.execute("SELECT e.quote,e.tier FROM claim c JOIN v_evidence_all e ON e.claim_id=c.id "
+                                     "WHERE c.subject_id=? AND c.predicate='catalogued'",
+                                     (row['reference_id'],)).fetchone()
+            assert str(row['year_from']) in quote and tier == 'primary'

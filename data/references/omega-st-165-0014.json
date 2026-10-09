@@ -82,6 +82,33 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-3kt32i3amo",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1962,
+          "to": 1966,
+          "from_evidence": "ev-3p24itutgn",
+          "to_evidence": "ev-3p24itutgn"
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3p24itutgn",
+          "source": "source:omega-seamaster-st1650014-20250215",
+          "quote": "International collection 1962 - 1966",
+          "locator": "Vintage reference page; Technical Data / International collection field",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex gpt-6.1-sol (PR #15 review at a842b217) / chief",
+        "at": "2026-10-09T03:58:24Z"
+      }
     }
   ]
 }

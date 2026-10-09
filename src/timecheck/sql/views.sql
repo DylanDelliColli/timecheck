@@ -67,8 +67,17 @@ CREATE VIEW membership AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim WHERE predicate='in_line' GROUP BY subject_id;
 
--- Keep a usage interval intact when either bound is known. Production is a
--- fallback for wholly unknown usage, with its own claim id for year provenance.
+-- Pick one fallback predicate before joining so collection claims never
+-- multiply production rows. Claim presence sets priority, preserving even
+-- explicitly unknown production intervals and their evidence.
+CREATE VIEW reference_year_fallback AS
+ SELECT * FROM selected_claim WHERE predicate='produced'
+ UNION ALL
+ SELECT c.* FROM selected_claim c WHERE c.predicate='catalogued'
+ AND NOT EXISTS (SELECT 1 FROM selected_claim p
+ WHERE p.subject_id=c.subject_id AND p.predicate='produced');
+
+-- Keep partial usage intact; wholly unknown usage borrows the selected fallback.
 CREATE VIEW lineage_years AS
  SELECT r.id AS reference_id,u.caliber_id,u.grade,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from ELSE p.year_from END AS year_from,
@@ -76,14 +85,14 @@ CREATE VIEW lineage_years AS
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN 'usage'
- WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN 'produced' ELSE 'unknown' END AS year_source,
+ WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN p.predicate ELSE 'unknown' END AS year_source,
  COALESCE(u.claim_id,p.id) AS claim_id,COALESCE(p.id,u.claim_id) AS years_claim_id,
  COALESCE(u.status,p.status) AS status,
  MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0)) AS disputed,
  MAX(COALESCE(u.contested,0),COALESCE(p.contested,0)) AS contested,
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN v_reference_calibers u ON u.reference_id=r.id
- LEFT JOIN selected_claim p ON p.subject_id=r.id AND p.predicate='produced'
+ LEFT JOIN reference_year_fallback p ON p.subject_id=r.id
  AND (u.claim_id IS NULL OR (u.year_from IS NULL AND u.year_to_kind='unknown'));
 
 CREATE VIEW v_lineage AS
@@ -240,8 +249,17 @@ CREATE VIEW membership_all AS
  MAX(disputed) AS disputed,MAX(contested) AS contested,MAX(has_primary) AS has_primary
  FROM selected_claim_all WHERE predicate='in_line' GROUP BY subject_id;
 
--- Keep a usage interval intact when either bound is known. Production is a
--- fallback for wholly unknown usage, with its own claim id for year provenance.
+-- Pick one fallback predicate before joining so collection claims never
+-- multiply production rows. Claim presence sets priority, preserving even
+-- explicitly unknown production intervals and their evidence.
+CREATE VIEW reference_year_fallback_all AS
+ SELECT * FROM selected_claim_all WHERE predicate='produced'
+ UNION ALL
+ SELECT c.* FROM selected_claim_all c WHERE c.predicate='catalogued'
+ AND NOT EXISTS (SELECT 1 FROM selected_claim_all p
+ WHERE p.subject_id=c.subject_id AND p.predicate='produced');
+
+-- Keep partial usage intact; wholly unknown usage borrows the selected fallback.
 CREATE VIEW lineage_years_all AS
  SELECT r.id AS reference_id,u.caliber_id,u.grade,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from ELSE p.year_from END AS year_from,
@@ -249,14 +267,14 @@ CREATE VIEW lineage_years_all AS
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_to_kind ELSE COALESCE(p.year_to_kind,'unknown') END AS year_to_kind,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN u.year_from_sort ELSE COALESCE(p.year_from_sort,9999) END AS year_from_sort,
  CASE WHEN u.year_from IS NOT NULL OR u.year_to_kind<>'unknown' THEN 'usage'
- WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN 'produced' ELSE 'unknown' END AS year_source,
+ WHEN p.year_from IS NOT NULL OR p.year_to_kind<>'unknown' THEN p.predicate ELSE 'unknown' END AS year_source,
  COALESCE(u.claim_id,p.id) AS claim_id,COALESCE(p.id,u.claim_id) AS years_claim_id,
  COALESCE(u.status,p.status) AS status,
  MAX(COALESCE(u.disputed,0),COALESCE(p.disputed,0)) AS disputed,
  MAX(COALESCE(u.contested,0),COALESCE(p.contested,0)) AS contested,
  MIN(COALESCE(u.has_primary,1),COALESCE(p.has_primary,1)) AS has_primary
  FROM reference r LEFT JOIN v_reference_calibers_all u ON u.reference_id=r.id
- LEFT JOIN selected_claim_all p ON p.subject_id=r.id AND p.predicate='produced'
+ LEFT JOIN reference_year_fallback_all p ON p.subject_id=r.id
  AND (u.claim_id IS NULL OR (u.year_from IS NULL AND u.year_to_kind='unknown'));
 
 CREATE VIEW v_lineage_all AS

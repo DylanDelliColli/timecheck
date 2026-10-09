@@ -173,7 +173,7 @@ def test_mixed_usage_and_production_starts_cannot_order_calibers(dataset, tmp_pa
 
 @pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])
 @pytest.mark.parametrize('side', ['alpha', 'beta'])
-@pytest.mark.parametrize('ordering', ['production', 'mixed', 'tie', 'known'])
+@pytest.mark.parametrize('ordering', ['production', 'catalogued', 'mixed', 'tie', 'known'])
 @pytest.mark.parametrize('duplicate', [False, True])
 def test_sourced_multicaliber_chronology(dataset, tmp_path, view, side, ordering, duplicate):
     """The evaluator's unknown-usage case, plus own-year ties and known neighbors."""
@@ -209,6 +209,15 @@ def test_sourced_multicaliber_chronology(dataset, tmp_path, view, side, ordering
         production['evidence'][0]['quote'] = 'Beta was produced from 2006 to the present.'
         quotes.append(production['evidence'][0]['quote'])
         change(dataset, 'references/beta.json', lambda d: d['claims'].append(production))
+    if ordering == 'catalogued':
+        def catalogue_instead(doc):
+            for claim in doc['claims']:
+                if claim['predicate'] == 'produced':
+                    claim['predicate'] = 'catalogued'
+                    years = claim['object']['years']
+                    claim['evidence'][0]['quote'] = f"{side.title()} International collection {years['from']} - {years['to']}."
+                    quotes.append(claim['evidence'][0]['quote'])
+        change(dataset, f'references/{side}.json', catalogue_instead)
     raw = next(SNAPSHOTS.iterdir()).read_bytes() + ('<p>' + '</p><p>'.join(quotes) + '</p>').encode()
     sha = hashlib.sha256(raw).hexdigest()
     snapshots = tmp_path / 'snapshots'
@@ -232,10 +241,10 @@ def test_sourced_multicaliber_chronology(dataset, tmp_path, view, side, ordering
         assert all(all(r[column] is None for column in (
             'before_value', 'after_value', 'changed', 'before_status', 'after_status',
             'before_evidence_id', 'after_evidence_id')) for r in diff)
-    if ordering == 'production':
+    if ordering in {'production', 'catalogued'}:
         lineage = rows(tmp_path, 'v_lineage_all' if view.endswith('_all') else 'v_lineage')
         affected = [r for r in lineage if r['reference_id'] == f'reference:{side}']
-        assert all(r['year_source'] == 'produced' for r in affected)
+        assert all(r['year_source'] == ('catalogued' if ordering == 'catalogued' else 'produced') for r in affected)
 
 
 @pytest.mark.parametrize('view', ['v_lineage_diff', 'v_lineage_diff_all'])
@@ -246,3 +255,168 @@ def test_missing_caliber_retains_unknown_comparisons(dataset, tmp_path, view):
     assert result.returncode == 0, report['errors']
     diff = rows(tmp_path, view)
     assert len(diff) == 12 and all(r['changed'] is None for r in diff)
+
+
+def catalogue_fixture(dataset, tmp_path, *, subject='alpha', status='verified', competing=False):
+    """Pin project-authored collection statements beside the baseline fixture."""
+    quotes = [f'{subject.title()} International collection 1990 - 1995.']
+    if competing:
+        quotes.append(f'{subject.title()} International collection 1991 - 1996.')
+    snapshots = tmp_path / 'catalogue-snapshots'
+    snapshots.mkdir()
+    raw = next(SNAPSHOTS.iterdir()).read_bytes() + ''.join(f'<p>{q}</p>' for q in quotes).encode()
+    sha = hashlib.sha256(raw).hexdigest()
+    (snapshots / (sha + '.bin')).write_bytes(raw)
+    source = json.loads((dataset / 'sources/example.json').read_text())
+    source.update(id='source:catalogue', snapshot_sha256=sha, trust_tier='secondary')
+    (dataset / 'sources/catalogue.json').write_text(json.dumps(source))
+    template = json.loads((dataset / 'references/alpha.json').read_text())['claims'][2]
+    def add(doc):
+        for index, quote in enumerate(quotes):
+            claim = clone(template)
+            evidence = claim['evidence'][0]
+            evidence.update(source='source:catalogue', quote=quote, locator='International collection field')
+            claim.update(predicate='catalogued', status=status, contested=competing)
+            claim['object']['years'] = {'from': 1990 + index, 'to': 1995 + index,
+                                       'from_evidence': evidence['id'], 'to_evidence': evidence['id']}
+            if status == 'proposed':
+                claim.pop('review')
+            doc['claims'].append(claim)
+    change(dataset, f'references/{subject}.json', add)
+    # The unchanged primary source still needs its original pin.
+    for path in SNAPSHOTS.iterdir():
+        (snapshots / path.name).write_bytes(path.read_bytes())
+    return snapshots
+
+
+def build_catalogue(dataset, tmp_path, snapshots):
+    result = cli('build', '--strict', '--data-dir', dataset, '--snapshot-dir', snapshots,
+                 '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+    report = json.loads((tmp_path / 'report.json').read_text())
+    assert result.returncode == 0, (result.stderr, report['errors'])
+    return report
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+@pytest.mark.parametrize('priority', ['usage', 'produced', 'catalogued'])
+def test_catalogued_fallback_priority_and_year_provenance(dataset, tmp_path, view, priority):
+    snapshots = catalogue_fixture(dataset, tmp_path)
+    if priority != 'usage':
+        change(dataset, 'references/alpha.json', unknown_usage)
+    if priority == 'catalogued':
+        change(dataset, 'references/alpha.json', without_production)
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == priority
+    assert (alpha['year_from'], alpha['year_to']) == ((1990, 1995) if priority == 'catalogued' else (2000, 2005))
+    assert alpha['has_primary'] == (0 if priority == 'catalogued' else 1)
+    usage, = [r for r in rows(tmp_path, 'v_reference_calibers' + ('_all' if view.endswith('_all') else ''))
+              if r['reference_id'] == 'reference:alpha']
+    assert usage['year_from'] == (2000 if priority == 'usage' else None)
+    import sqlite3
+    suffix = '_all' if view.endswith('_all') else ''
+    with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
+        quote, = db.execute(f'SELECT e.quote FROM lineage_years{suffix} l JOIN v_evidence{suffix} e '
+                            "ON e.claim_id=l.years_claim_id WHERE l.reference_id='reference:alpha'").fetchone()
+    assert ('International collection' in quote) == (priority == 'catalogued')
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+@pytest.mark.parametrize('with_usage', [False, True])
+def test_competing_catalogued_fallback_rows_preserve_flags(dataset, tmp_path, view, with_usage):
+    snapshots = catalogue_fixture(dataset, tmp_path, competing=True)
+    change(dataset, 'references/alpha.json', unknown_usage)
+    change(dataset, 'references/alpha.json', without_production)
+    if not with_usage:
+        change(dataset, 'references/alpha.json', lambda d: d.update(
+            claims=[c for c in d['claims'] if c['predicate'] != 'uses_caliber']))
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert {(r['year_from'], r['year_to']) for r in alpha} == {(1990, 1995), (1991, 1996)}
+    assert len(alpha) == 2
+    assert all(r['year_source'] == 'catalogued' and r['disputed'] == 1 and
+               r['contested'] == 1 and r['has_primary'] == 0 for r in alpha)
+    assert all((r['caliber_id'] is not None) == with_usage for r in alpha)
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+def test_catalogued_status_and_production_priority(dataset, tmp_path, view):
+    snapshots = catalogue_fixture(dataset, tmp_path)
+    change(dataset, 'references/alpha.json', unknown_usage)
+    def propose_production(doc):
+        production = next(c for c in doc['claims'] if c['predicate'] == 'produced')
+        production.update(status='proposed')
+        production.pop('review')
+    change(dataset, 'references/alpha.json', propose_production)
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == ('produced' if view.endswith('_all') else 'catalogued')
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+def test_proposed_catalogued_does_not_leak_into_default_view(dataset, tmp_path, view):
+    snapshots = catalogue_fixture(dataset, tmp_path, status='proposed')
+    change(dataset, 'references/alpha.json', unknown_usage)
+    change(dataset, 'references/alpha.json', without_production)
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == ('catalogued' if view.endswith('_all') else 'unknown')
+
+
+@pytest.mark.parametrize('fault, error', [('missing_object', 'schema_error'), ('bound_evidence', 'year_evidence'),
+                                         ('reversed', 'invalid_years'), ('wrong_subject', 'predicate_subject')])
+def test_catalogued_uses_existing_year_and_subject_validation(dataset, tmp_path, fault, error):
+    snapshots = catalogue_fixture(dataset, tmp_path)
+    def corrupt(doc):
+        claim = doc['claims'][-1]
+        if fault == 'missing_object':
+            claim['object'] = {'value': 1990}
+        elif fault == 'bound_evidence':
+            claim['object']['years']['from_evidence'] = None
+        elif fault == 'reversed':
+            claim['object']['years']['to'] = 1989
+        else:
+            doc['claims'].pop()
+            change(dataset, 'calibers/one.json', lambda d: d['claims'].append(claim))
+    change(dataset, 'references/alpha.json', corrupt)
+    result = cli('build', '--strict', '--data-dir', dataset, '--snapshot-dir', snapshots,
+                 '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+    report = json.loads((tmp_path / 'report.json').read_text())
+    assert result.returncode == 2 and error in report['errors_by_class']
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+@pytest.mark.parametrize('bound', ['from', 'to'])
+def test_catalogued_never_fills_partial_usage(dataset, tmp_path, view, bound):
+    snapshots = catalogue_fixture(dataset, tmp_path)
+    change(dataset, 'references/alpha.json', without_production)
+    change(dataset, 'references/alpha.json', lambda d: d['claims'][1]['valid_years'].update(
+        {bound: None, bound + '_evidence': None}))
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == 'usage' and alpha['year_' + bound] is None
+    assert alpha['has_primary'] == 1
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+def test_explicitly_unknown_production_retains_priority_over_catalogued(dataset, tmp_path, view):
+    snapshots = catalogue_fixture(dataset, tmp_path)
+    change(dataset, 'references/alpha.json', unknown_usage)
+    def unknown_production(doc):
+        doc['claims'][2]['object']['years'] = {'from': None, 'to': None,
+                                             'from_evidence': None, 'to_evidence': None}
+    change(dataset, 'references/alpha.json', unknown_production)
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == 'unknown' and alpha['year_from'] is None and alpha['year_to'] is None
+
+
+@pytest.mark.parametrize('view', ['v_lineage', 'v_lineage_all'])
+def test_production_shadows_competing_catalogue_without_multiplying_rows(dataset, tmp_path, view):
+    snapshots = catalogue_fixture(dataset, tmp_path, competing=True)
+    change(dataset, 'references/alpha.json', unknown_usage)
+    build_catalogue(dataset, tmp_path, snapshots)
+    alpha, = [r for r in rows(tmp_path, view) if r['reference_id'] == 'reference:alpha']
+    assert alpha['year_source'] == 'produced'
+    assert (alpha['year_from'], alpha['year_to']) == (2000, 2005)
+    assert (alpha['disputed'], alpha['contested'], alpha['has_primary']) == (0, 0, 1)

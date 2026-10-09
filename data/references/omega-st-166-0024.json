@@ -54,6 +54,33 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-zzx35vqpdm",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1966,
+          "to": null,
+          "from_evidence": "ev-sgmjnkvhqt",
+          "to_evidence": null
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-sgmjnkvhqt",
+          "source": "source:omega-seamaster-vintage-listing-20261009",
+          "quote": "Seamaster 300 1966 Details Details Details - Seamaster 300 - ST 166.0024",
+          "locator": "Vintage collection listing; OMEGA Seamaster 300 ST 166.0024 entry; year before Details",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex gpt-6.1-sol (PR #15 review at a842b217) / chief",
+        "at": "2026-10-09T03:58:24Z"
+      }
     }
   ]
 }

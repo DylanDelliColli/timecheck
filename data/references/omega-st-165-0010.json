@@ -54,6 +54,33 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-uyiy5mzrgh",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1966,
+          "to": null,
+          "from_evidence": "ev-p7izfz73dw",
+          "to_evidence": null
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-p7izfz73dw",
+          "source": "source:omega-seamaster-vintage-listing-20261009",
+          "quote": "Seamaster Omega 1966 Details Details Details - Seamaster Omega - ST 165.0010",
+          "locator": "Vintage collection listing; OMEGA Seamaster ST 165.0010 entry; year before Details",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex gpt-6.1-sol (PR #15 review at a842b217) / chief",
+        "at": "2026-10-09T03:58:24Z"
+      }
     }
   ]
 }

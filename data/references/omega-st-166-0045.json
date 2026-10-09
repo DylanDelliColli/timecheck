@@ -54,6 +54,33 @@
         "by": "codex:gpt-6.1-sol:pr8 / chief",
         "at": "2026-10-09T01:17:12Z"
       }
+    },
+    {
+      "id": "clm-p3bkgg3jva",
+      "predicate": "catalogued",
+      "object": {
+        "years": {
+          "from": 1968,
+          "to": null,
+          "from_evidence": "ev-5m33da6aaf",
+          "to_evidence": null
+        }
+      },
+      "status": "verified",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5m33da6aaf",
+          "source": "source:omega-seamaster-st1660045-20250326",
+          "quote": "International collection 1968",
+          "locator": "Vintage reference page; Technical Data / International collection field",
+          "match_mode": "exact"
+        }
+      ],
+      "review": {
+        "by": "codex gpt-6.1-sol (PR #15 review at a842b217) / chief",
+        "at": "2026-10-09T03:58:24Z"
+      }
     }
   ]
 }

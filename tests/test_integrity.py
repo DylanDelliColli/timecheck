@@ -400,8 +400,9 @@ def test_double_negative_is_not_hacking_absence(dataset,tmp_path):
  assert report['errors_by_class']=={'explicit_absence_required':1}
 
 @pytest.mark.parametrize('view',['v_lineage','v_lineage_all'])
-def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path,view):
- # A wholly unknown usage contributes one row per selected produced claim.
+@pytest.mark.parametrize('fallback',['produced','catalogued'])
+def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path,view,fallback):
+ # Unknown usage contributes rows per produced claim, else per catalogued claim.
  change(dataset,'references/alpha.json',lambda d:d['claims'][1]['valid_years'].update(**{'from':None,'to':None,'from_evidence':None,'to_evidence':None}))
  secondary=json.loads((dataset/'sources/example.json').read_text());secondary.update(id='source:secondary',trust_tier='secondary')
  (dataset/'sources/secondary.json').write_text(json.dumps(secondary))
@@ -421,14 +422,30 @@ def test_lineage_contract_counts_with_duplicate_identity_claims(dataset,tmp_path
      for e in copied['evidence']:e['source']='source:secondary'
      d['claims'].append(copied)
   change(dataset,file.relative_to(dataset),duplicate_metadata)
- result,report=build(dataset,tmp_path,'--strict');assert result.returncode==0,(result.stdout,result.stderr)
+ snapshots=SNAPSHOTS
+ if fallback=='catalogued':
+  import hashlib
+  raw=next(SNAPSHOTS.iterdir()).read_bytes().replace(b'was produced from',b'International collection')
+  sha=hashlib.sha256(raw).hexdigest();snapshots=tmp_path/'catalogue-snapshots';snapshots.mkdir()
+  (snapshots/(sha+'.bin')).write_bytes(raw)
+  for file in dataset.glob('sources/*.json'):
+   change(dataset,file.relative_to(dataset),lambda d:d.update(snapshot_sha256=sha))
+  for file in dataset.glob('references/*.json'):
+   def catalogue(d):
+    for c in d['claims']:
+     if c['predicate']=='produced':
+      c['predicate']='catalogued'
+      for e in c['evidence']:e['quote']=e['quote'].replace('was produced from','International collection')
+   change(dataset,file.relative_to(dataset),catalogue)
+ result=cli('build','--strict','--data-dir',dataset,'--snapshot-dir',snapshots,'--out',tmp_path/'graph.sqlite','--report',tmp_path/'report.json')
+ report=json.loads((tmp_path/'report.json').read_text());assert result.returncode==0,(result.stdout,result.stderr)
  assert report['disputed']==0
  import sqlite3
  condition="AND status='verified'" if view=='v_lineage' else ''
  with sqlite3.connect(tmp_path/'graph.sqlite') as db:
   uses=db.execute(f"SELECT COUNT(*) FROM claim WHERE predicate='uses_caliber' {condition}").fetchone()[0]
-  usage_rows=db.execute(f"SELECT SUM(CASE WHEN y.year_from IS NOT NULL OR y.year_to_kind<>'unknown' THEN 1 ELSE MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=u.subject_id AND predicate='produced' {condition})) END) FROM claim u LEFT JOIN claim_years y ON y.claim_id=u.id WHERE predicate='uses_caliber' {condition}").fetchone()[0]
-  missing=db.execute(f"SELECT COALESCE(SUM(MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=r.id AND predicate='produced' {condition}))),0) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
+  usage_rows=db.execute(f"SELECT SUM(CASE WHEN y.year_from IS NOT NULL OR y.year_to_kind<>'unknown' THEN 1 ELSE MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=u.subject_id AND predicate=CASE WHEN EXISTS (SELECT 1 FROM claim WHERE subject_id=u.subject_id AND predicate='produced' {condition}) THEN 'produced' ELSE 'catalogued' END {condition})) END) FROM claim u LEFT JOIN claim_years y ON y.claim_id=u.id WHERE predicate='uses_caliber' {condition}").fetchone()[0]
+  missing=db.execute(f"SELECT COALESCE(SUM(MAX(1,(SELECT COUNT(*) FROM claim WHERE subject_id=r.id AND predicate=CASE WHEN EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='produced' {condition}) THEN 'produced' ELSE 'catalogued' END {condition}))),0) FROM reference r WHERE NOT EXISTS (SELECT 1 FROM claim WHERE subject_id=r.id AND predicate='uses_caliber' {condition})").fetchone()[0]
  lineage=rows(tmp_path,view);assert len(lineage)==usage_rows+missing==5
  assert len({r['claim_id'] for r in lineage if r['caliber_id'] is not None})==uses
  assert sorted(r['has_primary'] for r in lineage if r['reference_id']=='reference:alpha')==[0,1]
