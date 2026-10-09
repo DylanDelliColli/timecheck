@@ -588,7 +588,7 @@ ST 166.0002 has two primary-supported caliber claims. Unknown usage bounds mean 
 To find references documented in a 1970s collection, query lineage dates. The
 filter below includes starts in the decade and explicit ranges crossing it. A
 1960s start with an unknown end does not establish presence in the 1970s.
-Catalogue claims remain proposed until review, so use `--include-proposed`:
+The catalogue claims below were promoted after review and appear in the default view; `--include-proposed` also shows any still-proposed catalogue claim, which the build never promotes:
 
 ```sh
 .venv/bin/timecheck query v_lineage --where "line_id = 'line:omega-seamaster' AND (year_from BETWEEN 1970 AND 1979 OR (year_from <= 1979 AND year_to >= 1970))" --include-proposed --json
