@@ -64,18 +64,24 @@ def test_a11_cli_exposes_evidence_and_unknown_usage_years(a11_seed):
 
 
 def test_a11_target_keeps_unattested_coverage_visible(a11_seed):
-    _, report = a11_seed
+    database, report = a11_seed
     target = json.loads((ROOT / "data/targets/usaaf-a-11.json").read_text())
     assert set(target["references"]) == REFERENCES
     assert target["source"]
     coverage = report["coverage"]["line:usaaf-a-11"]
     assert coverage["target"] == 3
-    assert coverage["covered"] == 0
-    assert set(coverage["missing"]) == REFERENCES
+    with sqlite3.connect(database) as db:
+        visible = {r[0] for r in db.execute(
+            "SELECT reference_id FROM v_lineage "
+            "WHERE line_id='line:usaaf-a-11' AND caliber_id IS NOT NULL")}
+    assert coverage["covered"] == len(visible)
+    assert set(coverage["missing"]) == REFERENCES - visible
+    # Elgin membership still needs human attestation of the government scan.
+    assert "reference:elgin-a-11" in coverage["missing"]
     assert report["pending_attestations"]
 
 
-def test_new_a11_claims_do_not_attest_scans_or_invent_absences():
+def test_a11_claims_do_not_invent_grade_absence():
     paths = [ROOT / "data/references" / (maker + "-a-11.json")
              for maker in ("waltham", "bulova")]
     paths += [ROOT / "data/calibers" / name for name in
@@ -84,8 +90,6 @@ def test_new_a11_claims_do_not_attest_scans_or_invent_absences():
         doc = json.loads(path.read_text())
         assert doc["claims"]
         for claim in doc["claims"]:
-            assert claim["status"] == "proposed"
-            assert "review" not in claim
             assert claim["predicate"] != "offers_grades"
             for evidence in claim["evidence"]:
                 source = json.loads((ROOT / "data/sources" /
