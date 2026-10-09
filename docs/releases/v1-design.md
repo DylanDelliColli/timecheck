@@ -131,14 +131,16 @@ against their quotes) and the strict live build; every claim the build verified 
 the review did not flag is set to `verified` with `review.by` naming the reviewer run
 and the merger (e.g. `codex:gpt-6.1-sol:pr2 / chief`) and `review.at` the merge time,
 in a chief commit on the PR branch before the merge (`timecheck status verify`
-promotes only claims whose every evidence item is an `exact` match on an `html` or
-`text` source). Decision 2026-10-09, after four review rounds on unit E1 found
+promotes a claim when at least one of its evidence items is an `exact` match on an
+`html` or `text` source verified by the build; `pdf_text` and `manual` items are
+advisory and neither count toward nor block promotion; refined 2026-10-09 after unit
+S4 added HTML corroboration next to PDF items). Decision 2026-10-09, after four review rounds on unit E1 found
 repeated ways for PDF text extraction to attribute digits to the wrong glyphs:
 `pdf_text` evidence is machine-matched as an advisory pre-check (the matcher and the
 font guards stay, and detected remappings fail with `unsupported_content_type`), but a
-claim with any `pdf_text` evidence is never promoted automatically; like `image_scan`
-evidence it needs human attestation, and the report lists such claims under pending
-attestation. The earlier `--include-fuzzy` option is withdrawn. Flagged claims stay `proposed`
+claim supported only by `pdf_text` (or `image_scan`) evidence is never promoted
+automatically; it needs human attestation, and the report lists such claims under
+pending attestation. The earlier `--include-fuzzy` option is withdrawn. Flagged claims stay `proposed`
 and are listed on the unit's bead for repair. `manual` evidence keeps its claims
 `proposed` until the operator attests. After v1, a human maintainer performs the same
 step for outside PRs. The build's `--no-evidence` report lists `proposed` claims per
