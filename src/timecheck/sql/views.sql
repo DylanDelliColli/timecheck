@@ -123,14 +123,20 @@ CREATE VIEW v_lineage_diff AS
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  usage AS (SELECT * FROM lineage_years WHERE caliber_id IS NOT NULL),
+ -- Production dates describe the reference, never the order of its calibers.
+ -- Count distinct calibers so duplicate claims do not create a start-year tie.
+ tied_starts AS (SELECT reference_id FROM usage GROUP BY reference_id,year_from
+ HAVING COUNT(DISTINCT caliber_id)>1),
  ordering AS (SELECT reference_id,COUNT(DISTINCT caliber_id) AS caliber_count,
- MAX(year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
+ MAX(year_source<>'usage' OR year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
  FROM usage GROUP BY reference_id),
  unknown_edges AS (SELECT e.* FROM edges e
  LEFT JOIN ordering b ON b.reference_id=e.predecessor_id
  LEFT JOIN ordering a ON a.reference_id=e.reference_id
  WHERE b.caliber_count IS NULL OR a.caliber_count IS NULL
- OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)),
+ OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)
+ OR e.predecessor_id IN (SELECT reference_id FROM tied_starts)
+ OR e.reference_id IN (SELECT reference_id FROM tied_starts)),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
  b.claim_id AS before_claim,a.claim_id AS after_claim,
  b.years_claim_id AS before_years_claim,a.years_claim_id AS after_years_claim,
@@ -290,14 +296,19 @@ CREATE VIEW v_lineage_diff_all AS
  WHERE s.predicate='succeeds' AND s.status='verified'
  AND (SELECT COUNT(DISTINCT bo.entity_id) FROM claim b JOIN claim_object bo ON bo.claim_id=b.id WHERE b.subject_id=s.subject_id AND b.predicate='succeeds' AND b.status='verified')=1),
  usage AS (SELECT * FROM lineage_years_all WHERE caliber_id IS NOT NULL),
+ -- Apply the same chronology rule when proposed claims are included.
+ tied_starts AS (SELECT reference_id FROM usage GROUP BY reference_id,year_from
+ HAVING COUNT(DISTINCT caliber_id)>1),
  ordering AS (SELECT reference_id,COUNT(DISTINCT caliber_id) AS caliber_count,
- MAX(year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
+ MAX(year_source<>'usage' OR year_from IS NULL) AS unknown_start,MIN(year_from) AS earliest,MAX(year_from) AS latest
  FROM usage GROUP BY reference_id),
  unknown_edges AS (SELECT e.* FROM edges e
  LEFT JOIN ordering b ON b.reference_id=e.predecessor_id
  LEFT JOIN ordering a ON a.reference_id=e.reference_id
  WHERE b.caliber_count IS NULL OR a.caliber_count IS NULL
- OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)),
+ OR (b.caliber_count>1 AND b.unknown_start=1) OR (a.caliber_count>1 AND a.unknown_start=1)
+ OR e.predecessor_id IN (SELECT reference_id FROM tied_starts)
+ OR e.reference_id IN (SELECT reference_id FROM tied_starts)),
  pairs AS (SELECT e.*,b.caliber_id AS before_caliber,a.caliber_id AS after_caliber,
  b.claim_id AS before_claim,a.claim_id AS after_claim,
  b.years_claim_id AS before_years_claim,a.years_claim_id AS after_years_claim,

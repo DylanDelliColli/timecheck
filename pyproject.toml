@@ -11,7 +11,7 @@ license = {text = "MIT"}
 dependencies = ["jsonschema==4.23.0", "publicsuffix2==2.20191221", "pypdf==6.19.0", "fonttools==4.66.1", "zstandard==0.25.0"]
 
 [project.optional-dependencies]
-dev = ["pytest==8.3.4"]
+dev = ["pytest==8.3.4", "PyYAML==6.0.2"]
 
 [project.scripts]
 timecheck = "timecheck.cli:main"

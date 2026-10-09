@@ -61,6 +61,7 @@ without external network. The required check verifies fixture evidence, then bui
 real `data/` with `--no-evidence` for schema, integrity and compilation, marking all
 evidence unchecked. Write failing behavioral tests before changes. PR CI also
 checks changed claims against live archives; changing a source rechecks its consumers.
-Scheduled checks perform a full live build from `release/v1`. GitHub schedules only
+Nightly scheduled checks (04:17 UTC) and manual dispatch perform a full live build
+from `release/v1`. GitHub schedules only
 activate once this workflow exists on the default branch. Keep all build and cache
 outputs local; never point tests at another worker's runtime files.
