@@ -179,7 +179,7 @@ entity tables share all four columns:
 | `unit` | Numeric unit such as `vph`, `count`, `hour`, `year`; otherwise null. |
 | `object_json` | Full original object as JSON text, including year objects. |
 
-`claim_years` holds usage `valid_years` or a `produced` year object:
+`claim_years` holds usage `valid_years` or a `produced` / `catalogued` year object:
 
 | Column | Meaning |
 |---|---|
@@ -239,11 +239,15 @@ secondary-supported even when its usage claim alone has primary evidence.
 
 Year columns use the meanings in `claim_years`. A null year is unknown, never
 zero. An absent claim differs from an explicitly stated negative. A `produced`
-interval describes reference production; usage years describe a caliber's use in
-that reference. `v_lineage` uses a usage interval when either bound is known and
-falls back to production when usage years are wholly unknown or there is no
-selected usage. `year_source` identifies the interval's source; query `produced`
-claims directly for separate production dates. Views contain no `ORDER BY`; sort explicitly with
+interval describes reference production; a `catalogued` interval records years in
+the maker's catalogue or collection, such as Omega's "International collection"
+field. These dates establish catalogue presence, not production boundaries or a
+caliber's period of use. Usage years describe that caliber's use in the reference.
+`v_lineage` preserves a usage interval when either bound is known. Otherwise it
+selects production claims, or catalogue claims when no selected production claim
+exists. A selected production claim retains priority even when its bounds are
+unknown. `year_source` identifies the resulting interval; query `produced` and
+`catalogued` claims directly for their separate evidence. Views contain no `ORDER BY`; sort explicitly with
 `year_from_sort, reference_id`, keeping unknown starts last.
 
 Every usage/lineage `grade` is a documented grade name (for a caliber entity with
@@ -303,9 +307,11 @@ reference can have multiple routes/results; there is no ranking or price meaning
 
 ### `v_lineage`
 
-One row per selected usage, multiplied by selected production claims when usage
-years are wholly unknown; if no usage, one per selected production claim; if neither,
-a reference fallback with null years. Membership/succession metadata is aggregated
+One row per selected usage. When usage years are wholly unknown, use one row per
+selected production claim, or one per selected catalogue claim if no production
+claim exists. A reference without usage follows the same production → catalogue
+fallback; with neither, it has one row with null years. Competing intervals remain
+separate rows. Membership/succession metadata is aggregated
 and does not multiply rows. Filter `line_id` explicitly to exclude unassigned
 fallbacks. Two distinct verified predecessors are a branch: reported in `branches`,
 with null predecessor here and excluded from diffs.
@@ -314,22 +320,22 @@ with null predecessor here and excluded from diffs.
 |---|---|
 | `line_id` | Selected model line; null for no selected or conflicting membership. |
 | `reference_id` | Reference identity. |
-| `year_from`, `year_to`, `year_to_kind`, `year_from_sort` | Usage interval, or production fallback, or unknown. |
-| `year_source` | `usage` when at least one usage bound is known; otherwise `produced` when a selected production interval has a known bound; otherwise `unknown`. Production fallback retains one row per selected production claim, including competing intervals. |
+| `year_from`, `year_to`, `year_to_kind`, `year_from_sort` | Usage interval, otherwise production, otherwise catalogue fallback, otherwise unknown. |
+| `year_source` | `usage` when either usage bound is known; otherwise `produced` for a selected production interval with a known bound; otherwise `catalogued` for a selected catalogue interval with a known bound and no selected production claim; otherwise `unknown`. |
 | `caliber_id` | Selected caliber; null in a non-usage fallback. |
 | `grade` | Usage grade; null in a non-usage fallback. |
 | `succeeds_reference_id` | Selected single predecessor, or null for missing/ambiguous/branched succession. |
-| `claim_id` | Usage claim, else production claim, else membership claim, else null. |
+| `claim_id` | Usage claim, else production claim, else catalogue claim, else membership claim, else null. |
 | `status` | That claim's status; fallback literal `verified` when none exists, so check `claim_id`. |
-| `disputed`, `contested`, `has_primary` | Aggregated usage/production/membership/succession flags. |
+| `disputed`, `contested`, `has_primary` | Aggregated usage, selected production/catalogue fallback, membership and succession flags. |
 
 ### `v_lineage_diff`
 
 Along **verified** `succeeds` edges only, including in `_all`. Compare the
 predecessor's latest usage start with the successor's earliest. A side with one
 distinct caliber can be compared regardless of years, and its `years` value may
-use the lineage production fallback. With several calibers, only each usage
-claim's own start year can establish order; reference production dates cannot.
+use the lineage production/catalogue fallback. With several calibers, only each usage
+claim's own start year can establish order; borrowed production or catalogue dates cannot.
 Missing usage, any unknown usage start on a side with several calibers, or distinct
 calibers tied at a start year produces one row per attribute with null values,
 statuses, evidence IDs and `changed`. For example, the seeded 5513→5514 succession
@@ -349,7 +355,7 @@ one representative evidence ID per side.
 | `before_value`, `after_value` | Text values; caliber IDs, scalar strings or `from-to` years strings; null for unknown. |
 | `changed` | 1 different, 0 equal, null when comparison is unknown. |
 | `before_status`, `after_status` | Status of each compared value's claim, null when absent or caliber ordering is ambiguous. |
-| `before_evidence_id`, `after_evidence_id` | Representative excerpt for each value; `years` uses production evidence when falling back. Null when absent or caliber ordering is ambiguous. Join to `v_evidence.evidence_id`. |
+| `before_evidence_id`, `after_evidence_id` | Representative excerpt for each value; `years` uses the selected production or catalogue evidence when falling back. Null when absent or caliber ordering is ambiguous. Join to `v_evidence.evidence_id`. |
 
 ### `v_evidence`
 
@@ -419,8 +425,8 @@ subcommand help for your installed revision.
 
 ## Worked examples on the merged seed
 
-These real outputs reproduce the CLI and data at release commit
-`19df33caf0dfca3062ef51997dde926e6a55eaea` (the base of this documentation update). They use the root `timecheck.sqlite` from the real-seed build
+These real outputs reproduce the CLI and data at implementation commit
+`2bbbe09242f2d48dc8f319dd421ead2816ea118a` (the base of this documentation update). They use the root `timecheck.sqlite` from the real-seed build
 above. The structural build and live build compile the same authored claims;
 consult the report separately for archive verification. JSON formatting is
 expanded for readability; row order is incidental. `tests/test_docs_examples.py`
@@ -578,6 +584,96 @@ relationship is not proof of parts interchangeability. The wider seed includes
 ```
 
 ST 166.0002 has two primary-supported caliber claims. Unknown usage bounds mean these do not establish a changeover year or which movement a particular specimen contains; they also do not establish an overlapping conflict. Preserve both rows. This query answers documented caliber usage, not parts interchange or servicing availability.
+
+To find references documented in a 1970s collection, query lineage dates. The
+filter below includes starts in the decade and explicit ranges crossing it. A
+1960s start with an unknown end does not establish presence in the 1970s.
+Catalogue claims remain proposed until review, so use `--include-proposed`:
+
+```sh
+.venv/bin/timecheck query v_lineage --where "line_id = 'line:omega-seamaster' AND (year_from BETWEEN 1970 AND 1979 OR (year_from <= 1979 AND year_to >= 1970))" --include-proposed --json
+```
+
+```json
+[
+  {
+    "line_id": "line:omega-seamaster",
+    "reference_id": "reference:omega-st-166-0042",
+    "year_from": 1968,
+    "year_to": 1975,
+    "year_to_kind": "year",
+    "year_from_sort": 1968,
+    "year_source": "catalogued",
+    "caliber_id": "caliber:omega-565",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-toexwdyf2r",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 1
+  },
+  {
+    "line_id": "line:omega-seamaster",
+    "reference_id": "reference:omega-st-166-0087",
+    "year_from": 1971,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1971,
+    "year_source": "catalogued",
+    "caliber_id": "caliber:omega-1002",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-d6exesox3l",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 0
+  },
+  {
+    "line_id": "line:omega-seamaster",
+    "reference_id": "reference:omega-st-166-0090",
+    "year_from": 1971,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1971,
+    "year_source": "catalogued",
+    "caliber_id": "caliber:omega-1002",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-u3q3sal7yu",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 1
+  },
+  {
+    "line_id": "line:omega-seamaster",
+    "reference_id": "reference:omega-st-166-0132",
+    "year_from": 1972,
+    "year_to": null,
+    "year_to_kind": "unknown",
+    "year_from_sort": 1972,
+    "year_source": "catalogued",
+    "caliber_id": "caliber:omega-1012",
+    "grade": "unknown",
+    "succeeds_reference_id": null,
+    "claim_id": "clm-x7pw75doxk",
+    "status": "verified",
+    "disputed": 0,
+    "contested": 0,
+    "has_primary": 1
+  }
+]
+```
+
+These four references have primary Omega catalogue evidence. ST 166.0042 is listed
+for 1968–1975, ST 166.0087 and ST 166.0090 for 1971, and ST 166.0132 for 1972.
+Their documented calibers are 565, 1002 and 1012; the 0087 movement claim uses a
+secondary fallback. All rows show `year_source: catalogued`. This answers
+collection presence and associated calibers; production and individual caliber
+usage periods remain unknown. It does not identify a particular specimen's
+movement. `v_reference_calibers` retains those unknown usage bounds.
 
 The documented Omega calibers' families
 
@@ -1089,9 +1185,13 @@ They are primary by source tier but not machine-matched or human-attested yet.
 `v_reference_calibers.claim_id` joins evidence for usage, not every contributing
 grade fact. For the latter, read `grade_of`, `grade_name` and `offers_grades` claims
 on the target caliber. `v_lineage.claim_id` likewise does not represent all
-membership/succession facts or production years on a usage row with
-`year_source: produced`; inspect that reference's selected `produced` claims for
-the fallback evidence. For family/shared-DNA paths, inspect the intermediate
+membership/succession facts or borrowed years on a usage row with
+`year_source: produced` or `catalogued`; inspect that reference's selected
+`produced` or `catalogued` claims for the fallback evidence. For example, join
+`claim` → `v_evidence_all` with `subject_id = 'reference:omega-st-166-0090'` and
+`predicate = 'catalogued'` to read its collection date quote. The usage row's
+`status` also describes its usage claim; it does not promote a proposed catalogue
+claim. For family/shared-DNA paths, inspect the intermediate
 caliber relationship claims: `relation_path` lists predicates, not claim IDs.
 Query their evidence by joining `claim` → `claim_object` → `v_evidence`, selecting
 subjects/targets along the path. `v_lineage_diff` evidence IDs refer to each value,
