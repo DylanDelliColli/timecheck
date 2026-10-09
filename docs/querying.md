@@ -489,6 +489,22 @@ The other seeded reference uses the identical caliber, so `relation_path` is emp
 
 ST 166.0002 has two primary-supported caliber claims. Unknown usage bounds mean these do not establish a changeover year or which movement a particular specimen contains; they also do not establish an overlapping conflict. Preserve both rows. This query answers documented caliber usage, not parts interchange or servicing availability.
 
+The documented Omega calibers' families
+
+```sh
+.venv/bin/timecheck query v_caliber_family --where "caliber_id IN ('caliber:omega-562','caliber:omega-565')" --json
+```
+
+```json
+[]
+```
+
+Neither caliber currently has a selected `derived_from`, `clone_of` or `grade_of`
+path in the merged seed. This empty family result describes the graph's sourced
+relations; it does not establish that the movements have no relatives. Family
+queries return connected calibers, while shared-DNA queries below return other
+watch references.
+
 What else shares those Omega calibers?
 
 ```sh
@@ -621,7 +637,7 @@ Include the pending membership
 ]
 ```
 
-Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `status: verified` describes its usage claim, while its included membership is proposed/manual. The side-by-side maker SQL below works as more makers arrive; it currently returns one Elgin row. No multi-maker completion is implied.
+Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `status: verified` describes its usage claim, while its included membership is proposed/manual. The side-by-side maker SQL below currently returns no rows: it requires a verified `made_by` claim, while Elgin 539's maker claim is proposed/manual. It will include makers when their supporting claims are verified. No multi-maker completion is implied.
 
 ### 5. Apply the evidence filter to the same query
 
@@ -650,7 +666,7 @@ Only Elgin is seeded here; Waltham/Bulova coverage is still pending. The row's `
 ]
 ```
 
-The A-11 row disappears: primary support for its membership cannot replace secondary-only support for its caliber usage. Proposed primary scan evidence still needs attestation. This is the same designation query, with only `--primary-only` added.
+The secondary-only caliber usage is removed. A primary-supported membership fallback remains, with null caliber and grade, its membership `claim_id`, and `status: proposed`. Primary support for membership cannot replace missing primary support for usage. The scan membership still needs human attestation; this fallback is not a verified movement assignment. This is the same designation query, with only `--primary-only` added.
 
 A primary-supported result that survives
 
@@ -774,15 +790,19 @@ with sqlite3.connect('file:timecheck.sqlite?mode=ro', uri=True) as db:
 PY
 ```
 
-At the example revision, `a11_makers` returns Elgin → `reference:elgin-a-11` →
-`caliber:elgin-539`; inspect its membership separately:
+At the example revision, `a11_makers` returns `[]`: the SQL requires a verified
+`made_by`, while the Elgin 539 maker claim (`clm-ha7amhj52a`) is proposed with
+manual evidence awaiting human attestation. `v_lineage_all` includes proposed
+membership, but does not change that SQL join's verified-maker requirement.
+Inspect the pending maker evidence and membership separately:
 
 ```sh
+.venv/bin/timecheck query v_evidence --where "claim_id = 'clm-ha7amhj52a'" --include-proposed --json
 .venv/bin/timecheck query v_evidence --where "claim_id = 'clm-bpgsi66cc5'" --include-proposed --json
 ```
 
-That excerpt has `match_mode: manual` and a government-document archive locator.
-It is primary by source tier but not machine-matched or human-attested yet.
+Both excerpts have `match_mode: manual` and government-document archive locators.
+They are primary by source tier but not machine-matched or human-attested yet.
 
 `v_reference_calibers.claim_id` joins evidence for usage, not every contributing
 grade fact. For the latter, read `grade_of`, `grade_name` and `offers_grades` claims
