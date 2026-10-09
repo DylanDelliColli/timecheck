@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0042",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster Compressor ST 166.0042",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-4y3mzveg3u",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-c5lj4ow7ij",
+          "source": "source:omega-seamaster-st1660042-20250327",
+          "quote": "Seamaster Compressor 1968 - 1975 ST 166.0042",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-toexwdyf2r",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-565"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-vs5lr6xsbj",
+          "source": "source:omega-seamaster-st1660042-20250327",
+          "quote": "Movement type Automatic (mechanical) Caliber number 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

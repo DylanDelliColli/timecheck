@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-1002",
+  "kind": "caliber",
+  "display_name": "OMEGA 1002",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-jasf6ahzzy",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4nhygstdqd",
+          "source": "source:omega-seamaster-st1660090-20261009",
+          "quote": "Movement type Automatic (mechanical) Caliber number 1002",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-7nhutckfld",
+      "predicate": "jewels",
+      "object": {
+        "value": 20,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-5kyqgqi2ij",
+          "source": "source:omega-1002-technical-guide-20261009",
+          "quote": "1002 27.90 RA SC PC CAL CORR INST STS AM 20 j.",
+          "locator": "page 1; caliber 1002 identification row",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-4edeaiii4x",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 50,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-4f5ugomf2c",
+          "source": "source:omega-1002-technical-guide-20261009",
+          "quote": "Power-reserve Jewel number Frequency Angle of lift 50 h 17/20/20 28'800 A/h 52°",
+          "locator": "page 1; nominal reserve specification in shared 1000/1001/1002 table",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ozazgmlkbn",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 28800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-f4umeui2ph",
+          "source": "source:omega-1002-technical-guide-20261009",
+          "quote": "A very large barrel supplies the energy to the balance oscillating at 28800 vibrations per hour.",
+          "locator": "page 1; movement description",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-35gsiaqvbe",
+      "predicate": "hacking",
+      "object": {
+        "value": true
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qewscexhuv",
+          "source": "source:omega-1002-technical-guide-20261009",
+          "quote": "During the hand setting operation, the second hand is stopped automatically.",
+          "locator": "page 1; winding-stem functions",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-roufftk3za",
+      "predicate": "date_mechanism",
+      "object": {
+        "value": "date"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qudr525h5i",
+          "source": "source:omega-1002-technical-guide-20261009",
+          "quote": "At 28800 vibrations per hour instant date correction and stop second.",
+          "locator": "page 1; movement description",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

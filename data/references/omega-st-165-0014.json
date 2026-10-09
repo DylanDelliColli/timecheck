@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-165-0014",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 300 ST 165.0014",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-vhkb7g2sjp",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-qqf4v4dn3i",
+          "source": "source:omega-seamaster-st1650014-20250215",
+          "quote": "Seamaster 300 1962 - 1966 ST 165.0014",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-z2laipxnp7",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-550"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ew2egalp4r",
+          "source": "source:omega-seamaster-st1650014-20250215",
+          "quote": "Movement type Automatic (mechanical) Caliber number 550 / 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-puhandtnpx",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-552"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-x7rbdayfyk",
+          "source": "source:omega-seamaster-st1650014-20250215",
+          "quote": "Movement type Automatic (mechanical) Caliber number 550 / 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

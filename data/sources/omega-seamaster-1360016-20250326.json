@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-1360016-20250326",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/watch-omega-seamaster-omega-136-0016",
+  "archive_url": "https://web.archive.org/web/20250326085244id_/https://www.omegawatches.com/watch-omega-seamaster-omega-136-0016",
+  "snapshot_sha256": "e8025fff115854ff51f45a3463f2822851e2a7f877729765af241a9825105711",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

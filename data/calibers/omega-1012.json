@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-1012",
+  "kind": "caliber",
+  "display_name": "OMEGA 1012",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-v53obkq4al",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-r3nwzuddfr",
+          "source": "source:omega-seamaster-st1660132-20261009",
+          "quote": "Movement type Automatic (mechanical) Caliber number 1012",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

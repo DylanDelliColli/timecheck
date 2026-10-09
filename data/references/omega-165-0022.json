@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-165-0022",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 165.0022",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-7udtoo2jzb",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-jm7sni3cuz",
+          "source": "source:omega-seamaster-1650022-20241207",
+          "quote": "Seamaster Omega 1967 165.0022",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ei5envyler",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-552"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ho47ecoa4h",
+          "source": "source:omega-seamaster-1650022-20241207",
+          "quote": "Movement type Automatic (mechanical) Caliber number 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

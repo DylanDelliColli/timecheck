@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-613",
+  "kind": "caliber",
+  "display_name": "OMEGA 613",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-zbvnm2dc7v",
+      "predicate": "winding",
+      "object": {
+        "value": "manual"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bigpftwthf",
+          "source": "source:omega-seamaster-1360016-20250326",
+          "quote": "Movement type Manual winding (mechanical) Caliber number 613",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    }
+  ]
+}

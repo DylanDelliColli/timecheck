@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660132-20261009",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/en-us/watch-omega-seamaster-cosmic-2000-st-166-0132",
+  "archive_url": "https://web.archive.org/web/20261009005347id_/https://www.omegawatches.com/en-us/watch-omega-seamaster-cosmic-2000-st-166-0132",
+  "snapshot_sha256": "2118f4dc14f12366bfa2dfa433246e6dbe65fd0ce19fe7e54362e1eaf97cb1c2",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

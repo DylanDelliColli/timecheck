@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1650002-20250215",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/watch-omega-seamaster-omega-st-165-0002",
+  "archive_url": "https://web.archive.org/web/20250215043725id_/https://www.omegawatches.com/watch-omega-seamaster-omega-st-165-0002",
+  "snapshot_sha256": "55040c00f8353e32ac05e95c50b81f0b0f85513a9ef18f921358fb4ccf9a1071",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

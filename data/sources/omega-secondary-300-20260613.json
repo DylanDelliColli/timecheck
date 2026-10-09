@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-secondary-300-20260613",
+  "kind": "source",
+  "url": "https://www.omegaseamaster300.com/",
+  "publisher": "Omega Passion (Seamaster 300 collector guide)",
+  "trust_tier": "secondary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "archive_url": "https://web.archive.org/web/20260613004013id_/https://www.omegaseamaster300.com/",
+  "snapshot_sha256": "a402033daefd2fad73287023911f651d297cb9b0aab6af70ad36f07499ff8a37",
+  "retrieved_at": "2026-10-09",
+  "notes": "Secondary fallback after individual manufacturer replay returned 404 and new save requests did not establish a usable capture. Supports the cited caliber; no claim that this exhausts every variant. Omega Forums listing date/serial-estimated year is not encoded as a production bound."
+}

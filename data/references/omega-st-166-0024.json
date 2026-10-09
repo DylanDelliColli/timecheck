@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0024",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 300 ST 166.0024",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-gew7zsvoc7",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bqriaclcsh",
+          "source": "source:omega-seamaster-vintage-listing-20261009",
+          "quote": "Seamaster 300 1966 Details Details Details - Seamaster 300 - ST 166.0024",
+          "locator": "Products list; exact reference entry",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-55bzqquu7q",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-565"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-ueyrnpdpei",
+          "source": "source:omega-secondary-300-20260613",
+          "quote": "The first 30 being 166.024 Seamaster 300s in 565 calibre",
+          "locator": "Comex section; discussion of 34-watch invoice",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

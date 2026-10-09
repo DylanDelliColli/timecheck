@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-136-0022",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 136.0022",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-ruoa4qsxjs",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gvyqkdqc24",
+          "source": "source:omega-seamaster-1360022-20250920",
+          "quote": "Seamaster Omega 1967 136.0022",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-ieopr5jlri",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-613"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3wq7iumkas",
+          "source": "source:omega-seamaster-1360022-20250920",
+          "quote": "Movement type Manual winding (mechanical) Caliber number 613",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

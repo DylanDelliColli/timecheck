@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660027-20250818",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/fr-fr/watch-omega-seamaster-120-st-166-0027",
+  "archive_url": "https://web.archive.org/web/20250818080542id_/https://www.omegawatches.com/fr-fr/watch-omega-seamaster-120-st-166-0027",
+  "snapshot_sha256": "28501ca83f836ee5033c300fc41c4a786142968b0fd9ef148931b5a0c0b2a508",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}

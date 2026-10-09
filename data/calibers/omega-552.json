@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "caliber:omega-552",
+  "kind": "caliber",
+  "display_name": "OMEGA 552",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-clnjo4admq",
+      "predicate": "winding",
+      "object": {
+        "value": "automatic"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-t3m5hgcqhj",
+          "source": "source:omega-seamaster-1650023-20250518",
+          "quote": "Movement type Automatic (mechanical) Caliber number 552",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-taix6xpmf4",
+      "predicate": "made_by",
+      "object": {
+        "entity": "brand:omega"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-7kvogzy5qg",
+          "source": "source:omega-552-technical-guide-20261009",
+          "quote": "OMEGA SA WORLD SERVICE ORGANIZATION TG-19-C-126-FDES - A - 552 / 1",
+          "locator": "page 1 footer; issuer and caliber",
+          "match_mode": "manual"
+        }
+      ]
+    },
+    {
+      "id": "clm-ehd4mapfld",
+      "predicate": "jewels",
+      "object": {
+        "value": 24,
+        "unit": "count"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-tpcetiu4hx",
+          "source": "source:omega-552-technical-guide-20261009",
+          "quote": "Rubis / Rubine / Jewels / Rubíes 24",
+          "locator": "page 1 technical specifications; jewels row",
+          "match_mode": "manual"
+        }
+      ]
+    },
+    {
+      "id": "clm-g4samv6kyz",
+      "predicate": "power_reserve",
+      "object": {
+        "value": 38,
+        "unit": "hour"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-3uaoob2xms",
+          "source": "source:omega-552-technical-guide-20261009",
+          "quote": "Réserve / Reserve / Reserve / Reserva 38h",
+          "locator": "page 1 technical specifications; reserve row",
+          "match_mode": "manual"
+        }
+      ]
+    },
+    {
+      "id": "clm-ffkz2rty54",
+      "predicate": "beat_rate",
+      "object": {
+        "value": 19800,
+        "unit": "vph"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-bshuwbi5rm",
+          "source": "source:omega-552-technical-guide-20261009",
+          "quote": "Fréquence / Frequenz / Frequency / Frecuencia 2.75 Hz (19’800 A/h)",
+          "locator": "page 1 technical specifications; frequency row",
+          "match_mode": "manual"
+        }
+      ]
+    }
+  ]
+}

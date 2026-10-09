@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-165-0010",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster ST 165.0010",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-gpukgccitb",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-gbuiyj2qo4",
+          "source": "source:omega-seamaster-vintage-listing-20261009",
+          "quote": "Seamaster Omega 1966 Details Details Details - Seamaster Omega - ST 165.0010",
+          "locator": "Products list; exact reference entry",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-v7i3mqpb3g",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-552"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-loru6vehpf",
+          "source": "source:omega-secondary-1650010-20241016",
+          "quote": "1965 Omega Seamaster 165.010 Cal. 552",
+          "locator": "Thread title; individual specimen listing",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

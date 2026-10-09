@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "id": "reference:omega-st-166-0027",
+  "kind": "reference",
+  "display_name": "OMEGA Seamaster 120 ST 166.0027",
+  "aliases": [],
+  "claims": [
+    {
+      "id": "clm-sgdye26c72",
+      "predicate": "in_line",
+      "object": {
+        "entity": "line:omega-seamaster"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-2la3jyng7t",
+          "source": "source:omega-seamaster-st1660027-20250818",
+          "quote": "Seamaster 120 1966 ST 166.0027",
+          "locator": "Vintage model heading",
+          "match_mode": "exact"
+        }
+      ]
+    },
+    {
+      "id": "clm-aqbq6a3nru",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-562"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-oqdauaegz6",
+          "source": "source:omega-seamaster-st1660027-20250818",
+          "quote": "Type de mouvement Automatique (mécanique) Numéro de calibre 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    },
+    {
+      "id": "clm-jzxpschqbd",
+      "predicate": "uses_caliber",
+      "object": {
+        "entity": "caliber:omega-565"
+      },
+      "status": "proposed",
+      "contested": false,
+      "evidence": [
+        {
+          "id": "ev-fnppqtwtfr",
+          "source": "source:omega-seamaster-st1660027-20250818",
+          "quote": "Type de mouvement Automatique (mécanique) Numéro de calibre 562 / 565",
+          "locator": "Technical Data; Movement",
+          "match_mode": "exact"
+        }
+      ],
+      "valid_years": {
+        "from": null,
+        "to": null,
+        "from_evidence": null,
+        "to_evidence": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": "source:omega-seamaster-st1660022-20250422",
+  "kind": "source",
+  "publisher": "OMEGA",
+  "trust_tier": "primary",
+  "reuse_class": "cite_only",
+  "licence": "copyright, cite-only",
+  "content_type": "html",
+  "url": "https://www.omegawatches.com/watch-omega-seamaster-cosmic-st-166-0022",
+  "archive_url": "https://web.archive.org/web/20250422061357id_/https://www.omegawatches.com/watch-omega-seamaster-cosmic-st-166-0022",
+  "snapshot_sha256": "6cc2b310c914b0129071ec530e3c1c9f70a3248b502002806255f4d68e5d9873",
+  "retrieved_at": "2026-10-09",
+  "notes": "International collection is a collection date, not evidence of production or caliber-usage boundaries. Bounded individual citation for S3; no complete catalogue extraction."
+}
