@@ -15,10 +15,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-uko3kt5l2m",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page 4: Escapement execution table; canonical grade term",
+          "id": "ev-dzpjhgflsb",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Special (Elabore) - adjusted in three positions; accuracy of +/-7 sec/day up to +/- 20 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }
       ]
@@ -33,10 +33,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-yqxiv7um3y",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page 4: Escapement execution table; canonical grade term",
+          "id": "ev-urjohwz6vr",
+          "source": "source:sw200-corner-old-20240105",
+          "quote": "Special (Elabore) - adjusted in three positions; accuracy of +/-7 sec/day up to +/- 20 sec/day",
+          "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }
       ]

@@ -15,10 +15,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-dzatleodzd",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page4: Escapement execution table; canonical grade term",
+          "id": "ev-evzdsaehaj",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
           "match_mode": "exact"
         }
       ]
@@ -33,10 +33,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-pmgc54xkwi",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page4: Escapement execution table; canonical grade term",
+          "id": "ev-hcs5o42pm5",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
           "match_mode": "exact"
         }
       ]

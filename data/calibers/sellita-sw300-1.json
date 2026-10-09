@@ -15,10 +15,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-573k43gem2",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "SELLITA WATCH Co S.A., Crêt-du-Locle 11, CH-2301 La Chaux-de-Fonds, Suisse",
-          "locator": "PDF page1: maker header and caliber",
+          "id": "ev-34wczmg2gi",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
           "match_mode": "exact"
         }
       ]
@@ -33,10 +33,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-ngjzv2lf57",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Round calibre, mechanical lever movement, self-winding movement",
-          "locator": "PDF page3: Shape and type",
+          "id": "ev-r4uwphh533",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -52,10 +52,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-d4stdsxddl",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 25",
-          "locator": "PDF page3: Frequency",
+          "id": "ev-bfatpfl5hm",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -71,10 +71,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-6itha7bcnw",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 25",
-          "locator": "PDF page3: Jewels",
+          "id": "ev-fwqs5nvyxb",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -89,10 +89,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-5hszunjs6l",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Date window with quick setting.",
-          "locator": "PDF page3: Functions",
+          "id": "ev-sq4r4swe33",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Functions Hours, minutes, seconds Date display",
+          "locator": "Functions; watch with explicitly named movement",
           "match_mode": "exact"
         }
       ]
@@ -107,10 +107,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-xlu4rhfrqq",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Stop-seconde Sekundenstopp Stop-second Avec Mit With",
-          "locator": "PDF page3: Stop-second",
+          "id": "ev-xh24mckzke",
+          "source": "source:sinn-u50-new-20260217",
+          "quote": "Mechanical Movement SW300-1 Self-winding mechanism 25 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -125,10 +125,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-6q3eivcdn7",
-          "source": "source:sellita-sw300-pdf-20260904",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page4: Escapement execution table",
+          "id": "ev-v4yv2fso74",
+          "source": "source:cw-lumiere-black-20260309",
+          "quote": "Lumière is powered by a chronometer-certified version of the Sellita SW300-1 automatic calibre",
+          "locator": "Description; explicitly named Sellita SW300-1 chronometer execution",
           "match_mode": "exact"
         }
       ]

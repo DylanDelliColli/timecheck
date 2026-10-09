@@ -42,24 +42,6 @@
       ]
     },
     {
-      "id": "clm-2ca4ykwgkr",
-      "predicate": "made_by",
-      "object": {
-        "entity": "brand:sellita"
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-abqkssqwlo",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "SELLITA WATCH Co S.A., Crêt-du-Locle 11, CH-2301 La Chaux-de-Fonds, Suisse",
-          "locator": "PDF page 1: maker and caliber header",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
       "id": "clm-j4zusrmmqe",
       "predicate": "winding",
       "object": {
@@ -69,10 +51,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-khofi3b7sg",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Round caliber, mechanical lever movement, self-winding movement",
-          "locator": "PDF page 3: Shape and type",
+          "id": "ev-7wvj3uira5",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -88,10 +70,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-disj4lzf4d",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 26",
-          "locator": "PDF page 3: Frequency",
+          "id": "ev-e5pm743uht",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -107,10 +89,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-ua2me275xj",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "28'800 vibrations per hour (4 Hz) Pierres Steine Jewels 26",
-          "locator": "PDF page 3: Jewels",
+          "id": "ev-p5whrzuyiu",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]
@@ -125,10 +107,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-annzaxyae6",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Date display in window with quick corrector",
-          "locator": "PDF page 3: Functions",
+          "id": "ev-d4doldglgg",
+          "source": "source:sinn556a-20251210",
+          "quote": "Functions Hours, minutes, seconds Date display",
+          "locator": "Functions; watch with explicitly named movement",
           "match_mode": "exact"
         }
       ]
@@ -143,28 +125,10 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-upvtodk7fh",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Stop-seconde Sekundenstopp Stop-second Avec Mit With",
-          "locator": "PDF page 3: Stop-second",
-          "match_mode": "exact"
-        }
-      ]
-    },
-    {
-      "id": "clm-o6pyblk5dd",
-      "predicate": "offers_grades",
-      "object": {
-        "value": true
-      },
-      "status": "proposed",
-      "contested": false,
-      "evidence": [
-        {
-          "id": "ev-w7dwlfka4q",
-          "source": "source:sellita-sw200-pdf-20251006",
-          "quote": "Exécution - Ausführung - Range Elaboré Top Chronomètre",
-          "locator": "PDF page 4: Escapement execution table",
+          "id": "ev-dmg5lkyhb2",
+          "source": "source:sinn556a-20251210",
+          "quote": "Mechanical Movement SW200-1 Self-winding mechanism 26 bearing jewels 28,800 semi-oscillations per hour Seconds stop function",
+          "locator": "Technical details; explicitly named installed movement specification",
           "match_mode": "exact"
         }
       ]

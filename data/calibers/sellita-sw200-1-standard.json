@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "id": "caliber:sellita-sw200-1-top",
+  "id": "caliber:sellita-sw200-1-standard",
   "kind": "caliber",
-  "display_name": "Sellita SW200-1 top",
+  "display_name": "Sellita SW200-1 Standard",
   "aliases": [],
   "claims": [
     {
-      "id": "clm-qiw5cflr7z",
+      "id": "clm-tax2sja6an",
       "predicate": "grade_of",
       "object": {
         "entity": "caliber:sellita-sw200-1"
@@ -15,27 +15,27 @@
       "contested": false,
       "evidence": [
         {
-          "id": "ev-j6azv7kzqi",
+          "id": "ev-prmytpqedp",
           "source": "source:sw200-corner-old-20240105",
-          "quote": "Premium (Top) - adjusted in five positions; accuracy of +/-4 sec/day up to +/- 15 sec/day",
+          "quote": "there are four grades of the SW200-1 movement: Standard - adjusted in two positions",
           "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }
       ]
     },
     {
-      "id": "clm-j6iapce6pk",
+      "id": "clm-atewlpebmy",
       "predicate": "grade_name",
       "object": {
-        "value": "top"
+        "value": "standard"
       },
       "status": "proposed",
       "contested": false,
       "evidence": [
         {
-          "id": "ev-577nogl3q5",
+          "id": "ev-ihto3jic6y",
           "source": "source:sw200-corner-old-20240105",
-          "quote": "Premium (Top) - adjusted in five positions; accuracy of +/-4 sec/day up to +/- 15 sec/day",
+          "quote": "there are four grades of the SW200-1 movement: Standard - adjusted in two positions",
           "locator": "4 Grades of SW200-1; historical attributed secondary execution description",
           "match_mode": "exact"
         }

@@ -49,6 +49,17 @@ def test_s4_cross_brand_families(tmp_path):
             'SELECT grade FROM v_reference_calibers_all WHERE reference_id=?',
             ('reference:cw-c60-41c3h31t0kk0-b0',),
         ).fetchone()[0] == 'chronometer'
+        # The pinned historical SW200-1 guide names all four executions.
+        grades = db.execute('''
+            SELECT DISTINCT label.value
+            FROM claim parent
+            JOIN claim_object target ON target.claim_id=parent.id
+            JOIN claim name ON name.subject_id=parent.subject_id
+                AND name.predicate='grade_name'
+            JOIN claim_object label ON label.claim_id=name.id
+            WHERE parent.predicate='grade_of' AND target.entity_id=?
+        ''', ('caliber:sellita-sw200-1',)).fetchall()
+        assert {row[0] for row in grades} == {'standard', 'élaboré', 'top', 'chronometer'}
         # Generic SW200 and SW200-1 remain separate identities.
         assert db.execute('SELECT COUNT(*) FROM caliber WHERE id IN (?,?)',
                           ('caliber:sellita-sw200', 'caliber:sellita-sw200-1')).fetchone()[0] == 2
