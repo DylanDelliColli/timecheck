@@ -498,9 +498,9 @@ Its shared DNA
 ]
 ```
 
-Four other seeded references share the identical 4R35: Presage SRPE43J1 and
-SRPE19J1, Seiko 5 Sports SRPE53 and Prospex SRPC91. Their `relation_path` is empty.
-This crosses Seiko lines but does not cover every watch using 4R35.
+Four other seeded Presage references share the identical 4R35: SRPB43, SRPB46,
+SRPE43J1 and SRPE45J1. Their `relation_path` is empty. This is the sourced
+neighborhood of SRPB41J1 and does not cover every watch using 4R35.
 
 ### ETA/Sellita hosts across brands
 
@@ -771,6 +771,21 @@ Compare the sourced succession
 ```
 
 The sourced succession changes from caliber 3035 to 3135, and the documented power reserve changes from 42 to 48 hours. Their production intervals differ too, so `years` has `changed: 1` and cites the production evidence on each side. Run without the attribute filter to see all twelve attributes; undocumented attributes remain null.
+
+An ambiguous multi-caliber succession
+
+```sh
+.venv/bin/timecheck query v_lineage_diff --where "reference_id = 'reference:rolex-5514' AND attribute = 'caliber'" --json
+```
+
+```json
+[]
+```
+
+The predecessor 5513 has both 1520 and 1530 with unknown usage starts. Its
+reference production interval cannot identify the latest caliber. The comparison
+therefore stays unknown (`changed: null`), with null values, statuses and evidence
+IDs. A missing chronology must not become a reported caliber change.
 
 ### 4. A-11 designation across makers
 
