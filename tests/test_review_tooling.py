@@ -133,7 +133,7 @@ def test_unknown_file_and_exception_are_errors(graph, tmp_path):
         assert (graph / 'references/alpha.json').read_bytes() == before
 
 
-def test_all_evidence_must_pass_and_only_changed_is_respected(graph, tmp_path):
+def test_one_exact_item_suffices_and_only_changed_is_respected(graph, tmp_path):
     path = graph / 'references/alpha.json'
     doc = json.loads(path.read_text())
     extra = dict(doc['claims'][0]['evidence'][0], id='ev-zzzzzzzzzz',
@@ -143,7 +143,7 @@ def test_all_evidence_must_pass_and_only_changed_is_respected(graph, tmp_path):
     build(graph, tmp_path, '--strict', '--only-changed', path)
     result = verify(graph, tmp_path)
     assert result.returncode == 0, result.stderr
-    assert json.loads(result.stdout)['claim_ids'] == [c['id'] for c in doc['claims'][1:]]
+    assert json.loads(result.stdout)['claim_ids'] == [c['id'] for c in doc['claims']]
     # No evidence in unselected files was verified by the partial build.
     beta = json.loads((graph / 'references/beta.json').read_text())
     assert all(c['status'] == 'proposed' for c in beta['claims'])
@@ -235,3 +235,45 @@ def test_report_from_old_extraction_or_matching_requires_rebuild(graph, tmp_path
     result = verify(graph, tmp_path)
     assert result.returncode == 2 and 'Stale' in result.stderr
     assert all(p.read_bytes() == raw for p, raw in before.items())
+
+
+@pytest.mark.parametrize('advisory', ['pdf_text', 'image_scan'])
+@pytest.mark.parametrize('stale', [False, True])
+def test_mixed_advisory_promotes_with_exact_text_or_rejects_stale(graph, tmp_path, advisory, stale):
+    from test_pdf_evidence import pdf_bytes
+    import hashlib
+    path = graph / 'references/alpha.json'; doc = json.loads(path.read_text())
+    claim = doc['claims'][1]; exact = claim['evidence'][0]
+    source = json.loads((graph / 'sources/example.json').read_text())
+    source.update(id='source:advisory', content_type=advisory)
+    quote = 'The synthetic specification gives automatic winding and 25 jewels.'
+    snaps = tmp_path / 'snapshots'; shutil.copytree(SNAPSHOTS, snaps)
+    if advisory == 'pdf_text':
+        raw = pdf_bytes(quote); sha = hashlib.sha256(raw).hexdigest()
+        (snaps / (sha + '.bin')).write_bytes(raw); source['snapshot_sha256'] = sha
+    (graph / 'sources/advisory.json').write_text(json.dumps(source))
+    claim['evidence'].append(dict(exact, id='ev-zzzzzzzzzz', source='source:advisory', quote=quote,
+                                  match_mode='exact' if advisory == 'pdf_text' else 'manual'))
+    path.write_text(json.dumps(doc))
+    result = cli('build', '--strict', '--data-dir', graph, '--snapshot-dir', snaps,
+                 '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+    assert result.returncode == 0, result.stderr
+    report = json.loads((tmp_path / 'report.json').read_text())
+    assert report['pending_attestations'] == []
+    assert report['pending_manual_attestations'] == []
+    if stale:
+        claim['evidence'][-1]['locator'] = 'Edited after build'; path.write_text(json.dumps(doc))
+    before = {p: p.read_bytes() for p in graph.glob('*/*.json')}
+    result = verify(graph, tmp_path)
+    if stale:
+        assert result.returncode == 2 and 'Stale' in result.stderr
+        assert all(p.read_bytes() == raw for p, raw in before.items())
+    else:
+        assert result.returncode == 0, result.stderr
+        assert json.loads(result.stdout)['count'] == 23
+        result = cli('build', '--strict', '--data-dir', graph, '--snapshot-dir', snaps,
+                     '--out', tmp_path / 'graph.sqlite', '--report', tmp_path / 'report.json')
+        assert result.returncode == 0, result.stderr
+        with sqlite3.connect(tmp_path / 'graph.sqlite') as db:
+            assert db.execute('SELECT status FROM claim WHERE id=?', (claim['id'],)).fetchone()[0] == 'verified'
+            assert db.execute('SELECT COUNT(*) FROM v_evidence WHERE claim_id=?', (claim['id'],)).fetchone()[0] == 2

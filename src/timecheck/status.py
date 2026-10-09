@@ -27,6 +27,13 @@ def review_fingerprint(claim, sources):
     return hashlib.sha256(raw).hexdigest()
 
 
+def qualifying_exact_evidence(claim, sources, states):
+    """One verified exact HTML/text item suffices; advisory items do not count."""
+    return any(e['match_mode'] == 'exact' and states.get(e['id']) == 'verified' and
+               sources.get(e['source'], {}).get('content_type') in {'html', 'text'}
+               for e in claim['evidence'])
+
+
 def verify_status(*, by, at=None, data_dir='data', report='report.json', files=None, exclude=()):
     if not by.strip():
         raise ValueError('Reviewer --by must not be blank')
@@ -60,15 +67,17 @@ def verify_status(*, by, at=None, data_dir='data', report='report.json', files=N
         path = Path(c['path']).resolve()
         if path not in selected or c['status'] != 'proposed' or c['id'] in excluded:
             continue
-        if any(sources[e['source']]['content_type'] == 'pdf_text' for e in c['evidence']):
-            raise ValueError('PDF evidence requires human attestation; exclude claim ' + c['id'])
-        if any(e['match_mode'] == 'manual' for e in c['evidence']):
-            raise ValueError('Manual evidence requires human attestation; exclude claim ' + c['id'])
         if fingerprints.get(c['id']) != review_fingerprint(c, sources):
             raise ValueError('Stale or missing report input for ' + c['id'] + '; rebuild first')
-        if not all(states.get(e['id']) == 'verified' and e['match_mode'] == 'exact' and
-                   sources[e['source']]['content_type'] in {'html', 'text'}
-                   for e in c['evidence']):
+        if not qualifying_exact_evidence(c, sources, states):
+            has_exact_text = any(e['match_mode'] == 'exact' and
+                                 sources[e['source']]['content_type'] in {'html', 'text'}
+                                 for e in c['evidence'])
+            if not has_exact_text:
+                if any(sources[e['source']]['content_type'] == 'pdf_text' for e in c['evidence']):
+                    raise ValueError('PDF evidence requires human attestation; exclude claim ' + c['id'])
+                if any(e['match_mode'] == 'manual' for e in c['evidence']):
+                    raise ValueError('Manual evidence requires human attestation; exclude claim ' + c['id'])
             continue
         if path not in documents:
             originals[path] = path.read_bytes()

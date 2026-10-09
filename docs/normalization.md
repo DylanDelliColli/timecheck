@@ -30,13 +30,15 @@ Wikipedia quotes are additionally limited to 200 normalized characters.
 | PDF text | pypdf 6.19.0 with fonttools 4.66.1 for embedded CFF encodings extracts text per page; join with newline and normalize; unreadable/encrypted/textless PDFs fail |
 | Image / scan | No OCR; scans require manual evidence |
 
-Snapshots are hashed as raw bytes. Gzip magic causes decompression **after** hash
+Snapshots are hashed as raw bytes. Gzip or zstd magic causes decompression **after** hash
 verification and **before** decoding; local `.bin` fixtures use the same rule.
 Unknown charset names fall back to UTF-8 with replacement. Local snapshots have
 no response header, so use their meta charset or UTF-8. The fetched archive cache
 preserves a response charset in an optional `<sha256>.charset` sidecar. Manual evidence is not
 matched by the build. Golden tests live in `tests/test_core.py`; gzip verification
-runs through the real build in `tests/test_integrity.py`.
+runs through the real build in `tests/test_integrity.py`; zstd uses pinned
+`zstandard==0.25.0` on Python 3.13 and synthetic build fixtures in
+`tests/test_evidence_robustness.py`. Transport decoding does not change the extractor version.
 
 
 PDF evidence may use `fuzzy`: case-sensitive normalized Levenshtein ratio (`1 - distance / max(lengths)`) >= 0.90
@@ -48,11 +50,12 @@ Synthetic PDF extraction and matching golden tests are generated in
 `tests/test_pdf_evidence.py`; no real source PDF bytes are committed.
 
 **PDF matching is advisory in v1.** A successful `exact` or `fuzzy` PDF match
-never authorizes `status verify` to promote a claim. Any claim containing PDF
-evidence stays proposed until a human attests it, alongside manual scan claims.
-The report lists these evidence items under `pending_attestations`, grouped by
-source through sorting. Automatic promotion requires every evidence item to be
-an exact match on HTML/text. `--include-fuzzy` is withdrawn.
+does not by itself authorize `status verify` to promote a claim. A claim with
+at least one verified exact HTML/text item can be promoted; PDF and manual items
+neither count nor block. PDF/manual-only claims need human attestation. The report
+lists advisory evidence under `pending_attestations` only for proposed claims
+without any qualifying verified exact HTML/text item, grouped by source through
+sorting. `--include-fuzzy` is withdrawn.
 
 Before extracting PDF page text, inspect its font resources and nested Form
 XObject font resources. Reject an `/Encoding /Differences` entry assigning a
@@ -82,8 +85,8 @@ prove a PDF's displayed digits. A graphics-state `q`/`Q` flush can attribute
 Type0 text to a previously selected simple font. A simple font with
 `/Differences [50 /A]` and identity `/ToUnicode` can render `A5` while extracting
 `25`. Tests retain these bypasses without changing the guards and assert that
-their successful machine matches never promote claims. This limitation is why
-every PDF claim requires human attestation, including correct-looking matches.
+their successful machine matches alone never promote claims. This limitation is why
+PDF-only claims require human attestation, including correct-looking matches.
 
 Errors use
 `unsupported_content_type` and name the font resource and font name. A refused

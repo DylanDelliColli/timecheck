@@ -36,7 +36,8 @@ a scan as a human. Known worker/agent reviewer identities are rejected for verif
 manual evidence; the validator cannot authenticate arbitrary reviewer identities.
 Digital PDFs use `pdf_text` with exact matching or PDF-only fuzzy matching
 (ratio >= 0.90, numeric tokens and years exact).
-PDF matches are advisory: claims with any PDF evidence need human attestation and are never auto-verified in v1.
+PDF matches are advisory: PDF/manual-only claims need human attestation in v1.
+A verified exact HTML/text item permits promotion; advisory items neither count nor block.
 There is no OCR; image-only PDFs need manual evidence. See `docs/review-tooling.md` for extraction and review commands. A false boolean
 needs an explicit absence quote; silence means unknown. Quote matching confirms
 presence, not the truth of an interpretation: reviewers must assess the claim.

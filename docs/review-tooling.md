@@ -12,7 +12,7 @@ The PDF content-type guess requires inspection: image-only PDFs need manual
 attestation and cannot be treated as digital text.
 
 After an independent review and a strict evidence build, maintainers can apply
-that review to proposed claims whose every evidence item is an exact match on an
+that review to proposed claims with at least one build-verified exact evidence item on an
 HTML or text source:
 
 ```sh
@@ -25,15 +25,15 @@ timecheck status verify --by 'review-run / chief' --report report.json \
 select all claim files. `--except` accepts one or more claim ids; excluded claims
 remain proposed. `--at` accepts an ISO datetime with timezone and defaults to now
 in UTC. Output is JSON: `{"count": 1, "claim_ids": ["clm-..."]}`. Existing verified
-claims and their reviews are preserved. All evidence on a candidate must have
-state `verified` in the report, mode `exact`, and source type `html` or `text`;
-unchecked, warning and error HTML/text candidates are skipped. Any candidate
-with `pdf_text` or manual evidence refuses the operation unless explicitly
-excluded, regardless of its report state or whether its quote matches exactly.
-PDF matching is an advisory pre-check in v1. PDF and scan claims stay proposed
-until a human attests them; this command cannot provide that attestation.
-`--include-fuzzy` has been withdrawn. Exclude the claim ids listed under pending
-attestation to apply a review to the eligible HTML/text claims.
+claims and their reviews are preserved. At least one evidence item on a candidate
+must have state `verified` in the report, mode `exact`, and source type `html` or
+`text`. Other evidence items neither count toward nor block promotion. Candidates
+whose HTML/text evidence is unchecked, warning or error are skipped unless another
+item qualifies. PDF matching is an advisory pre-check in v1; a claim supported only
+by PDF or manual evidence requires human attestation and refuses the operation
+unless explicitly excluded. This command cannot provide that attestation.
+`--include-fuzzy` has been withdrawn. Exclude PDF/manual-only claim ids listed under
+pending attestation to apply a review to eligible HTML/text claims.
 
 The report records SHA256 fingerprints of claim, subject, source metadata and
 verification algorithm versions. Reports from earlier extraction/matching code
@@ -63,8 +63,10 @@ The additive report fields are:
   `location`. Rows are sorted by source, claim and evidence id to review one
   document at a time. They include matched, failed and unchecked evidence,
   including `--no-evidence` builds. Only evidence needing attestation is listed
-  for a mixed-evidence claim; the entire claim remains proposed. The existing
-  `pending_manual_attestations` evidence-id list still lists manual evidence only.
+  for a claim without any verified exact HTML/text item. Mixed claims with a
+  qualifying item are omitted. Unchecked or failed corroboration does not remove
+  the pending rows. `pending_manual_attestations` follows the same claim-level
+  eligibility rule and lists manual evidence ids only.
 
 Digital PDFs use pinned `pypdf==6.19.0` and `fonttools==4.66.1` (embedded CFF
 font encodings), normalize extracted page text, and allow
@@ -80,3 +82,23 @@ than silently excluding a page; see `docs/normalization.md`. These guards do not
 establish that extracted digits match the rendered glyphs in every PDF. Even a
 successful PDF match never authorizes automatic promotion. There is no OCR;
 scans remain manual.
+
+Archive verification requests raw bytes with `Accept-Encoding: identity`, uses one
+request at a time, and spaces requests by at least one second within a build.
+HTTP 429/503, connection refusal and recognized Wayback placeholder pages receive
+bounded exponential backoff with jitter; `Retry-After` is honored up to 60 seconds.
+The initial request plus three retries are attempted. Exhausted placeholders are
+`snapshot_unavailable`; legitimate changed bytes remain `snapshot_hash_mismatch`.
+Failure rows include archive URL, HTTP status, Content-Encoding, a 32-byte hex
+prefix and raw hash when available. These rows also appear on stderr in CI. For a
+gzip/zstd mismatch, diagnostics say whether decompression matches the pinned hash;
+that diagnostic never makes alternate raw bytes valid or changes the pin.
+
+CI compares evidence items by id and source metadata at the PR base/head commits.
+Status/review-only edits require no live fetch; changed quotes, locators, modes,
+sources or pins are checked individually. Every build still validates the whole
+graph structurally, and unselected evidence is explicitly `unchecked` in the report.
+The nightly job rotates across ten pinned captures with fresh bytes and checks all
+evidence sharing those captures. The weekly full live job and manual dispatch check
+the entire seed. Samples supplement full verification and do not establish that the
+whole seed's evidence was checked.

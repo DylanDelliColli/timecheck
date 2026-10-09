@@ -10,7 +10,7 @@ from .evidence import verify_evidence
 from .extract import EXTRACTOR_VERSION
 from .normalize import NORM_VERSION
 from .validate import load_data, issue
-from .status import review_fingerprint
+from .status import review_fingerprint, qualifying_exact_evidence
 
 
 def parse_years(years):
@@ -153,13 +153,13 @@ def _truncations(claims):
 
 
 def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snapshot_dir=None,
-          strict=False, offline=False, only_changed=None, cache_dir=None, no_evidence=False):
+          strict=False, offline=False, only_changed=None, cache_dir=None, no_evidence=False, evidence_ids=None):
     entities, sources, claims, errors, warnings, shares = load_data(data_dir)
     integrity_ok = not errors
     if integrity_ok and not no_evidence:
         ev_errors, ev_warnings = verify_evidence(claims, sources, snapshot_dir=snapshot_dir,
                                                 offline=offline, strict=strict,
-                                                only_changed=only_changed, cache_dir=cache_dir)
+                                                only_changed=only_changed, cache_dir=cache_dir, evidence_ids=evidence_ids)
         errors.extend(ev_errors)
         warnings.extend(ev_warnings)
     selected = None if only_changed is None else {Path(p).resolve() for p in only_changed}
@@ -167,7 +167,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
     for c in claims:
         for e in c['evidence']:
             state = 'unchecked'
-            if integrity_ok and not no_evidence and (selected is None or Path(c['path']).resolve() in selected):
+            if integrity_ok and not no_evidence and (selected is None or Path(c['path']).resolve() in selected) and (evidence_ids is None or e['id'] in evidence_ids):
                 state = 'manual' if e['match_mode'] == 'manual' else 'verified'
             evidence_verification[e['id']] = state
     for problem in errors:
@@ -185,7 +185,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
     proposed_by_file, line_counts = _review_summary(entities, claims)
     pending_attestations = []
     for c in claims:
-        if c['status'] != 'proposed':
+        if c['status'] != 'proposed' or qualifying_exact_evidence(c, sources, evidence_verification):
             continue
         for e in c['evidence']:
             content_type = sources.get(e['source'], {}).get('content_type')
@@ -208,7 +208,7 @@ def build(*, data_dir='data', out='timecheck.sqlite', report='report.json', snap
         'disputed': len(disputed), 'disputed_claims': sorted(disputed),
         'contested': sum(c['contested'] for c in claims), 'branches': branches,
         'years_unknown': sorted(c['id'] for c in claims if c['predicate'] == 'uses_caliber' and (c['valid_years']['from'] is None or c['valid_years']['to'] is None)),
-        'pending_manual_attestations': sorted(e['id'] for c in claims if c['status'] == 'proposed' for e in c['evidence'] if e['match_mode'] == 'manual'),
+        'pending_manual_attestations': sorted(e['id'] for c in claims if c['status'] == 'proposed' and not qualifying_exact_evidence(c, sources, evidence_verification) for e in c['evidence'] if e['match_mode'] == 'manual'),
         'pending_attestations': pending_attestations,
         'coverage': _coverage(data_dir, claims, errors), 'evidence_share': shares,
         'family_truncated': _truncations(claims), 'errors': errors, 'warnings': warnings}
